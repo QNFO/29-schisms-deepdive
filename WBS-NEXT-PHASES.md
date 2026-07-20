@@ -438,7 +438,7 @@ Phase 7 (Infrastructure) ──→ Continuous, independent
 | 5b | Task 0.5.6: Recruitment fallback embedded in Phase 2 WBS | ✅ **DONE** (2026-07-20) |
 | 5c | RED TEAM: Address 9 CRITICAL+HIGH findings in Tasks 1.1-1.2 | ✅ **DONE** (2026-07-20) — v2.0 remediation: F-C1–F-C5 addressed (Lemma 2/3 eliminated, C* honestly assessed, proof sketches replaced with theorems). F-H1–F-H4 addressed (ancestor search, tuple DCA, structural condition). Commit 04e4f50. |
 | 6 | Task 1.3: Prove fixed-point uniqueness | ⬜ Pending — C's fixed-point set = calibrated nodes (Theorem 3). Uniqueness question: under what refinements does C have exactly one fixed point? C* (measurement-initiated) has T* = ●. Deeper question: construct calibration map with non-trivial T* (see Theorem 10 conjecture). |
-| 7 | Begin Task 2.1: Select external validators | ⬜ Pending |
+| 7 | Task 2.1: Select external validators | ✅ **DONE** (2026-07-20) — `external-validator-candidates.md`: 5 primary + 5 backup candidates, credential verification, schism coverage matrix (22/29 collective), contact template, timeline. Ready for user approval before outreach. |
 | 8 | OSF pre-register trapped-ion protocol (Task 3.1) | ⬜ Pending — protocol document complete, ready to submit, requires explicit user approval per OSF Bona Fide Registration Requirements |
 | 9 | OSF pre-register CMB search protocol (Task 4.1 prelim) | ⬜ Pending — same approval gate |
 | 10 | Deploy PBO v1.0 to D1 (Task 7.4) | ⬜ Pending — confirmed still returning 404 on papers.qnfo.org as of this session |
