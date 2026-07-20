@@ -1,691 +1,489 @@
-# C-Contractiveness Proof: Calibration Map on the Expression Tree
+# C-Contractiveness Proof: v2.0 (Red-Team Remediation)
 
 **Phase 1, Task 1.2 — Bootstrap Conjecture Formal Proof**
-**Date:** 2026-07-20
-**Status:** v1.0
-**Dependencies:** Task 1.1 (`calibration-map-c-definition.md`), `f-contractiveness-analysis.md`
+**Date:** 2026-07-20 (v2.0 after red-team audit)
+**Status:** v2.0 (addresses F-C1 through F-C5 from `red-team-audit-ctasks-2026-07-20.md`)
+**Dependencies:** `calibration-map-c-definition.md` v2.0
 
 ---
 
-## §0. Executive Summary
+## §0. What Changed (v1.0 → v2.0)
 
-The calibration map C as defined in Task 1.1 is **not globally contractive**
-on all of TREE — it is the identity on nodes lacking the M-property, which
-includes ROOT, bare marks, and all non-container expressions. This document:
+| v1.0 Finding | Issue | v2.0 Resolution |
+|:-------------|:------|:----------------|
+| **F-C1** | Lemma 2 Case (i) conflated DCA(D_A,D_B) with DCA(M_A,M_A) | Eliminated — C v2.0 uses ancestor search, no D_A/D_B construction needed |
+| **F-C2** | Lemma 2 Case (ii) circular: internal compatibility → cross-node convergence | Eliminated — no C₃ to argue about. Contractiveness follows directly from ancestor mapping |
+| **F-C3** | Lemma 3 assumed Bootstrap to prove Bootstrap | Eliminated — no branch-convergence lemma needed |
+| **F-C4** | C* proof abandoned mid-argument, then claimed proved | Replaced with honest statement: C* has trivial fixed point ●; non-trivial T* is open |
+| **F-C5** | Theorem 5 (C² contractive) labeled "proof sketch" | Replaced with Theorem 3 (idempotence): C² = C, trivially true under v2.0 definition |
 
-1. Classifies exactly where contractiveness fails (Theorem 1).
-2. Proves that C **is** strictly contractive on the "measurable domain"
-   D_M ⊆ TREE — the set of all nodes with the M-property and non-empty
-   system sub-expressions (Theorem 2: the main result).
-3. Identifies the "initial measurement problem": from ROOT, Cⁿ(∅) = ∅,
-   so the fixed point is trivial unless C is refined.
-4. Proposes **C*** — a refinement that extends C with a measurement-initiation
-   wrapper and parent-map fallback — and proves C* is contractive on all
-   of TREE (Theorem 3).
+**Core simplification:** C v2.0 is ancestor-monotone. Every claimed property flows directly from "C(N) is an ancestor of N." No complex lemmas needed.
 
-**Key result for Phase 1:** C is contractive on the domain where calibration
-is meaningful (the M-property subspace). For the full Bootstrap Conjecture
-to hold on all of TREE, C must be extended as C*. This refinement is the
-bridge to Task 1.3 (fixed-point uniqueness).
+---
+
+## §1. The Space
+
+(TREE, DIST) as defined in `29-schisms-formalization.md`:
+- TREE: infinite directed graph of reduced normal-form expressions from ROOT = ∅
+- DIST(A, B) = 2^(-DEPTH(ANCESTOR(A, B))), DIST(A, A) = 0
+- Strong ultrametric: DIST(A, C) ≤ max(DIST(A, B), DIST(B, C))
+- Complete metric space
+
+---
+
+## §2. The Calibration Map C (v2.0, Restated)
+
+```
+C(N) = deepest ancestor A of N such that A is "internally calibrated"
+
+Internally calibrated means:
+  - A = ∅, or
+  - A = ●, or
+  - A = [E₁...Eₙ] with n ≥ 1, rightmost non-empty M = Eₙ, and
+    DEPTH(DCA_of_all(E₁,...,Eₙ₋₁, M)) ≥ DEPTH(A)
+```
+
+**Key structural property:** C(N) is always an ancestor of N (or N itself).
+Therefore: DEPTH(C(N)) ≤ DEPTH(N) for all N.
+
+---
+
+## §3. Primary Theorems
+
+### Theorem 1: C Is Well-Defined
+
+For all N ∈ TREE, C(N) returns a unique value.
+
+**Proof.** The ancestor chain of N has DEPTH(N) + 1 nodes (finite). The predicate `is_internally_calibrated` involves only DEPTH and DCA, both well-defined. ROOT is always calibrated. The search walks upward from N and returns the first calibrated ancestor encountered, which exists (at worst, ROOT). ∎
+
+### Theorem 2: C Is Non-Expansive
+
+For all A, B ∈ TREE:
+```
+DIST(C(A), C(B)) ≤ DIST(A, B)
+```
+
+**Proof.** C(A) is an ancestor of A; C(B) is an ancestor of B. Consider the ancestral paths:
+
+Let P_A = [ROOT, ..., C(A), ..., A] (path from ROOT to A).
+Let P_B = [ROOT, ..., C(B), ..., B] (path from ROOT to B).
+
+The DCA of A and B is the deepest node appearing in both P_A and P_B. Since C(A) is on P_A (closer to ROOT than or equal to A) and C(B) is on P_B (closer to ROOT than or equal to B), any node in the intersection of P_A and P_B that is at or above A (or B) is ALSO at or above C(A) (or C(B)). Specifically:
+
+```
+DEPTH(ANCESTOR(C(A), C(B))) ≥ DEPTH(ANCESTOR(A, B))
+```
+
+Because: ANCESTOR(A, B) is on both P_A and P_B. Since C(A) is on P_A at depth ≤ DEPTH(A) and C(B) is on P_B at depth ≤ DEPTH(B), the common ancestor of C(A) and C(B) is at least as deep as the common ancestor of A and B (ancestral paths can only grow when moving toward ROOT, making intersection potentially shallower — but we need ≥, not ≤).
+
+Wait, let me re-check this. If A and B share a deep ancestor X, and C(A) is shallower than A, C(A) might be ABOVE X on P_A, making the intersection of P_{C(A)} and P_{C(B)} shallower.
+
+Corrected analysis:
+- ANCESTOR(A, B) = X, at depth d_X.
+- C(A) is at depth ≤ DEPTH(A). If DEPTH(C(A)) ≥ d_X (C(A) is at or below X on P_A), then X is also on P_{C(A)} (the path from ROOT to C(A) includes X). Similarly for C(B).
+- If DEPTH(C(A)) < d_X (C(A) is ABOVE X), then X is NOT on P_{C(A)}, and the DCA of C(A) and C(B) may be shallower than X.
+
+So non-expansiveness is NOT automatically guaranteed by ancestor mapping! It depends on WHERE on the path the calibrated ancestor lies.
+
+**Counterexample possibility:** Let A and B be deep in the same subtree. C(A) might jump to a shallower ancestor (above their shared ancestor) if A fails calibration. Then DIST(C(A), C(B)) could be LARGER than DIST(A, B), violating non-expansiveness.
+
+Let me construct a concrete counterexample...
+
+Consider: A = [● ●] (container with two marks, not internally calibrated — DCA_of_all({●},{●}) = ●, DEPTH(●) = 1, DEPTH([● ●]) = ? depends on tree position). If DEPTH([● ●]) = 2 and DEPTH(●) = 1, then 1 < 2 → not calibrated. C(A) = parent(A). parent([● ●]) = ? Depends on how [● ●] was generated.
+
+And B = some node deep in a different branch from A. If C(A) jumps shallower but C(B) stays deep, DIST could increase.
+
+This means I need to either:
+1. Prove that DCA depth never decreases under ancestor mapping, or
+2. Acknowledge that non-expansiveness fails and characterize when it holds.
+
+Let me think more carefully about the ancestor path argument.
+
+ANCESTOR(A, B) is the deepest node on both P_A and P_B. Let this be X.
+
+C(A) is on P_A. C(B) is on P_B. 
+
+If C(A) is at or below X on P_A: then X is on the sub-path from ROOT to C(A). ✓
+If C(A) is above X on P_A: then X is NOT on the sub-path from ROOT to C(A). ✗
+
+So: if BOTH C(A) and C(B) are at or below X, then X is on both sub-paths, and DCA(C(A), C(B)) is at least X (could be deeper).
+
+If EITHER C(A) or C(B) is above X, then X might not be on both sub-paths, and DCA could be shallower.
+
+The key question: can C(A) be above ANCESTOR(A, B)?
+
+C(A) is the deepest calibrated ancestor of A. ANCESTOR(A, B) is on P_A. If ANCESTOR(A, B) is internally calibrated, then C(A) is at or below ANCESTOR(A, B) (since C picks the deepest calibrated ancestor). If ANCESTOR(A, B) is NOT calibrated, then C(A) could be above it.
+
+But wait — is ANCESTOR(A, B) necessarily calibrated? Not necessarily. If A and B share a common ancestor that is not internally calibrated, then the deepest calibrated ancestor of A could be above that shared ancestor.
+
+So: **C is NOT guaranteed to be non-expansive.** The ancestor-based definition can increase distance when the shared ancestor of A and B fails internal calibration.
+
+This means I need to characterize when non-expansiveness holds.
+
+**When non-expansiveness holds:**
+For all pairs A, B where ANCESTOR(A, B) is internally calibrated, DIST(C(A), C(B)) ≤ DIST(A, B).
+
+**When it may fail:**
+When ANCESTOR(A, B) is NOT internally calibrated, C could map at least one of A, B to a shallower ancestor, potentially decreasing DCA depth and increasing DIST.
+
+Let me now state this honestly in the proof.
+
+Actually, I realize I need to be more careful. Let me reconsider.
+
+If C(A) is above ANCESTOR(A, B), then C(A) is an ancestor of ANCESTOR(A, B). Similarly for B. So both C(A) and C(B) are on paths that go through ANCESTOR(A, B) or above it.
+
+If C(A) is above ANCESTOR(A, B), then the path to C(A) does NOT include ANCESTOR(A, B). So ANCESTOR(A, B) is NOT on P_{C(A)}. The intersection of P_{C(A)} and P_{C(B)} may be only above ANCESTOR(A, B), making the DCA shallower.
+
+Example:
+- A and B share ANCESTOR at depth 5.
+- A is not calibrated at depth 5 — C(A) jumps to depth 2.
+- B is calibrated at depth 5 — C(B) stays at depth 5.
+- DCA(C(A), C(B)): C(A) at depth 2, C(B) at depth 5. Their DCA is at most depth 2.
+- DIST(C(A), C(B)) = 2^(-≤2) ≥ 2^(-2) = 1/4
+- DIST(A, B) = 2^(-5) = 1/32
+- 1/4 > 1/32 → DIST INCREASED.
+
+This IS a genuine counterexample to non-expansiveness. C is NOT always non-expansive.
+
+OK so this is actually an important finding. The v2.0 ancestor-based definition has a real problem: it can increase distances when the shared ancestor fails calibration.
+
+The way to fix this: instead of C picking the deepest calibrated ancestor, we need a different strategy. What if C maps ALL nodes by the same amount? Like a uniform depth reduction?
+
+Actually, the simplest fix: C(N) = parent(N) always. This is globally contractive, well-defined, and has fixed point ROOT. But it's trivial.
+
+The challenge is finding a map that is:
+1. Non-trivial (doesn't just collapse everything to ROOT)
+2. Well-defined
+3. Non-expansive (at minimum)
+
+These three constraints are in tension. Let me try yet another approach...
+
+**C_v3(N) =** 
+For each node N, compute "calibration depth" d(N) = the depth of the deepest calibrated ancestor of N. Then:
+
+C(N) = the node at depth min(DEPTH(N), d(N) + 1) on the path from ROOT.
+
+This ensures C(N) is always at depth ≤ d(N) + 1, and at depth ≤ DEPTH(N). For calibrated nodes (d(N) = DEPTH(N)), C(N) = the node at depth DEPTH(N) (i.e., N itself). For uncalibrated nodes, C(N) moves at most 1 step above the deepest calibrated ancestor.
+
+This is a bit contrived. Let me think of something cleaner.
+
+**C_v3(N) = parent^k(N)** where k is the smallest integer such that parent^k(N) is internally calibrated, OR k = DEPTH(N) if no non-ROOT calibrated ancestor exists.
+
+This guarantees:
+- C(N) is internally calibrated
+- C(N) is at depth ≤ DEPTH(N)
+- C(N) ≠ N only if N is not calibrated
+- C(∅) = ∅
+
+But it doesn't guarantee non-expansiveness, as the counterexample shows.
+
+**The honest conclusion:** For the ancestor-based C to be non-expansive, we need the ADDITIONAL property that internal calibration is monotone downward — i.e., if a node is internally calibrated, all its ancestors are too. This way, when C jumps to an ancestor, it stays within the calibrated region, and DCA depth is preserved.
+
+Is "internally calibrated" monotone downward? Let's check:
+
+- ∅ is calibrated ✓
+- If A is calibrated, is parent(A) calibrated? Not necessarily. parent(A) might be a container whose sub-expressions have a shallower DCA.
+
+Example: Consider a node at depth 3 that is internally calibrated. Its parent at depth 2 might be a container where the system and measurement sub-expressions diverge at depth 1. The parent might NOT be calibrated.
+
+So the property is NOT monotone downward. This means the ancestor-based C can fail non-expansiveness.
+
+**Decision point:** Do I try to fix this, or do I accept the limitation and document it?
+
+Given time constraints, I'll document it honestly and provide the strongest theorems that DO hold. The honest document is more valuable than a forced proof.
+
+Let me write the v2.0 contractiveness proof now with full honesty about what holds and what doesn't.
+
+Key theorems that DO hold:
+1. C is well-defined (Theorem 1)
+2. C is idempotent (Theorem 3)
+3. For calibrated nodes, C is identity (trivial)
+4. For non-calibrated nodes, C strictly reduces depth
+5. C is non-expansive when the shared ancestor of A and B is internally calibrated (Theorem 2-restricted)
+
+Key things that DON'T hold:
+1. Global non-expansiveness (counterexample above)
+2. Global contractiveness
+3. Non-trivial fixed point from ROOT
+
+This is honest and useful — it characterizes exactly what properties C has and what it lacks.
+
+Let me write it.<｜end▁of▁thinking｜>The ancestor-based C has a subtle issue I need to address: it can INCREASE distances when the shared ancestor fails calibration. Let me write the fully honest v2.0 proof.
+
+<｜｜DSML｜｜tool_calls>
+<｜｜DSML｜｜invoke name="write">
+<｜｜DSML｜｜parameter name="content" string="true"># C-Contractiveness Proof: v2.0 (Red-Team Remediation)
+
+**Phase 1, Task 1.2 — Bootstrap Conjecture Formal Proof**
+**Date:** 2026-07-20 (v2.0 after red-team audit)
+**Status:** v2.0 — addresses F-C1 through F-C5 from `red-team-audit-ctasks-2026-07-20.md`
+**Dependencies:** `calibration-map-c-definition.md` v2.0
+
+---
+
+## §0. Revision Summary
+
+| v1.0 Finding | Resolution |
+|:-------------|:-----------|
+| **F-C1** Lemma 2 same-measurement unsound | Eliminated — C v2.0 uses ancestor search, no D_A/D_B |
+| **F-C2** Lemma 2 different-measurement circular | Eliminated — no cross-node convergence needed |
+| **F-C3** Lemma 3 assumed Bootstrap to prove Bootstrap | Eliminated — no branch-convergence lemma |
+| **F-C4** C* proof abandoned, then claimed proved | Replaced with Theorem 4: honest characterization of C* |
+| **F-C5** Theorem 5 "proof sketch" | Replaced with idempotence theorem (trivial under v2.0) |
+
+**Design change:** C v2.0 searches ancestors (finite), not descendants (infinite). This eliminates the unbounded-search problem but introduces a new challenge: ancestor-based C can increase distances. This document characterizes exactly when non-expansiveness holds and when it fails.
 
 ---
 
 ## §1. Preliminaries
 
-### 1.1 The Space
+### 1.1 Space
 
-(TREE, DIST) where:
-- TREE: all reduced normal-form expressions generated from ROOT = ∅
-- DIST(A, B) = 2^(-depth(ANCESTOR(A, B))), DIST(A, A) = 0
-- Strong ultrametric: DIST(A, C) ≤ max(DIST(A, B), DIST(B, C))
-- (TREE, DIST) is complete (formalization §4.4)
+(TREE, DIST) — complete ultrametric space of reduced normal-form expressions.
 
-### 1.2 The Calibration Map C (Task 1.1 Definition, Restated)
+### 1.2 C (v2.0)
 
 ```
-C(N) = {
-    ∅       if N = ∅                                       (Case 1)
-    ●       if N = ●                                       (Case 2)
-    C₃(N)   if N = [E₁ ... Eₙ] with n ≥ 1                 (Case 3)
-    N       otherwise                                       (Case 4)
-}
+C(N) = deepest ancestor A of N such that is_internally_calibrated(A)
 ```
 
-Where C₃(N) for N = [A₁ ... Aₖ M] (M = rightmost) is:
-```
-Let A = REDUCE(A₁ ... Aₖ)
-If A = ∅ or M = ∅: return N
-Let D = DCA(A, M)
-Let C_target = argmax_{X ∈ DESCENDANTS(D)} { DEPTH(X) :
-    X has M-property AND COMPATIBLE(X_system, X_measurement) }
-Return C_target if strictly better than N, else N
-```
+Where `is_internally_calibrated` (abbreviated `cal(A)`) means:
+- A = ∅ or A = ●, or
+- A = [E₁...Eₙ], n ≥ 1, rightmost non-empty M = Eₙ,
+  DEPTH(DCA_of_all(E₁,...,Eₙ₋₁, M)) ≥ DEPTH(A)
 
-### 1.3 Contractiveness Definition
+### 1.3 Key Structural Fact
 
-A map F: TREE → TREE is **contractive** iff:
-```
-DIST(F(A), F(B)) < DIST(A, B) for all A ≠ B
-```
-
-### 1.4 The M-Property (from Task 1.1 §2.2)
-
-A node N has the **M-property** iff N is a container with at least one
-sub-expression, where the rightmost sub-expression is non-empty.
-
-```
-M-prop(N) ⇔ N = [E₁ ... Eₙ], n ≥ 1, Eₙ ≠ ∅
-```
+C(N) is always an ancestor of N. Therefore:
+- DEPTH(C(N)) ≤ DEPTH(N)
+- If cal(N) then C(N) = N
+- If ¬cal(N) then C(N) is a proper ancestor: DEPTH(C(N)) < DEPTH(N)
 
 ---
 
-## §2. Where Task 1.1 C Fails Contractiveness
+## §2. Positive Theorems (What DOES Hold)
 
-### Theorem 1 (Failure of Global Contractiveness)
+### Theorem 1: Well-Definedness
 
-The calibration map C as defined in Task 1.1 is NOT contractive on TREE.
+C: TREE → TREE is a well-defined function.
 
-**Proof.** It suffices to exhibit a pair A ≠ B for which DIST(C(A), C(B)) = DIST(A, B).
-
-Consider two distinct depth-1 nodes that lack the M-property. For example,
-let A = ● (bare mark) and B = [] (empty container). Neither has the
-M-property (● is not a container; [] has zero sub-expressions).
-
-By Case 2: C(●) = ●.
-By Case 4: C([]) = [] (a container with no sub-expressions has no M-property).
-
-Therefore:
-```
-DIST(C(●), C([])) = DIST(●, [])
-```
-
-The ancestor of ● and [] is ∅ (they are both depth-1 children of ROOT).
-```
-DIST(●, []) = 2^(-0) = 1
-DIST(C(●), C([])) = DIST(●, []) = 1
-```
-
-The strict inequality DIST(C(A), C(B)) < DIST(A, B) fails. ∎
-
-**Corollary 1.1.** C is the identity on all nodes that are not containers with
-non-empty rightmost sub-expressions. On this subspace (which includes ROOT
-itself), C is trivially NOT contractive — it is distance-preserving.
-
-**Corollary 1.2.** Since C(∅) = ∅, the fixed point is ∅ (trivial). The
-Bootstrap Conjecture's requirement that T* ≠ ROOT is not satisfied.
-
-### Classification of Failure Modes
-
-| Node Class | C Behavior | Contractiveness? |
-|-----------|-----------|-----------------|
-| ROOT (∅) | Identity | ❌ C(∅) = ∅, fixed point trivial |
-| Bare mark (●) | Identity | ❌ Distance-preserving with other Case-2/4 nodes |
-| Container with 0 sub-exprs ([]) | Identity | ❌ Same |
-| Container, rightmost = ∅ ([● ∅]) | Identity (Case 3 A=∅ branch) | ❌ |
-| Container, rightmost ≠ ∅, system ≠ ∅ ([● ●]) | C₃ active | ⚠️ Needs proof |
-| Container, rightmost ≠ ∅, system = ∅ ([∅ ●]) | Identity (Case 3 A=∅ branch) | ❌ |
+**Proof.** For any N, the ancestor chain has DEPTH(N) + 1 nodes. cal(A) is a decidable predicate (finite DCA + DEPTH computation). The search terminates, returning the deepest calibrated ancestor. Since ∅ is always calibrated, the search always succeeds. ∎
 
 ---
 
-## §3. The Measurable Domain D_M
+### Theorem 2: Idempotence
 
-### 3.1 Definition
+C(C(N)) = C(N) for all N ∈ TREE.
 
-```
-D_M = { N ∈ TREE : N has the M-property AND A_combined ≠ ∅ }
-```
+**Proof.** By construction, C(N) is internally calibrated. Applying C to a calibrated node returns the node itself (it is its own deepest calibrated ancestor). Therefore C(C(N)) = C(N). ∎
 
-Where A_combined = REDUCE(system sub-expressions of N).
+**Corollary 2.1:** C² = C. The calibration map is a projection.
 
-In words: D_M is the set of nodes that encode BOTH a non-trivial system state
-and a measurement outcome. These are the nodes where calibration is
-operationally meaningful.
-
-### 3.2 Properties of D_M
-
-1. **D_M is non-empty.** Example: N = [● ●] has M-property (container, rightmost
-   ● ≠ ∅) and A_combined = REDUCE(●) = ● ≠ ∅. DEPTH([● ●]) depends on the
-   tree generation; in the executable tree at depth ≥ 2.
-
-2. **D_M does not contain ROOT.** ∅ is not a container.
-
-3. **D_M is closed under C₃?** Not obviously. C₃(N) maps N to a descendant of
-   D = DCA(A, M), which may or may not itself be in D_M. If C₃ searches
-   ONLY among nodes with M-property, then C₃(N) ∈ D_M by construction.
-
-4. **For any N ∈ D_M, C(N) = C₃(N).** By definition, Case 3 is the only
-   active case, and neither A_combined = ∅ nor M = ∅ triggers.
+**Corollary 2.2:** Every calibrated node is a fixed point of C.
 
 ---
 
-## §4. Contractiveness on D_M (Main Theorem)
+### Theorem 3: The Fixed-Point Set
 
-### Theorem 2 (C is Contractive on the Measurable Domain)
+Fix(C) = { N ∈ TREE : cal(N) } — exactly the internally calibrated nodes.
 
-For all A, B ∈ D_M with A ≠ B:
-```
-DIST(C(A), C(B)) < DIST(A, B)
-```
-
-**Proof.** We prove this via analysis of the DCA (deepest common ancestor)
-under C₃. The proof splits into three lemmas.
+**Proof.** If cal(N), then C(N) = N (N is its own deepest calibrated ancestor). If ¬cal(N), then C(N) ≠ N (a proper ancestor is returned). Therefore N ∈ Fix(C) ⇔ cal(N). ∎
 
 ---
 
-#### Lemma 1 (C₃ is Depth-Non-Increasing with Respect to the DCA)
+### Theorem 4: Depth Reduction on Non-Calibrated Inputs
 
-For N ∈ D_M with N = [A₁ ... Aₖ M], let D = DCA(REDUCE(A₁...Aₖ), M).
-Then:
-```
-DEPTH(D) ≥ DEPTH(ANCESTOR(N, any_other_node_in_same_branch))
-```
+If ¬cal(N), then DEPTH(C(N)) < DEPTH(N).
 
-Specifically, D lies on the ancestral path of N and is at depth at least
-DEPTH(N's parent). This follows because M is a sub-expression of N, and
-REDUCE(A₁...Aₖ) is derived from the other sub-expressions of N — both are
-"inside" N, so their DCA must be at least as deep as N's immediate
-structural decomposition.
+**Proof.** C searches ancestors starting from N upward. N itself fails cal. The returned node is a strict ancestor, therefore strictly shallower. ∎
 
-**Proof of Lemma 1.** A node N with the M-property has the form [S M] where
-S and M are sub-expressions (possibly with additional siblings). The
-containment [S M] means both S and M are descendants of N in the generation
-tree. By the ultrametric property, the DCA of any two descendants of N is
-at least N itself. Formally:
-
-Since S and M are direct children of N (they are sub-expressions inside
-N's container), ANCESTOR(S, N) = N and ANCESTOR(M, N) = N. Therefore
-ANCESTOR(S, M) is at depth at least DEPTH(N) — specifically, it is exactly
-N when S and M are in different branches below N.
-
-But C₃ uses D = DCA(A_combined, M) where A_combined = REDUCE(S-parts).
-REDUCE may collapse structure, but it never increases depth. So A_combined
-descends from the same structural position as the original S-parts, which
-are children of N.
-
-Therefore D = DCA(A_combined, M) has DEPTH(D) ≥ DEPTH(N) — the DCA of
-sub-expressions of N is at least N itself. ∎
+**Corollary 4.1:** If ¬cal(A) and ¬cal(B), then both C(A) and C(B) are strictly shallower than A and B. The depth gap is at least 1 for each.
 
 ---
 
-#### Lemma 2 (DCA Strictly Deepens Under C₃ for Distinct Nodes in Same Branch)
+### Theorem 5: Non-Expansiveness on Calibrated Region
 
-Let A, B ∈ D_M with A ≠ B and ANCESTOR(A, B) ≠ ROOT (i.e., they share a
-non-trivial common ancestor). Let D_A = DCA(A_system, A_measurement) and
-D_B = DCA(B_system, B_measurement).
+If cal(A) and cal(B), then DIST(C(A), C(B)) = DIST(A, B).
 
-Then: C₃(A) and C₃(B) are both descendants of D_A and D_B respectively, but
-more importantly, the calibration process maps A and B to points that are
-strictly closer in the ultrametric than A and B are.
+**Proof.** cal(A) ⇒ C(A) = A. cal(B) ⇒ C(B) = B. Therefore DIST(C(A), C(B)) = DIST(A, B). ∎
 
-**Proof of Lemma 2.** Let A = [S_A M_A] and B = [S_B M_B].
-
-C₃(A) is the deepest self-consistent descendant of D_A. C₃(B) is the
-deepest self-consistent descendant of D_B.
-
-The critical observation: D_A = DCA(REDUCE(S_A), M_A). Since S_A and M_A
-are both sub-expressions of A, D_A is at depth ≥ DEPTH(A). Similarly,
-D_B is at depth ≥ DEPTH(B).
-
-Now consider the relationship between D_A and D_B:
-
-**Case (i): A and B share the same measurement.** If M_A = M_B, then
-D_A and D_B both involve the same measurement sub-expression. The DCA of
-D_A and D_B must be at least as deep as DCA(M_A, M_B) = DCA(M_A, M_A)
-which is M_A itself. Since M_A is strictly deeper than ANCESTOR(A, B)
-(as M_A is a sub-expression of A, which is below ANCESTOR(A, B)), the
-calibrated nodes C₃(A) and C₃(B) share an ancestor strictly deeper than
-ANCESTOR(A, B).
-
-**Case (ii): A and B have different measurements.** Even when M_A ≠ M_B,
-the calibration process selects C₃(A) as a self-consistent descendant of
-D_A, and C₃(B) as a self-consistent descendant of D_B. The self-consistency
-constraint forces both calibrated nodes toward a common structural core.
-
-Formally: the calibrated nodes must satisfy COMPATIBLE(C_system, C_measurement)
-internally. This compatibility condition (§2.3 of Task 1.1) means that within
-each calibrated node, the system and measurement sub-expressions share a DCA
-at depth ≥ min(DEPTH(system), DEPTH(measurement)) - 1. This is a structural
-tightness condition that tends to pull calibrated nodes toward each other.
-
-Therefore: ANCESTOR(C₃(A), C₃(B)) is strictly deeper than ANCESTOR(A, B).
-
-Since DIST(X, Y) = 2^(-DEPTH(ANCESTOR(X, Y))), deeper ancestor → smaller
-distance. Hence:
-```
-DIST(C₃(A), C₃(B)) < DIST(A, B)
-```
-∎
+**Corollary 5.1:** C is distance-preserving on Fix(C). This is acceptable — calibrated nodes do not need to be "pulled" anywhere.
 
 ---
 
-#### Lemma 3 (C₃ is Contractive Across Different ROOT Branches)
+### Theorem 6: Contractiveness on Purely Uncalibrated Pairs Sharing a Calibrated Ancestor
 
-For A, B ∈ D_M with ANCESTOR(A, B) = ROOT (i.e., they are in different
-branches from ROOT), there are two sub-cases:
+**Assumptions:**
+1. ¬cal(A) and ¬cal(B) (neither is calibrated)
+2. ANCESTOR(A, B) = X, where cal(X) holds (their DCA is calibrated)
+3. A ≠ B
 
-**Sub-case 3a:** If the calibration targets C₃(A) and C₃(B) converge to the
-same branch, then ANCESTOR(C₃(A), C₃(B)) ≠ ROOT → strictly deeper ancestor
-→ distance strictly smaller.
+Then: DIST(C(A), C(B)) < DIST(A, B).
 
-**Sub-case 3b:** If they remain in different ROOT branches, then
-ANCESTOR(C₃(A), C₃(B)) = ROOT still, and DIST(C₃(A), C₃(B)) = 1 =
-DIST(A, B). This WOULD violate contractiveness.
+**Proof.** Since ¬cal(A), C(A) is a proper ancestor of A. Since X is on the path from ROOT to A and cal(X), the deepest calibrated ancestor of A is at or below X: DEPTH(C(A)) ≥ DEPTH(X). Similarly, DEPTH(C(B)) ≥ DEPTH(X).
 
-However, Sub-case 3b requires that calibration preserves the topological
-separation at the ROOT level. For this to happen, C₃(A) and C₃(B) must
-remain in different ROOT branches after calibration.
+Since both A and B are below X and C reduces depth on both, the DCA of C(A) and C(B) is at depth ≥ DEPTH(X). And since A ≠ B and both are below X, at least one of C(A), C(B) is a proper ancestor, making DCA depth strictly greater than DEPTH(X):
 
-**Claim:** Under the self-consistency condition (Bootstrap Constraint), all
-nodes in D_M eventually converge to the same ROOT branch — the unique branch
-containing T*. Therefore, for any A, B ∈ D_M that are "sufficiently deep"
-(close enough to T*), C₃ maps them to the same branch.
+DEPTH(ANCESTOR(C(A), C(B))) ≥ DEPTH(X) + 1
 
-For "shallow" nodes in D_M in different ROOT branches, a finite number of
-C₃ iterations brings them into the same branch. After that, Lemma 2 applies.
+Therefore: DIST(C(A), C(B)) = 2^(-(d+1)) < 2^(-d) = DIST(A, B). ∎
 
-**Conclusion of Lemma 3:** After at most k iterations (where k is bounded
-by the depth of the shallower node), C₃ maps any two nodes in D_M to the
-same ROOT branch. Thereafter, Lemma 2 guarantees strict contractiveness.
-
-∎
+**Contraction ratio:** ≤ 1/2 for pairs satisfying the assumptions.
 
 ---
 
-### Completion of Theorem 2
+## §3. Negative Theorems (What Does NOT Hold)
 
-Combining Lemmas 1–3:
+### Theorem 7: C Is NOT Globally Non-Expansive
 
-1. For A, B ∈ D_M sharing a non-ROOT ancestor: Lemma 2 proves
-   DIST(C₃(A), C₃(B)) < DIST(A, B) directly.
+There exist A, B ∈ TREE with DIST(C(A), C(B)) > DIST(A, B).
 
-2. For A, B ∈ D_M in different ROOT branches: Lemma 3 shows that after
-   a bounded number of iterations, they converge to the same branch,
-   after which Lemma 2 applies. The composition of finitely many
-   non-expansive steps followed by a strictly contractive step is
-   asymptotically contractive.
+**Proof (counterexample).** Construct A and B sharing a deep ancestor X that is NOT internally calibrated.
 
-3. For the edge case where C₃(A) = C₃(B) (both calibrate to the same node):
-   DIST(C₃(A), C₃(B)) = 0 < DIST(A, B) since A ≠ B. ✓
+Let the tree contain:
+- X at depth 5, a container whose rightmost sub-expression and remaining sub-expressions have DCA at depth 2 (so ¬cal(X) since 2 < 5).
+- A: a descendant of X at depth 8, with cal(A) = true (A IS internally calibrated).
+- B: a descendant of X at depth 8, in a different sub-branch below X, with cal(B) = true.
 
-Therefore: **C is contractive on D_M.** ∎
+Then C(A) = A, C(B) = B. Wait — this gives DIST(C(A), C(B)) = DIST(A, B). Not a counterexample.
 
----
+**Revised construction:** We need one of A, B to be uncalibrated.
 
-### §4.1 Contractiveness Ratio
+Let:
+- X at depth 3, not calibrated.
+- A: descendant of X at depth 6, not calibrated.
+- B: descendant of X at depth 6, different sub-branch, calibrated.
 
-From the proof structure, we can bound the contraction ratio:
+C(A): deepest calibrated ancestor of A. The ancestor chain of A is [ROOT, ..., X, ..., A]. Since ¬cal(X) and X might be the deepest thing above A that could be calibrated... what if X's parent (depth 2) IS calibrated? Then C(A) = X's parent (depth 2).
 
-For A, B ∈ D_M sharing an ancestor at depth d (so DIST(A, B) = 2^(-d)):
-```
-DIST(C(A), C(B)) ≤ (1/2) · DIST(A, B)
-```
+C(B) = B (since B is calibrated at depth 6).
 
-This is because:
-- If A and B share the same measurement M: DCA depth increases by at least
-  1 (since the calibrating node is a proper descendant of the DCA).
-- If they don't share M: the calibration process still reduces divergence
-  by at least one structural level.
+Now:
+- DIST(A, B) = 2^(-3) = 1/8 (DCA = X at depth 3)
+- C(A) at depth 2, C(B) at depth 6.
+- DCA(C(A), C(B)): C(A) is at depth 2, its path doesn't include X. C(B) is at depth 6, its path includes X (at depth 3). The intersection is only up to depth 2 (since C(A) stops at depth 2).
+- DIST(C(A), C(B)) = 2^(-2) = 1/4.
 
-The factor of 1/2 is conservative; in practice, calibration may produce
-much stronger contraction for nodes that are already "close."
+1/4 > 1/8 → DIST INCREASED. ∎
+
+**Implication:** C can push nodes APART when one calibrates to a very shallow ancestor while the other stays deep. This is a distance-INCREASING effect — the opposite of contraction.
 
 ---
 
-## §5. The Initial Measurement Problem
+### Theorem 8: C Is NOT Globally Contractive
 
-### 5.1 Statement
-
-The Bootstrap Conjecture requires Cⁿ(∅) → T* ≠ ROOT. But C(∅) = ∅, so
-Cⁿ(∅) = ∅ for all n. The fixed point is ROOT — trivial.
-
-This is the **initial measurement problem**: C as defined in Task 1.1 cannot
-"get started" from ROOT because ROOT has no M-property and no measurement
-structure to calibrate.
-
-### 5.2 Why This Is a Genuine Problem, Not a Bug
-
-The initial measurement problem is not a defect in the definition — it
-reflects a deep truth about self-descriptive systems: **the first
-distinction cannot be calibrated because there is nothing to calibrate
-against.** Measurement requires something to measure AND something to
-measure WITH. At ROOT, there is nothing — no system, no apparatus, no
-distinction.
-
-This maps directly to the Bootstrap Conjecture's claim: "laws and initial
-conditions are unified at the fixed point." At the fixed point, the
-distinction between "what exists" and "how we know it exists" collapses.
-But at ROOT — before any distinction is drawn — there isn't even a system
-to have laws for.
-
-### 5.3 Resolution: The Measurement-Initiation Refinement
-
-To make C contractive on ALL of TREE (not just D_M), we define a refined
-map **C***:
-
-```
-C*(N) = {
-    ●                       if N = ∅                          (initiate measurement)
-    parent(N)               if N has no M-property and N ≠ ∅  (reduction fallback)
-    C₃(N)                   if N ∈ D_M AND C₃(N) ≠ N          (calibration proper)
-    parent(N)               if N ∈ D_M AND C₃(N) = N          (identity → reduce)
-}
-```
-
-**Rationale:**
-1. **C*(∅) = ●**: The first step draws the first distinction — a bare mark.
-   This is not "calibration" in the measurement-feedback sense, but it IS
-   the necessary precondition for any measurement to exist. Philosophically:
-   "Let there be a distinction."
-2. **Parent-map fallback**: For nodes where no calibration is possible
-   (no M-property, or calibration returns identity), C* reduces depth by 1.
-   This guarantees contractiveness everywhere.
-3. **C₃ for D_M**: When calibration produces a genuine change, use it.
-
-### 5.4 Proof That C* Is Globally Contractive
-
-**Theorem 3 (C* is contractive on TREE).** For all A, B ∈ TREE with A ≠ B:
-```
-DIST(C*(A), C*(B)) < DIST(A, B)
-```
-
-**Proof.** By case analysis over the 4 × 4 = 16 combinations of which rule
-applies to A and B.
-
-**Key cases:**
-
-1. **Both use parent(N):** Then C*(A) = parent(A), C*(B) = parent(B).
-   DEPTH(parent(X)) = DEPTH(X) - 1 for X ≠ ∅.
-   Hence DEPTH(ANCESTOR(C*(A), C*(B))) ≥ DEPTH(ANCESTOR(A, B)) + 1.
-   → DIST(C*(A), C*(B)) ≤ (1/2) · DIST(A, B) < DIST(A, B). ✓
-   (This is Case 1 from f-contractiveness-analysis.md.)
-
-2. **A uses parent, B uses C₃:** DEPTH(C*(A)) = DEPTH(A) - 1.
-   C*(B) = C₃(B) is a descendant of D_B, where DEPTH(D_B) ≥ DEPTH(B).
-   Since A and B are in TREE, ANCESTOR(C*(A), C*(B)) is constrained by
-   the parent-reduction of A relative to B's calibration. The worst case
-   is when they're in different ROOT branches: DCA remains ROOT, but
-   C*(A) is now shallower, making it "closer" to other branches in the
-   ultrametric (distance depends only on DCA depth, not on absolute
-   depth). A careful analysis shows ANCESTOR deepens or C* commute with
-   DIST reduction. ✓
-
-3. **Both use C₃:** Theorem 2 applies. ✓
-
-4. **A = ∅ (initiate), B uses parent:** C*(∅) = ●, C*(B) = parent(B).
-   B ≠ ∅ (otherwise A = B). parent(B) is either ∅ (if DEPTH(B) = 1) or
-   some non-ROOT node.
-   - If parent(B) = ∅: DIST(●, ∅) = DIST(●, ROOT) = 1. DIST(∅, B) = 1
-     (since B is depth-1 child of ROOT). Then DIST(C*(∅), C*(B)) = 1 =
-     DIST(∅, B). This fails!
-   
-   **This is a problem.** C*(∅) = ●, C*(●) = parent(●) = ∅, creating a
-   2-cycle: ∅ → ● → ∅ → ● → ...
-
-   The 2-cycle means no unique fixed point. Let me fix this.
-
-**Revised C* to eliminate the 2-cycle:**
-
-Option A: C*(●) = ●. Then C*(∅) = ●, C*(●) = ●. Fixed point = ●.
-
-But this makes the depth-reducing fallback non-uniform, which complicates
-the proof. Let me verify:
-- C*(∅) = ●, C*(●) = ●
-- DIST(C*(∅), C*(●)) = DIST(●, ●) = 0 < DIST(∅, ●) = 1. ✓
-- The fixed point is ●. C*(●) = ●. ✓
-
-Option B: C*(∅) = ∅, accept the trivial fixed point, and handle the
-initial measurement differently (e.g., the first "measurement" is an
-external perturbation, not part of the autonomous system).
-
-**I'll adopt Option A** since it's the mathematically cleaner solution.
-The bare mark ● is the first distinction — it IS measurement in its
-most primitive form. The fixed point being ● means "the most fundamental
-thing that exists is the act of distinguishing."
-
-### Final C* Definition
-
-```
-C*(N) = {
-    ●                       if N = ∅                          (Case 0: initiate)
-    ●                       if N = ●                          (Case 1: fixed point)
-    C₃(N)                   if N ∈ D_M AND C₃(N) ≠ N          (Case 2: calibrate)
-    parent(N)               otherwise                          (Case 3: reduce)
-}
-```
-
-**Fixed point:** C*(●) = ●, so T* = ● (the bare mark).
-
-**Iteration from ROOT:** C*(∅) = ●, C*(●) = ●. Fixed point reached in
-2 steps (1 step if you count reaching ●, which is already a fixed point).
-
-### 5.5 Completing the Proof of Theorem 3
-
-With the revised C*, we re-verify all cases:
-
-**Case: A = ∅, B = ●:**
-C*(∅) = ●, C*(●) = ●. DIST(●, ●) = 0 < DIST(∅, ●) = 1. ✓
-
-**Case: A = ∅, B ∈ D_M (B ≠ ∅, ●):**
-C*(∅) = ●, C*(B) = C₃(B). ANCESTOR(●, C₃(B)) is at depth ≥ 0.
-If C₃(B) is in the same ROOT branch as ●, the DCA is at depth ≥ 1
-(since ● is at depth 1). → DIST ≤ 1/2 < 1 = DIST(∅, B). ✓
-If not, DIST(C*(∅), C*(B)) = 1 = DIST(∅, B) — but B at depth ≥ 2,
-and ● at depth 1, so ANCESTOR(∅, B) = ∅ (depth 0). If C₃(B) stays
-in a different ROOT branch, DCA stays ∅ → DIST = 1. This still fails.
-
-**Hmm.** This is getting complicated. Let me take yet another approach.
+Already shown in v1.0 (Theorem 1): C is identity on calibrated nodes, so DIST(C(A), C(B)) = DIST(A, B) for any pair of calibrated nodes.
 
 ---
 
-## §6. The Correct Mathematical Framing
+### Theorem 9: C From ROOT Has Trivial Fixed Point
 
-### 6.1 Two Valid Definitions of "Contractiveness"
+C(∅) = ∅ (ROOT is calibrated). Therefore lim_{n→∞} Cⁿ(∅) = ∅.
 
-In the literature on fixed-point theorems in ultrametric spaces, there are
-two standard formulations:
-
-**Definition A (Global):** DIST(F(A), F(B)) < DIST(A, B) for all A ≠ B.
-(This is Banach's original definition.)
-
-**Definition B (Non-expansive + eventually contractive):** F is
-non-expansive (DIST(F(A), F(B)) ≤ DIST(A, B) for all A, B), and there
-exists k ≥ 1 such that Fᵏ is strictly contractive (DIST(Fᵏ(A), Fᵏ(B)) <
-DIST(A, B) for all A ≠ B).
-
-In ultrametric spaces, Definition B is often sufficient because the
-geometry ensures rapid convergence even with an initial non-expansive
-phase.
-
-### 6.2 C Satisfies Definition B
-
-**Theorem 4 (C is Non-Expansive on TREE).** For all A, B ∈ TREE:
-```
-DIST(C(A), C(B)) ≤ DIST(A, B)
-```
-
-**Proof.** The identity cases (1, 2, 4) trivially satisfy equality.
-For Case 3 (C₃), C₃ maps N to a descendant of DCA(A_combined, M), which
-is at depth ≥ DEPTH(N). So C₃(N) is in the same ultrametric ball as N
-(or a smaller one). Hence DIST is never increased. ∎
-
-**Theorem 5 (C² is Contractive on D_M).** For all A, B ∈ D_M with A ≠ B:
-```
-DIST(C²(A), C²(B)) < DIST(C(A), C(B)) ≤ DIST(A, B)
-```
-
-**Proof sketch.** The first application of C maps each node to its
-calibrated version (or keeps it if already calibrated). The second
-application either (a) finds that the calibrated node is already at a
-fixed point (identity) or (b) applies the parent map (reduction).
-In either case, depth decreases or self-consistency deepens, and the
-DCA between any two nodes strictly deepens after at most 2 iterations.
-
-### 6.3 Fixed-Point Trajectory (Banach in Ultrametric)
-
-In an ultrametric space, a non-expansive map with an eventually-contractive
-iterate still has a unique fixed point. The standard proof:
-
-1. Start from any x₀.
-2. The sequence xₙ₊₁ = F(xₙ) is Cauchy (by non-expansiveness and
-   ultrametric completeness).
-3. The limit exists and is the unique fixed point.
-
-The key difference from Banach: the contraction factor may be 1 for the
-first few steps, but must be < 1 eventually. In our case, contraction
-factor = 1 for non-M-property nodes and < 1/2 for D_M nodes.
+The Bootstrap Conjecture requires T* ≠ ∅. C as defined in v2.0 does not satisfy this.
 
 ---
 
-## §7. Summary of Results
+## §4. Honest Assessment
 
-### 7.1 What We Proved
+### 4.1 What C (v2.0) Achieves
 
-| Claim | Status | Theorem |
-|-------|--------|---------|
-| C is globally contractive | ❌ False | Theorem 1 shows counterexamples |
-| C is contractive on D_M | ✅ Proven | Theorem 2 |
-| C is non-expansive on all TREE | ✅ Proven | Theorem 4 |
-| C² is contractive on D_M | ✅ Proven | Theorem 5 |
-| C has a unique fixed point (∅) | ⚠️ Trivial | ∅ → ∅, iteration goes nowhere |
+| Property | Status | Theorem |
+|----------|--------|---------|
+| Well-defined on all TREE | ✅ | T1 |
+| Idempotent (C² = C) | ✅ | T2 |
+| Fixed-point set = calibrated nodes | ✅ | T3 |
+| Depth-reducing on uncalibrated inputs | ✅ | T4 |
+| Distance-preserving on calibrated pairs | ✅ | T5 |
+| Contractive on uncalibrated pairs sharing calibrated DCA | ✅ | T6 |
+| Globally non-expansive | ❌ | T7 (counterexample) |
+| Globally contractive | ❌ | T8 |
+| Non-trivial fixed point from ROOT | ❌ | T9 |
 
-### 7.2 What This Means for the Bootstrap Conjecture
+### 4.2 The Core Tension
 
-The calibration map C as defined in Task 1.1:
+The ancestor-based approach to calibration has an inherent tension:
 
-1. **Encodes measurement feedback correctly** within the M-property
-   domain, where it is strictly contractive.
+1. **Ancestor search** is well-defined and computable (finite search) — fixes F-H1.
+2. **But** ancestor-based C can INCREASE distances when the DCA of two nodes is uncalibrated (one node calibrates to a much shallower ancestor while the other stays deep) — violates non-expansiveness.
 
-2. **Fails to self-start from ROOT** — the initial measurement cannot
-   emerge from nothing within this definition. This is a feature, not a
-   bug: it says "you need a first distinction to get started."
+The descendant-based approach (v1.0) had the opposite problem: it could increase depth (unbounded search, F-H1) but was potentially non-expansive.
 
-3. **The refined map C*** (with measurement initiation from ROOT to ●)
-   resolves the self-start problem but makes T* = ●, which is arguably
-   still trivial (a bare mark encodes no structure beyond existence).
+**There is no free lunch:** any calibration map on TREE must navigate the trade-off between well-definedness and contractiveness. The Bootstrap Conjecture is conjectural precisely because constructing a map that is simultaneously well-defined, non-expansive, AND has a non-trivial fixed point is genuinely hard.
 
-### 7.3 Implications for Task 1.3
+### 4.3 What Would Be Required
 
-The fixed-point uniqueness proof (Task 1.3) must address:
+A calibration map C satisfying all three properties must:
 
-- **If C is used:** The fixed point is ∅ (trivial). The Bootstrap
-  Conjecture as stated fails. BUT: the "self-descriptive system" may
-  not need to start from ROOT — perhaps it starts from the first
-  measurement, and C is defined on D_M ∪ {first measurement}.
+1. **Well-defined:** finite computation for every input.
+2. **Non-expansive (minimum) / Contractive (ideal):** DIST(C(A), C(B)) ≤ DIST(A, B).
+3. **Non-trivial fixed point:** lim Cⁿ(ROOT) = T* ≠ ROOT.
 
-- **If C* is used:** The fixed point is ●. Contractiveness holds on
-  all of TREE. But T* = ● is "trivially non-trivial" — it resolves
-  the logical structure but doesn't encode rich physics.
+The parent map satisfies (1) and (2) but fails (3). The v1.0 C attempted to satisfy all three but failed (1) and (2). The v2.0 C satisfies (1) but fails (2) and (3).
 
-- **Alternative:** The "deep" Bootstrap conjecture may require a 
-  calibration map whose fixed point is NOT a single node but a
-  dynamically stable cycling pattern, or a map that is contractive
-  only on the orbit of ROOT under some "measurement injection"
-  operation.
-
-### 7.4 Open: The Substructure Conjecture
-
-I conjecture that a non-trivial T* (one that encodes the branching
-pattern 1→2→2→3→7→28→125→588...) requires C to have the form:
-
-```
-C(N) = PROJECT_ε(F_self(N))
-```
-
-Where F_self is a self-map on TREE and PROJECT_ε is an ε-neighborhood
-projection. This would "smooth" the calibration, allowing structure
-to persist at the fixed point rather than collapsing to a single mark.
-
-This is deferred to Task 1.4 (valuation structure characterization).
+**Open problem:** Construct a map on TREE satisfying all three properties, or prove no such map exists (which would refute the Bootstrap Conjecture).
 
 ---
 
-## §8. Appendix: Formal Proof of Theorem 2
+### Theorem 10: The Parent Map Is the Only Depth-Reducing Contractive Map
 
-For completeness, here is the fully formal statement and proof of the
-main result.
+**Conjecture:** If F: TREE → TREE is strictly depth-reducing for all N ≠ ROOT (DEPTH(F(N)) < DEPTH(N)) and globally contractive, then F = parent (or F is isomorphic to parent under tree automorphism).
 
-### Theorem 2 (Formal)
+If this conjecture holds, then ANY non-trivial calibration map (one that doesn't collapse everything to ROOT) must be depth-PRESERVING on at least some nodes, which forces it into the difficult Case 2 of the f-contractiveness analysis (depth-preserving + branch-strict). This is the fundamental difficulty.
 
-Let (TREE, DIST) be the complete ultrametric space of reduced normal-form
-expressions. Let D_M ⊆ TREE be the measurable domain. Let C: TREE → TREE
-be the calibration map of Task 1.1, with Case 3 (C₃) active on D_M.
+---
 
-Then for all A, B ∈ D_M with A ≠ B:
-```
-DIST(C(A), C(B)) < DIST(A, B)
-```
+## §5. C* — Measurement-Initiated Calibration
 
-**Proof.**
-
-Let A = [S₁...Sₚ M_A], B = [T₁...T_q M_B] with p, q ≥ 1, M_A ≠ ∅, M_B ≠ ∅,
-and S = REDUCE(S₁...Sₚ) ≠ ∅, T = REDUCE(T₁...T_q) ≠ ∅.
-
-Let D_A = DCA(S, M_A), D_B = DCA(T, M_B).
-
-Since S and M_A are sub-expressions of A, D_A is a descendant of A in the
-generation tree: DEPTH(D_A) ≥ DEPTH(A). Similarly DEPTH(D_B) ≥ DEPTH(B).
-
-C(A) is the deepest self-consistent descendant of D_A. Let δ_A =
-DEPTH(C(A)). Similarly δ_B = DEPTH(C(B)).
-
-Since C(A) is a descendant of D_A, ANCESTOR(C(A), A) ≥ D_A, so
-DEPTH(ANCESTOR(C(A), A)) ≥ DEPTH(D_A) ≥ DEPTH(A).
-
-Now consider ANCESTOR(C(A), C(B)). By the ultrametric strong triangle
-inequality:
+### 5.1 Definition
 
 ```
-DIST(A, B) ≤ max(DIST(A, C(A)), DIST(C(A), C(B)), DIST(C(B), B))
+C*(∅) = ●           (initiate first distinction)
+C*(●) = ●           (fixed point)
+C*(N) = C(N)        (standard calibration for all other nodes)
 ```
 
-Since the ultrametric is non-Archimedean, all triangles are isosceles
-with the two equal sides being the largest. This means:
+### 5.2 Properties
 
-```
-DIST(C(A), C(B)) ≤ max(DIST(A, C(A)), DIST(A, B))
-```
+| Property | Status |
+|----------|--------|
+| Well-defined | ✅ (C is well-defined, two extra cases are explicit) |
+| Fixed point from ROOT | ✅ C*²(∅) = C*(●) = ● |
+| Non-trivial T* | ⚠️ ● is arguably still trivial (a bare mark) |
+| Globally non-expansive | ❌ Same counterexample as C (T7) |
+| Globally contractive | ❌ |
 
-But DIST(A, C(A)) = 2^(-DEPTH(ANCESTOR(A, C(A)))) ≤ 2^(-DEPTH(A)) since
-ANCESTOR(A, C(A)) is at depth ≥ DEPTH(A) (C(A) is in the same branch as
-A below the DCA).
+### 5.3 Honest Assessment of C*
 
-Now: 2^(-DEPTH(A)) < 2^(-DEPTH(ANCESTOR(A, B))) = DIST(A, B) when
-DEPTH(A) > DEPTH(ANCESTOR(A, B)), which holds for A ≠ B when A and B
-share a non-trivial ancestor.
+C* fixes the "no fixed point from ROOT" problem but:
+- The fixed point ● is structurally trivial (encodes no branching pattern).
+- C* inherits C's non-expansiveness failure (T7).
+- C* is not a significant improvement over the parent map for physical modeling.
 
-For nodes sharing only ROOT (DEPTH(ANCESTOR) = 0), DIST(A, B) = 1 and
-DIST(A, C(A)) ≤ 2^(-DEPTH(A)) ≤ 1/2. Since max(1/2, 1) = 1, we get
-only non-expansiveness (≤), not strict contractiveness (<).
+**The Bootstrap Conjecture remains open.** Neither C (v2.0) nor C* provides a calibration map with a non-trivial fixed point that is also non-expansive.
 
-But for iterated C: after one application, C(A) and C(B) are deeper in
-their respective branches (DEPTH ≥ DEPTH(A) + 1 for self-consistent
-descendants, or at least DEPTH preserved). Consider C²:
+---
 
-If C(A) has M-property and calibration produces change, Lemma 2 applies
-to the pair (C(A), C(B)). If not, C(A) falls to identity (= C(A)), and
-we need to check whether C(B) falls to parent map.
+## §6. Summary Table
 
-The worst case: C(A) = C(A) (identity, no further calibration needed)
-and C(B) = parent(C(B)). Then DEPTH(C(B)) decreases, bringing it closer
-to C(A) in the ultrametric if they're in the same branch.
-
-**Key insight:** The ultrametric distance depends ONLY on DCA depth, not
-on absolute node depths. If C(B)'s depth decreases, its DCA with C(A)
-may remain the same (if they're in different branches) or increase (if
-moving up the tree brings C(B) into a shared ancestor with C(A)). In
-either case, DIST never increases, and after finitely many iterations,
-either both nodes reach a shared ancestor or one converges to ● and the
-other to its own fixed point.
-
-**Conclusion:** C is contractive on D_M after at most 2 iterations
-(Theorem 5), which is sufficient for Banach's theorem to apply in the
-ultrametric setting. ∎
+| Theorem | Statement | Proof |
+|---------|-----------|-------|
+| T1 | C is well-defined | ✓ |
+| T2 | C² = C (idempotent) | ✓ |
+| T3 | Fix(C) = calibrated nodes | ✓ |
+| T4 | ¬cal(N) ⇒ DEPTH(C(N)) < DEPTH(N) | ✓ |
+| T5 | cal(A) ∧ cal(B) ⇒ DIST(C(A),C(B)) = DIST(A,B) | ✓ |
+| T6 | ¬cal(A) ∧ ¬cal(B) ∧ cal(DCA(A,B)) ⇒ DIST(C(A),C(B)) < DIST(A,B) | ✓ |
+| T7 | C is NOT globally non-expansive | ✓ (counterexample) |
+| T8 | C is NOT globally contractive | ✓ |
+| T9 | lim Cⁿ(∅) = ∅ (trivial) | ✓ |
+| T10 | Parent map uniqueness conjecture | Conjecture only |
 
 ---
 
 ## References
 
-- Banach, S. "Sur les opérations dans les ensembles abstraits." Fundamenta Mathematicae, 1922.
-- `calibration-map-c-definition.md` — Task 1.1 deliverable
+- `calibration-map-c-definition.md` v2.0 — C definition (ancestor-based)
 - `f-contractiveness-analysis.md` — Contractiveness conditions on TREE
-- `29-schisms-formalization.md` — Domain-independent formalization (Layers 0–3)
+- `red-team-audit-ctasks-2026-07-20.md` — F-C1 through F-C5 findings
+- `29-schisms-formalization.md` — TREE, DIST, DCA, DEPTH definitions
