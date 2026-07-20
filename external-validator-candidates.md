@@ -74,8 +74,8 @@ Additional considerations:
 | **Position** | Professor of Physics, Aix-Marseille University; Distinguished Visiting Research Chair, Perimeter Institute |
 | **Expertise** | Loop quantum gravity, relational quantum mechanics, foundations of spacetime, philosophy of science |
 | **Key publications** | *Reality Is Not What It Seems* (2017), *Helgoland* (2021), relational QM papers (1996–present), LQG textbooks |
-| **Schism coverage** | S1 (continuous/discrete — LQG is discrete), S3 (background/foreground — LQG is background-independent), S6 (non-local correlation — relational), S9 (discovered/invented), S10 (observer inside/outside — relational QM), S11 (time as parameter — thermal time hypothesis), S12 (fundamental/emergent), S14 (which representation), S19 (law vs initial), S21 (objective state), S23 (fixed dimensionality), S24 (root trivial/non-trivial) |
-| **Estimated schism overlap** | ~12/29 |
+| **Schism coverage** | S6 (non-local correlation — relational), S9 (discovered/invented), S10 (observer inside/outside — relational QM), S11 (time as parameter — thermal time hypothesis), S12 (fundamental/emergent), S14 (which representation), S19 (law vs initial), S21 (objective state), S23 (fixed dimensionality — indirectly via LQG), S24 (root trivial/non-trivial) |
+| **Estimated schism overlap** | ~10/29 (downgraded from 12: S1 and S3 are positions taken by LQG, not Rovelli's direct scholarly expertise in the continuous/discrete or background/foreground debates) |
 | **Viewpoint** | Relational, anti-realist about spacetime, perspectival. Believes physics must abandon the "view from nowhere." |
 | **Response likelihood** | Low-Medium — high-profile, many requests, but known to engage with interesting foundational questions |
 
@@ -138,9 +138,9 @@ Additional considerations:
 
 | S# | Schism (short) | Maudlin | Wallace | Rovelli | Ismael | Marletto |
 |----|----------------|---------|---------|---------|--------|----------|
-| 1 | Continuous/discrete | | ✓ | ✓ | | |
+| 1 | Continuous/discrete | | ✓ | | | |
 | 2 | State/process | ✓ | ✓ | | ✓ | ✓ |
-| 3 | Background/foreground | | | ✓ | | |
+| 3 | Background/foreground | | | | | |
 | 4 | Directionality | ✓ | | | ✓ | |
 | 6 | Non-local correlation | | | ✓ | | |
 | 7 | Deterministic/probabilistic | ✓ | ✓ | | ✓ | ✓ |
@@ -162,8 +162,8 @@ Additional considerations:
 | 27 | Map/territory | | ✓ | | | |
 | 28 | Consistency | | | | | ✓ |
 | 29 | Explanation | ✓ | | | ✓ | |
-| | **Validator's coverage** | **12** | **11** | **12** | **12** | **8** |
-| | **Collective coverage** | | | | | **~22/29** |
+| | **Validator's coverage** | **12** | **11** | **10** | **12** | **8** |
+| | **Collective coverage** | | | | | **~21/29** |
 
 ---
 
@@ -241,7 +241,7 @@ Use a simple tracking spreadsheet:
 | 1 | Validator candidate list (5 primary + 5 backup) | ✅ Complete |
 | 2 | Credential verification (publications, positions, expertise) | ✅ Complete |
 | 3 | QNFO independence verification | ✅ All candidates have no known QNFO affiliation |
-| 4 | Schism coverage matrix | ✅ 22/29 collective coverage |
+| 4 | Schism coverage matrix | ✅ 21/29 collective coverage |
 | 5 | Contact strategy and template | ✅ Complete |
 | 6 | Response tracking framework | ✅ Complete |
 | 7 | Fallback timeline | ✅ Complete (per WBS §Task 2.3) |

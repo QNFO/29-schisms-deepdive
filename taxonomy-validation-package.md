@@ -37,7 +37,7 @@ Please return your classifications in any format (marked-up PDF, spreadsheet, em
 
 ## §1. The 29 Schisms
 
-Schisms are organized into five layers, from mathematical substrate to epistemology.
+Schisms are organized into five thematic groups for convenience. Validators are welcome to suggest alternative groupings or to dispute whether specific schisms belong in their assigned group. These groupings reflect one organizational hypothesis among several possible.
 
 ---
 
@@ -121,18 +121,18 @@ Schisms are organized into five layers, from mathematical substrate to epistemol
 
 ### What Generated These 29 Schisms?
 
-A systematic scan of the foundations-of-physics literature (2025–2026) identified recurring bifurcations where:
+A literature review of foundations-of-physics papers (2025–2026) identified recurring bifurcations where:
 - The community is genuinely divided (not just one heterodox view vs. consensus)
 - The division affects theory construction (not merely interpretation)
 - Resolution would meaningfully change how physics is done
 
-The schisms are not randomly selected — they form a dependency stack. Layer 1 schisms (mathematical substrate) constrain Layer 2 (state/law ontology), which constrains Layer 3 (quantum-classical divide), etc. Resolution at a lower layer propagates upward.
+The schisms are presented in five groups, from structural assumptions about mathematical representation to the epistemology of the observer. The grouping is one possible organizational scheme; validators may disagree with specific assignments. Note: S4 (Arrow of Time) is placed in the "Quantum-Classical Divide" group because of its connection to quantum measurement irreversibility, but validators who work primarily in statistical mechanics may prefer to group it with S11 (Problem of Time) in a dedicated "Time" category. Such reclassification is welcome.
 
 ### What "Resolution" Means
 
-In this taxonomy, a schism is "resolved" not when one side is declared correct, but when a theoretical framework dissolves the bifurcation — showing that both sides of the apparent dichotomy are aspects of a single underlying structure. The framework does not choose between A and B; it shows that A and B are the same thing viewed from different perspectives.
+For this classification exercise, a schism is considered "resolved" if: (a) the relevant research community has reached broad consensus on the answer, or (b) the question is no longer considered productive because it was based on a premise or framing that the field has since recognized as problematic.
 
-This is not the same as "we've decided the answer" — it's "the question no longer arises."
+This definition is intentionally standard — it does not presuppose any particular resolution mechanism. Validators should apply their own judgment about what constitutes consensus in their subfield.
 
 ### Relationship to This Research Program
 

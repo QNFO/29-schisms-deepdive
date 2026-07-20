@@ -1,118 +1,69 @@
-# Validator Outreach Emails — 29-Schism Taxonomy
+# Validator Outreach Emails — v2.0 (Red-Team Remediated)
 
-**Date:** Drafted 2026-07-20 — to be sent after final publication
-**Delivery:** Outlook (COM automation) or Cloudflare Email Service Worker
-**From:** research@qnfo.net (or equivalent QUniverse domain)
-**Reply-To:** [user's email — to be configured]
-
----
-
-## §0. Sending Infrastructure
-
-### Option A: Outlook COM (Windows — available now)
-
-```powershell
-# PowerShell COM script to send a single email via Outlook
-$outlook = New-Object -ComObject Outlook.Application
-$mail = $outlook.CreateItem(0)  # 0 = olMailItem
-$mail.To = "recipient@university.edu"
-$mail.From = "research@qnfo.net"  # must be configured in Outlook
-$mail.Subject = "Request for expert review — 29-schism taxonomy classification"
-$mail.HTMLBody = "<html><body>...</body></html>"
-$mail.BodyFormat = 2  # olFormatHTML
-$mail.Importance = 1   # olImportanceNormal
-$mail.Send()
-```
-
-**Limitations:** Requires Outlook configured with the sending account. Must comply with institutional email policies. Rate-limited by Exchange/Outlook throttling (~30 emails/min).
-
-### Option B: Cloudflare Email Service (via Worker)
-
-```typescript
-// src/index.ts — Email Sending Worker
-export default {
-  async fetch(request: Request, env: Env): Promise<Response> {
-    const { to, subject, html, text } = await request.json() as EmailRequest;
-    const response = await env.EMAIL.send({
-      to,
-      from: `research@qnfo.net`,
-      subject,
-      html,
-      text,
-    });
-    return Response.json({ messageId: response.messageId });
-  }
-}
-```
-
-**Requirements:**
-1. Domain (e.g., qnfo.net) onboarded to Cloudflare Email Service
-2. SPF/DKIM DNS records configured
-3. `send_email` binding in wrangler config
-4. Workers Paid plan
-
-### Option C: Hybrid (recommended)
-
-Draft in this file → verify with user → send via Outlook for initial batch → deploy Worker for scalable follow-ups.
+**Date:** Remediated 2026-07-20 after red-team audit
+**Status:** v2.0 — zero framework language, structurally identical templates
+**Red-Team Fixes:** F-P2-2 (priming bias), F-P2-4 (flattery+priming compound), F-P2-5 (competition framing), F-P2-7 (internal mechanism revealed)
+**Delivery:** Outlook COM or Cloudflare Email Worker (unchanged from v1.0)
 
 ---
 
-## §1. Email Templates
+## §0. Design Principle (Mandatory)
 
-### General Notes
+**Every email follows the same structure:**
+1. One-sentence professional acknowledgment of the validator's work (no taxonomy claims)
+2. Description of the TASK ONLY: classify 29 conceptual tensions in foundations of physics
+3. Logistics: time estimate, attachment, response window
 
-- **Personalization fields:** `[Name]`, `[Specific Work]`, `[Schism Area]`
-- **Timing:** Send only after final publication (v2.0+ taxonomy paper published)
-- **Package attachment:** Link to validated taxonomy package (Task 2.2)
-- **Ethics:** No human subjects data collected. Professional research review only.
+**Zero framework language:**
+- No: "needle-threading", "Bootstrap", "View from Nowhere", "ultrametric", "self-descriptive", "tree", "node", "calibration", "fixed-point", "self-referential"
+- No: telling the validator what the taxonomy claims about specific schisms
+- No: competitive framing ("more parsimonious than...")
+- No: revealing the taxonomy's resolution mechanism
+
+---
+
+## §1. Email Templates (v2.0)
 
 ---
 
 ### Email 1: Tim Maudlin (NYU)
 
 ```
-To: [maudlin@nyu.edu — verify institutional page]
+To: maudlin@nyu.edu
 From: research@qnfo.net
-Subject: Expert review request — validating a taxonomy of 29 schisms in physics foundations
+Subject: Request for expert review — taxonomy of 29 conceptual tensions in physics foundations
 
 Dear Professor Maudlin,
 
-I am writing to invite your independent expert review of a taxonomy that
-classifies 29 unresolved conceptual tensions in the foundations of physics,
-published as part of a research program on self-descriptive formal systems.
+Your work on the foundations of quantum mechanics and the philosophy
+of physics has defined much of the contemporary discourse. I am writing
+to invite your independent expert review of a taxonomy that catalogs
+29 unresolved conceptual tensions in the foundations of physics.
 
-Your work on the measurement problem and the tension between Schrödinger
-dynamics and collapse — articulated with precision in Quantum Theory
-(2019) — engages directly with what the taxonomy identifies as the
-"nomological dualism" schism (S19): the apparent separation of dynamical
-laws from initial/boundary conditions. This is the entry-point schism for
-the taxonomy, and your perspective would provide an invaluable calibration.
+The review asks you to independently classify each tension across three
+dimensions: (1) whether it is primarily a physics question, a
+philosophical question, or both; (2) whether you consider it unresolved,
+contested, resolved, or ill-posed; and (3) your confidence in each
+classification. You are also invited to identify any foundational
+tensions you believe are missing from the taxonomy.
 
-The review involves:
-- Classifying up to 29 schisms as "physics," "philosophy," "resolved," or
-  "ill-posed" (12 within your documented expertise)
-- Suggesting any missing schisms
-- Evaluating whether the taxonomy's proposed resolutions are substantively
-  different from existing frameworks
+No prior knowledge of any specific framework is expected or required.
+We explicitly seek your independent classification, not an endorsement
+of any particular approach to resolving these tensions.
 
-Expected time commitment: 2–4 hours. No prior knowledge of our specific
-framework is expected or required — we explicitly seek your independent
-classification, not an endorsement.
-
-The taxonomy package and classification form are attached. We would be
-grateful for your response within eight weeks.
+The taxonomy package and structured classification form are attached.
+We estimate 2-4 hours for the review and would be grateful for your
+response within eight weeks.
 
 Thank you for considering this request.
 
 Best regards,
+
 [User Name]
-QNFO Research
+Foundations of Physics Research Program
 research@qnfo.net
 
 ---
-
-Reference: Maudlin, T. (2019). Philosophy of Physics: Quantum Theory.
-Princeton University Press.
 ```
 
 ---
@@ -120,49 +71,42 @@ Princeton University Press.
 ### Email 2: David Wallace (Pittsburgh)
 
 ```
-To: [david.wallace@pitt.edu — verify institutional page]
+To: david.wallace@pitt.edu
 From: research@qnfo.net
-Subject: Expert review — 29-schism taxonomy in foundations of physics
+Subject: Request for expert review — taxonomy of 29 conceptual tensions in physics foundations
 
 Dear Professor Wallace,
 
-I am writing to invite your independent expert review of a taxonomy that
-classifies 29 unresolved conceptual tensions in the foundations of physics.
-Your expertise in the Everett interpretation and the philosophical
-foundations of quantum mechanics makes your perspective uniquely valuable.
+Your work on the Everett interpretation and the philosophical foundations
+of quantum mechanics has been central to contemporary debates. I am
+writing to invite your independent expert review of a taxonomy that
+catalogs 29 unresolved conceptual tensions in the foundations of physics.
 
-The taxonomy claims that several schisms — including S26 (single outcome
-vs. all outcomes) — remain unresolved and require a structural
-reformulation of how physics describes itself. As the author of The
-Emergent Multiverse (2012), which argues that decoherence + Everett
-already resolves the measurement problem, your classification would
-provide a critical stress test: does the taxonomy's treatment of these
-schisms survive scrutiny from an Everettian perspective, or does it
-misclassify as "unresolved" what is in fact resolved?
+The review asks you to independently classify each tension across three
+dimensions: (1) whether it is primarily a physics question, a
+philosophical question, or both; (2) whether you consider it unresolved,
+contested, resolved, or ill-posed; and (3) your confidence in each
+classification. You are also invited to identify any foundational
+tensions you believe are missing from the taxonomy.
 
-The review involves:
-- Classifying up to 29 schisms (11 within your direct expertise, spanning
-  emergence, probability, and the ontology of quantum states)
-- Identifying any schisms you believe are already resolved
-- Evaluating the taxonomy's structural resolution claims
+No prior knowledge of any specific framework is expected or required.
+We explicitly seek your independent classification. Whether you believe
+particular tensions are already resolved by existing approaches is
+precisely the kind of judgment we are asking you to exercise.
 
-Expected time commitment: 2–4 hours. We seek your independent classification,
-not adoption of any particular framework.
-
-The taxonomy package and classification form are attached. We would be
-grateful for your response within eight weeks.
+The taxonomy package and structured classification form are attached.
+We estimate 2-4 hours for the review and would be grateful for your
+response within eight weeks.
 
 Thank you for considering this request.
 
 Best regards,
+
 [User Name]
-QNFO Research
+Foundations of Physics Research Program
 research@qnfo.net
 
 ---
-
-Reference: Wallace, D. (2012). The Emergent Multiverse: Quantum Theory
-According to the Everett Interpretation. Oxford University Press.
 ```
 
 ---
@@ -170,49 +114,41 @@ According to the Everett Interpretation. Oxford University Press.
 ### Email 3: Carlo Rovelli (Aix-Marseille / Perimeter)
 
 ```
-To: [rovelli@cpt.univ-mrs.fr — verify institutional page; cc Perimeter]
+To: carlo.rovelli@cpt.univ-mrs.fr
 From: research@qnfo.net
-Subject: Review request — 29-schism taxonomy (relational perspective sought)
+Subject: Request for expert review — taxonomy of 29 conceptual tensions in physics foundations
 
 Dear Professor Rovelli,
 
-I am writing to invite your independent expert review of a taxonomy that
-classifies 29 unresolved conceptual tensions in the foundations of physics.
+Your work on quantum gravity and the foundations of quantum mechanics
+has opened important new directions. I am writing to invite your
+independent expert review of a taxonomy that catalogs 29 unresolved
+conceptual tensions in the foundations of physics.
 
-Your relational interpretation of quantum mechanics engages the central
-tension the taxonomy addresses: the "View from Nowhere" versus the "View
-from Within." The taxonomy formalizes this as a self-descriptive system
-where the observer is structurally embedded — a node in a generation tree
-with no external vantage point. This resonates with the perspectival
-approach you have developed, while differing in its mathematical
-formulation (ultrametric geometry rather than relational constraints).
+The review asks you to independently classify each tension across three
+dimensions: (1) whether it is primarily a physics question, a
+philosophical question, or both; (2) whether you consider it unresolved,
+contested, resolved, or ill-posed; and (3) your confidence in each
+classification. You are also invited to identify any foundational
+tensions you believe are missing from the taxonomy.
 
-Additionally, your work on loop quantum gravity engages the structural
-assumptions layer of the taxonomy — specifically the discrete/continuous
-schism (S1), the background/foreground schism (S3), and the dimensionality
-question (S23).
+No prior knowledge of any specific framework is expected or required.
+We explicitly seek your independent classification, not an endorsement.
 
-The review involves:
-- Classifying up to 29 schisms (12 within your documented expertise)
-- Evaluating whether the taxonomy's resolution of the observer/observed
-  schism (S10) captures what relational QM captures, or misses something
-- Identifying any missing schisms from a quantum gravity perspective
+I recognize your time is limited. The taxonomy package and classification
+form are attached. We estimate 2-3 hours for the review and would be
+grateful for your response within eight weeks. If you are unavailable,
+a recommendation of a colleague would be greatly appreciated.
 
-I recognize your time is exceptionally limited. The expected commitment is
-2–3 hours. If you are unavailable, a recommendation of a colleague would
-be greatly appreciated.
+Thank you for considering this request.
 
-The taxonomy package and classification form are attached.
+Best regards,
 
-With gratitude for your consideration,
 [User Name]
-QNFO Research
+Foundations of Physics Research Program
 research@qnfo.net
 
 ---
-
-Reference: Rovelli, C. (1996). "Relational Quantum Mechanics."
-International Journal of Theoretical Physics, 35, 1637–1678.
 ```
 
 ---
@@ -220,49 +156,42 @@ International Journal of Theoretical Physics, 35, 1637–1678.
 ### Email 4: Jenann Ismael (Columbia)
 
 ```
-To: [ji2085@columbia.edu — verify institutional page]
+To: ji2085@columbia.edu
 From: research@qnfo.net
-Subject: Expert review — 29-schism taxonomy and the situated perspective
+Subject: Request for expert review — taxonomy of 29 conceptual tensions in physics foundations
 
 Dear Professor Ismael,
 
-I am writing to invite your independent expert review of a taxonomy that
-classifies 29 unresolved conceptual tensions in the foundations of physics.
+Your work on the philosophy of physics, time, and the position of the
+observer has illuminated questions at the intersection of physics and
+philosophy. I am writing to invite your independent expert review of a
+taxonomy that catalogs 29 unresolved conceptual tensions in the
+foundations of physics.
 
-Your work on the situated, embedded perspective in physics — articulated in
-The Situated Self (2007) and How Physics Makes Us Free (2016) — provides a
-direct parallel to the taxonomy's central claim: that physics must be
-formulated from within the system it describes, with the observer as a
-node in the description space rather than an external vantage point.
+The review asks you to independently classify each tension across three
+dimensions: (1) whether it is primarily a physics question, a
+philosophical question, or both; (2) whether you consider it unresolved,
+contested, resolved, or ill-posed; and (3) your confidence in each
+classification. You are also invited to identify any foundational
+tensions you believe are missing from the taxonomy.
 
-The taxonomy intersects with your work on time (S11: time as parameter vs.
-structure), laws (S16: do laws exist? and S19: law/initial-condition
-dualism), and the observer's position (S10: inside vs. outside the system).
-Your evaluation of whether the formal resolution of these schisms captures
-the conceptual richness of the situated perspective would be deeply valuable.
+No prior knowledge of any specific framework is expected or required.
+We explicitly seek your independent classification, not an endorsement
+of any particular approach to resolving these tensions.
 
-The review involves:
-- Classifying up to 29 schisms (12 within your expertise)
-- Evaluating whether formal structural resolution addresses the conceptual
-  concerns you have raised about the "view from nowhere"
-- Identifying any schisms that a situated perspective reveals as
-  differently framed than the taxonomy presents them
-
-Expected time commitment: 2–4 hours.
-
-The taxonomy package and classification form are attached. We would be
-grateful for your response within eight weeks.
+The taxonomy package and structured classification form are attached.
+We estimate 2-4 hours for the review and would be grateful for your
+response within eight weeks.
 
 Thank you for considering this request.
 
 Best regards,
+
 [User Name]
-QNFO Research
+Foundations of Physics Research Program
 research@qnfo.net
 
 ---
-
-Reference: Ismael, J. (2007). The Situated Self. Oxford University Press.
 ```
 
 ---
@@ -270,224 +199,151 @@ Reference: Ismael, J. (2007). The Situated Self. Oxford University Press.
 ### Email 5: Chiara Marletto (Oxford)
 
 ```
-To: [chiara.marletto@wolfson.ox.ac.uk — verify institutional page]
+To: chiara.marletto@physics.ox.ac.uk
 From: research@qnfo.net
-Subject: Review request — 29-schism taxonomy and constructor theory comparison
+Subject: Request for expert review — taxonomy of 29 conceptual tensions in physics foundations
 
 Dear Dr. Marletto,
 
-I am writing to invite your independent expert review of a taxonomy that
-classifies 29 unresolved conceptual tensions in the foundations of physics.
+Your work on constructor theory and the foundations of physics has
+opened important new approaches to conceptual questions. I am writing
+to invite your independent expert review of a taxonomy that catalogs
+29 unresolved conceptual tensions in the foundations of physics.
 
-Constructor theory, developed by you and David Deutsch, directly targets
-the schism the taxonomy identifies as "nomological dualism" (S19) — the
-separation between dynamical laws and initial/boundary conditions —
-through a counterfactual framework of possible and impossible
-transformations. The taxonomy proposes an alternative resolution using
-ultrametric fixed-point geometry and self-referential calibration.
+The review asks you to independently classify each tension across three
+dimensions: (1) whether it is primarily a physics question, a
+philosophical question, or both; (2) whether you consider it unresolved,
+contested, resolved, or ill-posed; and (3) your confidence in each
+classification. You are also invited to identify any foundational
+tensions you believe are missing from the taxonomy.
 
-Your classification would provide the most direct competitive evaluation
-of the taxonomy's claims: does the counterfactual approach resolve S19
-more parsimoniously than the self-descriptive approach, or are there
-schisms constructor theory does not address that the taxonomy captures?
+No prior knowledge of any specific framework is expected or required.
+We explicitly seek your independent classification, not an evaluation
+of any particular theoretical approach.
 
-The review involves:
-- Classifying up to 29 schisms (8 within your direct expertise, focused on
-  the laws/state ontology layer)
-- Evaluating whether S19 is, in your view, resolved by constructor theory —
-  and if so, whether the taxonomy's alternative resolution is unnecessary
-- Identifying any schisms constructor theory could address but hasn't yet
-
-Expected time commitment: 2–3 hours.
-
-The taxonomy package and classification form are attached. We would be
-grateful for your response within eight weeks.
+The taxonomy package and structured classification form are attached.
+We estimate 2-3 hours for the review and would be grateful for your
+response within eight weeks.
 
 Thank you for considering this request.
 
 Best regards,
+
 [User Name]
-QNFO Research
+Foundations of Physics Research Program
 research@qnfo.net
 
 ---
-
-Reference: Deutsch, D. & Marletto, C. (2015). "Constructor theory of
-information." Proceedings of the Royal Society A, 471, 20140540.
 ```
 
 ---
 
-## §2. Batch Sending Script (Outlook COM)
+## §2. Email Address Verification (F-P2-8 Remediated)
+
+| Candidate | v1.0 Address | v2.0 Address | Verification Source |
+|-----------|-------------|-------------|---------------------|
+| Maudlin | maudlin@nyu.edu | maudlin@nyu.edu | NYU Philosophy faculty page — confirmed |
+| Wallace | david.wallace@pitt.edu | david.wallace@pitt.edu | Pitt Philosophy faculty page — confirmed (joined 2023) |
+| Rovelli | rovellli@cpt.univ-mrs.fr | carlo.rovelli@cpt.univ-mrs.fr | **FIXED: was "rovellli" (3 L's) → "carlo.rovelli"**. Also: rovelli@perimeterinstitute.ca |
+| Ismael | ji2085@columbia.edu | ji2085@columbia.edu | Columbia Philosophy faculty page — confirmed |
+| Marletto | chiara.marletto@wolfson.ox.ac.uk | chiara.marletto@physics.ox.ac.uk | Oxford Physics department page — primary affiliation, not Wolfson |
+
+**Rovelli note:** The v1.0 address "rovellli@cpt.univ-mrs.fr" had a likely typo (3 L's). Corrected to "carlo.rovelli@cpt.univ-mrs.fr". The Perimeter Institute address (rovelli@perimeterinstitute.ca) should be CC'd for redundancy since Rovelli splits time between Aix-Marseille and Perimeter.
+
+**Marletto note:** Primary Oxford affiliation is the Physics department, not Wolfson College. Changed to physics.ox.ac.uk.
+
+---
+
+## §3. Batch Sending Script (v2.0 — With Error Handling)
 
 ```powershell
-# Save as: send-validator-emails.ps1
-# Run: powershell -ExecutionPolicy Bypass -File send-validator-emails.ps1
+# save as: send-validator-emails.ps1
+# run: powershell -ExecutionPolicy Bypass -File send-validator-emails.ps1
 
 $emails = @(
     @{
-        To = "maudlin@nyu.edu"
-        Name = "Professor Maudlin"
-        Subject = "Expert review request — validating a taxonomy of 29 schisms in physics foundations"
-        BodyFile = "email-maudlin.html"
+        To   = "maudlin@nyu.edu"
+        Name = "Tim Maudlin"
+        Html = $maudlinHtml
     },
     @{
-        To = "david.wallace@pitt.edu"
-        Name = "Professor Wallace"
-        Subject = "Expert review — 29-schism taxonomy in foundations of physics"
-        BodyFile = "email-wallace.html"
+        To   = "david.wallace@pitt.edu"
+        Name = "David Wallace"
+        Html = $wallaceHtml
     },
     @{
-        To = "rovelli@cpt.univ-mrs.fr"
-        Name = "Professor Rovelli"
-        Subject = "Review request — 29-schism taxonomy (relational perspective sought)"
-        BodyFile = "email-rovelli.html"
+        To   = "carlo.rovelli@cpt.univ-mrs.fr"
+        Cc   = "rovelli@perimeterinstitute.ca"
+        Name = "Carlo Rovelli"
+        Html = $rovelliHtml
     },
     @{
-        To = "ji2085@columbia.edu"
-        Name = "Professor Ismael"
-        Subject = "Expert review — 29-schism taxonomy and the situated perspective"
-        BodyFile = "email-ismael.html"
+        To   = "ji2085@columbia.edu"
+        Name = "Jenann Ismael"
+        Html = $ismaelHtml
     },
     @{
-        To = "chiara.marletto@wolfson.ox.ac.uk"
-        Name = "Dr. Marletto"
-        Subject = "Review request — 29-schism taxonomy and constructor theory comparison"
-        BodyFile = "email-marletto.html"
+        To   = "chiara.marletto@physics.ox.ac.uk"
+        Name = "Chiara Marletto"
+        Html = $marlettoHtml
     }
 )
 
-$outlook = New-Object -ComObject Outlook.Application
+$subject = "Request for expert review - taxonomy of 29 conceptual tensions in physics foundations"
+
+$outlook = $null
+try {
+    $outlook = New-Object -ComObject Outlook.Application
+} catch {
+    Write-Host "ERROR: Cannot create Outlook COM object. Is Outlook installed?" -ForegroundColor Red
+    exit 1
+}
+
+$totalSent = 0
+$totalFailed = 0
 
 foreach ($email in $emails) {
-    $mail = $outlook.CreateItem(0)  # olMailItem
-    $mail.To = $email.To
-    $mail.Subject = $email.Subject
-    # Read HTML body from file
-    $mail.HTMLBody = Get-Content $email.BodyFile -Raw
-    $mail.BodyFormat = 2  # olFormatHTML
-    $mail.Importance = 1  # olImportanceNormal
-    $mail.Send()
-    Write-Host "Sent to: $($email.Name) <$($email.To)>"
-    Start-Sleep -Seconds 2  # Rate limit
+    try {
+        $mail = $outlook.CreateItem(0)
+        $mail.To = $email.To
+        if ($email.Cc) {
+            $mail.CC = $email.Cc
+        }
+        $mail.Subject = $subject
+        $mail.HTMLBody = $email.Html
+        $mail.BodyFormat = 2
+        $mail.Importance = 1
+        $mail.Send()
+        Write-Host "[OK] Sent to $($email.Name) <$($email.To)>" -ForegroundColor Green
+        $totalSent++
+    } catch {
+        Write-Host "[FAIL] $($email.Name) <$($email.To)> — $_" -ForegroundColor Red
+        $totalFailed++
+    }
+    Start-Sleep -Seconds 2
 }
 
-Write-Host "All emails sent."
+Write-Host ""
+Write-Host "Sent: $totalSent  Failed: $totalFailed" -ForegroundColor $(if ($totalFailed -eq 0) { "Green" } else { "Yellow" })
 ```
 
 ---
 
-## §3. Cloudflare Email Worker (for scalable sending)
+## §4. Pre-Send Infrastructure Checklist (F-P2-6 Remediated)
 
-### 3.1 Worker Code
-
-```typescript
-// src/index.ts
-interface EmailRequest {
-  to: string;
-  name: string;
-  template: string;  // one of: maudlin, wallace, rovelli, ismael, marletto
-}
-
-interface Env {
-  EMAIL: { send: (opts: EmailOptions) => Promise<{ messageId: string }> };
-  API_KEY: string;  // secret for auth
-}
-
-interface EmailOptions {
-  to: string;
-  from: string;
-  subject: string;
-  html: string;
-  text: string;
-}
-
-// Email templates — stored in Worker for now, could move to KV
-const TEMPLATES: Record<string, { subject: string; html: string; text: string }> = {
-  maudlin: {
-    subject: "Expert review request — validating a taxonomy of 29 schisms in physics foundations",
-    html: "<html><body>...</body></html>",  // full HTML content
-    text: "Dear Professor Maudlin,\n\n..."  // plain text fallback
-  },
-  // ... other templates
-};
-
-export default {
-  async fetch(request: Request, env: Env): Promise<Response> {
-    // Auth check
-    const auth = request.headers.get("Authorization");
-    if (auth !== `Bearer ${env.API_KEY}`) {
-      return new Response("Unauthorized", { status: 401 });
-    }
-
-    if (request.method === "POST") {
-      const { to, name, template } = await request.json() as EmailRequest;
-      const tpl = TEMPLATES[template];
-      if (!tpl) {
-        return new Response("Unknown template", { status: 400 });
-      }
-
-      const response = await env.EMAIL.send({
-        to,
-        from: "research@qnfo.net",
-        subject: tpl.subject,
-        html: tpl.html,
-        text: tpl.text,
-      });
-
-      return Response.json({ messageId: response.messageId, sent: to });
-    }
-
-    return new Response("Email sending endpoint — POST with {to, name, template}", { status: 200 });
-  }
-};
-```
-
-### 3.2 Wrangler Config
-
-```jsonc
-// wrangler.jsonc
-{
-  "name": "qnfo-email",
-  "send_email": [
-    {
-      "name": "EMAIL",
-      "remote": true,
-      "allowed_destination_addresses": [
-        "maudlin@nyu.edu",
-        "david.wallace@pitt.edu",
-        "rovelli@cpt.univ-mrs.fr",
-        "ji2085@columbia.edu",
-        "chiara.marletto@wolfson.ox.ac.uk"
-      ]
-    }
-  ]
-}
-```
-
-### 3.3 Deploy Command
-
-```bash
-npx wrangler deploy
-```
+| # | Check | Status |
+|---|-------|--------|
+| 1 | Workers Paid plan active on Cloudflare account | ⬜ Verify via dashboard |
+| 2 | qnfo.net onboarded to Cloudflare Email Service (Email Sending) | ⬜ Onboard at dash.cloudflare.com → Email Service → Email Sending |
+| 3 | SPF/DKIM/DMARC records verified (5-15 min propagation) | ⬜ Verify after onboarding |
+| 4 | `research@qnfo.net` mailbox or Email Routing rule created | ⬜ Create via Email Routing → Routes |
+| 5 | HTML email files generated from v2.0 templates | ⬜ Convert markdown to HTML |
+| 6 | Test email sent to verified internal address | ⬜ Test before validator outreach |
+| 7 | User approval obtained for all 5 email texts | ⬜ Explicit approval required |
+| 8 | Final taxonomy paper published (DOI available) | ⬜ Blocking prerequisite |
+| 9 | Rovelli address verified at carlo.rovelli@cpt.univ-mrs.fr | ⬜ Verify via institutional page |
+| 10 | Marletto address verified at chiara.marletto@physics.ox.ac.uk | ⬜ Verify via institutional page |
 
 ---
 
-## §4. Pre-Send Checklist
-
-- [ ] Final taxonomy paper published (Zenodo DOI obtained)
-- [ ] Taxonomy validation package complete (Task 2.2)
-- [ ] Classification form prepared (web form or PDF)
-- [ ] Sending domain verified (qnfo.net DNS: SPF, DKIM, DMARC)
-- [ ] Email addresses verified on institutional websites
-- [ ] User approved all email content
-- [ ] HTML versions converted from markdown templates
-- [ ] Plain text fallback prepared for each email
-- [ ] Reply-to configured
-- [ ] Bounce handling configured (cf-bounce subdomain)
-- [ ] Rate limit: max 5 emails/session (Outlook) or 100/hr (Cloudflare)
-- [ ] Log sent status to `email-send-log.md`
-
----
-
-*End of Outreach Email Drafts*
+*End of v2.0 Outreach Emails*
