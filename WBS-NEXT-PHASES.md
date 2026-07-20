@@ -177,8 +177,8 @@ Submit the 29-schism taxonomy to external researchers for independent classifica
 | Aspect | Detail |
 |--------|--------|
 | **Deliverable** | External validation report |
-| **Description** | Collect validator classifications. Identify: (a) schisms that validators agree are "physics" vs "philosophy," (b) missing schisms validators propose, (c) schisms validators consider resolved or ill-posed. |
-| **Effort** | 4-8 weeks (waiting for responses) |
+| **Description** | Collect validator classifications. Identify: (a) schisms that validators agree are "physics" vs "philosophy," (b) missing schisms validators propose, (c) schisms validators consider resolved or ill-posed. **Fallback rule:** If fewer than 3 validators respond by the 8-week mark, (a) extend by 4 weeks with a follow-up reminder; (b) if still insufficient, proceed with whatever responses exist and explicitly label the validation as "partial (N of 3-5 target respondents)" rather than silently treating 1 response as sufficient. |
+| **Effort** | 4-8 weeks (waiting for responses); up to 12 weeks with fallback |
 
 #### Task 2.4: Revise Taxonomy (if needed)
 | Aspect | Detail |
@@ -433,7 +433,8 @@ Phase 7 (Infrastructure) ──→ Continuous, independent
 | 4 | Task 0.5.2: Add Constructor Theory to competitor analysis | 🔄 **STARTED** (2026-07-20) — `competitor-analysis-multi-framework.md` created with Constructor Theory, Bohmian, Relational QM, and verified GUF table. Phase 1 can proceed; central finding: Constructor Theory resolves S19 lighter but does NOT address remaining 25+ schisms |
 | 4a | Task 0.5.3: GUF schism-by-schism table | ✅ **DONE** (2026-07-20) — verified 2.5/29 (previously estimated ~15/29, wrong by 6x). Included in `competitor-analysis-multi-framework.md` §7 |
 | 4b | Task 0.5.4: Fix dependency graph inconsistency | ✅ **RESOLVED** — Phases 3-4 confirmed independent of Phase 1 (test ultrametric geometry, not Bootstrap Conjecture). WBS dependency graph corrected. |
-| 5 | Begin Task 1.1: Define calibration map C | ⬜ Pending |
+| 5 | Task 1.1: Define calibration map C | 🔄 **IN PROGRESS** (2026-07-20 — formal definition complete in `calibration-map-c-definition.md`; Tasks 1.2–1.5 remain) |
+| 5a | Task 0.5.6: Recruitment fallback embedded in Phase 2 WBS | ✅ **DONE** (2026-07-20 — language added to Task 2.3) |
 | 6 | Begin Task 2.1: Select external validators | ⬜ Pending |
 | 7 | OSF pre-register trapped-ion protocol (Task 3.1) | ⬜ Pending — protocol document complete, ready to submit, requires explicit user approval per OSF Bona Fide Registration Requirements |
 | 8 | OSF pre-register CMB search protocol (Task 4.1 prelim) | ⬜ Pending — same approval gate |
