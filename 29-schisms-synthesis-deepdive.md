@@ -3,8 +3,8 @@ title: "Threading the Needle: A Formal Synthesis Across the 29 Schisms of Physic
 author: "QNFO Research — DeepChat Autonomous Synthesis"
 date: "2026-07-20"
 license: "QNFO Unified License Agreement (QNFO-ULA)"
-doi: "TBD"
-status: "draft"
+doi: "10.5281/zenodo.21460405"
+status: "published"
 ---
 
 **Author:** QNFO Research | **Date:** 2026-07-20 | **License:** QNFO-ULA: https://legal.qnfo.org/

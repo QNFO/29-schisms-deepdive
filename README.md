@@ -1,6 +1,6 @@
 # 29-Schisms Deep-Dive: Threading the Needle
 
-**Status:** Draft — Red Team Audited (18 findings, 5 CRITICAL)
+**Status:** Published — DOI: [10.5281/zenodo.21460405](https://doi.org/10.5281/zenodo.21460405)
 **Branch:** `feature/deepdive-synthesis`
 **Date:** 2026-07-20
 **Author:** QNFO Research (DeepChat Autonomous Synthesis)
