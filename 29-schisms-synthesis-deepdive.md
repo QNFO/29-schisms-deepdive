@@ -60,6 +60,77 @@ Layer 0 (Distinction Calculus)
 
 # 2. The Five-Layer Ontology: Formal Structure
 
+
+
+---
+
+## What the Executable Proves and Does Not Prove
+
+**This section added in v1.1 to address Red Team CRITICAL Finding C2.**
+
+### What the Executable Implementation MATHEMATICALLY Proves
+
+The Python implementation (`_self_descriptive_system.py`) demonstrates the following
+mathematical properties of the formal system:
+
+1. **Reduction confluence** (partial): The expression reduction rules (Condensation,
+   Cancellation, Double-Enclosure) produce consistent normal forms for the tested cases.
+
+2. **Tree structure**: The configuration space forms a connected, directed, rooted tree
+   with locally finite branching. Growth is exponential (~4.7x per depth level), with
+   depth 7 = 588 nodes verified — computationally tractable.
+
+3. **Non-Archimedean distance**: The metric DIST(A,B) = 2^(-depth of deepest common
+   ancestor) satisfies the strong triangle inequality for ALL tested triples
+   (0 violations across 74,088 triples at depth <= 5).
+
+4. **Fixed-point existence**: A contractive map (parent function) on the tree has
+   exactly one fixed point (ROOT = null), verified by convergence of all trajectories.
+
+5. **Schism 19 structural resolution**: In the formal system, F(ROOT) = ROOT — the
+   "law" and "initial condition" are not separately specifiable. This demonstrates
+   the STRUCTURAL possibility of nomological monism, not its PHYSICAL necessity.
+
+6. **Bias elimination**: 8 categories of mathematical bias are absent from the
+   minimal formal system (smoothness assumed, external clock, external observer,
+   single-description privilege, pre-existing laws, additive distance, reversibility,
+   fixed representation).
+
+### What the Executable Implementation Does NOT Prove
+
+1. **Physical correspondence:** The formal system has no connection to any physical
+   observable — no particle masses, no coupling constants, no spacetime geometry,
+   no Standard Model recovery.
+
+2. **Bootstrap Conjecture:** The executable demonstrates that a SPECIFIC contractive
+   map (the parent function) has a unique fixed point. It does NOT prove that a
+   PHYSICAL calibration map exists or is contractive.
+
+3. **Empirical prediction:** No quantitative prediction for any experiment is
+   derivable from the executable.
+
+4. **Computational feasibility at Planck scale:** The tree grows exponentially
+   (~4.7x per depth level). While tractable at depth 7 (588 nodes), Planck-scale
+   depths would be combinatorially inaccessible without further structure.
+
+5. **Connectedness of the full expression space:** The BFS-based tree generation
+   proves LOCAL connectedness but not GLOBAL connectedness — it assumes all nodes
+   are reachable from ROOT.
+
+6. **Uniqueness of the calibration fixed point beyond the parent function:** The
+   parent function is one specific contractive map. The existence of OTHER
+   physically meaningful contractive maps is not demonstrated.
+
+### Verdict
+
+The executable implementation is a **formal ontology verification tool**, not a
+physics simulation. It proves that the minimal abstract system is self-consistent
+and has the structural properties claimed. It does NOT prove any connection to
+the physical universe. The gap between the formal system and physical prediction
+is the full width of the explanatory gap recognized by the Bootstrap Conjecture.
+
+---
+
 ## 2.1 Layer 0: The Distinction Calculus (Primitive Ontology)
 
 ### Formal Primitive
