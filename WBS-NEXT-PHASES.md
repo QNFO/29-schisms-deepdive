@@ -430,7 +430,9 @@ Phase 7 (Infrastructure) ──→ Continuous, independent
 | 1 | Create Zenodo v1.2 with all current artifacts | ✅ **DONE** (verified live, HTTP 200: 10.5281/zenodo.21460736) — but see Task 0.5.1, version chain is fragmented, not cleanly chained from v1.0 |
 | 2 | Buffer social media posts | ⬜ **NOT DONE** — deliberately deferred per research skill's "reserve social posts for final deliverables" guidance; framework is still conjecture-stage |
 | 3 | Task 0.5.1: Fix Zenodo version-chain discipline going forward | ⬜ Pending — do FIRST, before any further Zenodo publishes |
-| 4 | Task 0.5.2: Add Constructor Theory to competitor analysis | ⬜ Pending — HIGH priority, do before/parallel with Phase 1 |
+| 4 | Task 0.5.2: Add Constructor Theory to competitor analysis | 🔄 **STARTED** (2026-07-20) — `competitor-analysis-multi-framework.md` created with Constructor Theory, Bohmian, Relational QM, and verified GUF table. Phase 1 can proceed; central finding: Constructor Theory resolves S19 lighter but does NOT address remaining 25+ schisms |
+| 4a | Task 0.5.3: GUF schism-by-schism table | ✅ **DONE** (2026-07-20) — verified 2.5/29 (previously estimated ~15/29, wrong by 6x). Included in `competitor-analysis-multi-framework.md` §7 |
+| 4b | Task 0.5.4: Fix dependency graph inconsistency | ✅ **RESOLVED** — Phases 3-4 confirmed independent of Phase 1 (test ultrametric geometry, not Bootstrap Conjecture). WBS dependency graph corrected. |
 | 5 | Begin Task 1.1: Define calibration map C | ⬜ Pending |
 | 6 | Begin Task 2.1: Select external validators | ⬜ Pending |
 | 7 | OSF pre-register trapped-ion protocol (Task 3.1) | ⬜ Pending — protocol document complete, ready to submit, requires explicit user approval per OSF Bona Fide Registration Requirements |
