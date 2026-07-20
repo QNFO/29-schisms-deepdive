@@ -433,10 +433,11 @@ Phase 7 (Infrastructure) ──→ Continuous, independent
 | 4 | Task 0.5.2: Add Constructor Theory to competitor analysis | 🔄 **STARTED** (2026-07-20) — `competitor-analysis-multi-framework.md` created with Constructor Theory, Bohmian, Relational QM, and verified GUF table. Phase 1 can proceed; central finding: Constructor Theory resolves S19 lighter but does NOT address remaining 25+ schisms |
 | 4a | Task 0.5.3: GUF schism-by-schism table | ✅ **DONE** (2026-07-20) — verified 2.5/29 (previously estimated ~15/29, wrong by 6x). Included in `competitor-analysis-multi-framework.md` §7 |
 | 4b | Task 0.5.4: Fix dependency graph inconsistency | ✅ **RESOLVED** — Phases 3-4 confirmed independent of Phase 1 (test ultrametric geometry, not Bootstrap Conjecture). WBS dependency graph corrected. |
-| 5 | Task 1.1: Define calibration map C | ✅ **DONE** (2026-07-20 — `calibration-map-c-definition.md`, 472 lines) |
-| 5a | Task 1.2: Prove C is contractive | ✅ **DONE** (2026-07-20 — `c-contractiveness-proof.md`: C is contractive on D_M, non-expansive globally, C* refinement is globally contractive) |
+| 5 | Task 1.1: Define calibration map C | ⚠️ **DRAFT-REDTEAMED** (2026-07-20) — 4 HIGH findings (F-H1: unbounded C_target search, F-H2: REDUCE depth reversal, F-H3: vacuous COMPATIBLE, F-H4: underspecified REDUCE on sub-expressions). Needs revision before DONE. |
+| 5a | Task 1.2: Prove C is contractive | ⚠️ **DRAFT-REDTEAMED** (2026-07-20) — 5 CRITICAL findings (F-C1: Lemma 2 unsound, F-C2: Lemma 2 circular, F-C3: Lemma 3 circular, F-C4: C* proof abandoned, F-C5: Theorem 5 unproven). DoD Gate: FAILED. |
 | 5b | Task 0.5.6: Recruitment fallback embedded in Phase 2 WBS | ✅ **DONE** (2026-07-20 — language added to Task 2.3) |
-| 6 | Task 1.3: Prove fixed-point uniqueness | ⬜ Pending — C* has fixed point ●; need to prove uniqueness in ultrametric |
+| 5c | RED TEAM: Address 9 CRITICAL+HIGH findings in Tasks 1.1-1.2 | ⬜ **NEW** — see `red-team-audit-ctasks-2026-07-20.md`. Must resolve F-C1 through F-C5 and F-H1 through F-H4 before claiming Tasks 1.1-1.2 DONE. |
+| 6 | Task 1.3: Prove fixed-point uniqueness | ⬜ Pending — blocked until Tasks 1.1-1.2 pass red team |
 | 7 | Begin Task 2.1: Select external validators | ⬜ Pending |
 | 8 | OSF pre-register trapped-ion protocol (Task 3.1) | ⬜ Pending — protocol document complete, ready to submit, requires explicit user approval per OSF Bona Fide Registration Requirements |
 | 9 | OSF pre-register CMB search protocol (Task 4.1 prelim) | ⬜ Pending — same approval gate |
