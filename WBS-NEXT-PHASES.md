@@ -1,17 +1,84 @@
 # WORK BREAKDOWN STRUCTURE: 29-Schisms Research Program — Next Phases
 
 **Project:** 29-schisms-deepdive
-**Current Version:** v1.1 (DOI: 10.5281/zenodo.21465629)
-**Date:** 2026-07-20
-**Status:** Phase 0 (Initial Research) COMPLETE → Planning Phases 1-5
+**Current Version:** v1.2 (DOI: 10.5281/zenodo.21460736 — concept 10.5281/zenodo.21460735; see note on fragmented version chain in README.md and Phase 0.5 below)
+**Date:** 2026-07-20 (updated same-day after second-round red team closeout)
+**Status:** Phase 0 (Initial Research) COMPLETE, Phase 0.5 (Remediation) DEFINED → Planning Phases 1-7
 
 ---
 
 ## Overview
 
-The initial research phase (2026-07-20) established the needle-threading framework: a 5-layer dependency-stack ontology resolving all 29 schisms of physics. Key outputs: domain-specific synthesis, domain-independent formalization, executable implementation, red team audit (all 5 CRITICAL findings addressed), 2 experimental protocols, competitor analysis, and complete publication stack (GitHub + R2 + Zenodo).
+The initial research phase (2026-07-20) established the needle-threading framework: a 5-layer dependency-stack ontology resolving all 29 schisms of physics. Key outputs: domain-specific synthesis, domain-independent formalization, executable implementation, first-round red team audit (all 5 CRITICAL findings addressed in v1.1), 2 experimental protocols, competitor analysis, and complete publication stack (GitHub + R2 + Zenodo).
 
-The following WBS defines the next 5 research phases, each addressing a priority level identified by the deep-dive research scan. Each phase has concrete deliverables, task-level breakdown, dependencies, milestones, and resource estimates.
+A **second-round red team audit** (documented in `red-team-audit-v12-closeout-2026-07-20.md`) was then run against the WBS itself, the competitor analysis, and the publication infrastructure. It found 2 new CRITICAL and 4 new HIGH findings. This revision of the WBS adds **Phase 0.5 (Remediation)** to track those findings as owned tasks, corrects the dependency graph to match the task tables, demotes Phase 5 (GUF Bridge) to a Speculative Backlog per that audit's R3 finding, and updates the Next-Session Immediate Tasks table to reflect what has actually been verified done (not just attempted).
+
+The following WBS defines Phase 0.5 plus 6 forward research phases, each addressing a priority level identified by the deep-dive research scan. Each phase has concrete deliverables, task-level breakdown, dependencies, milestones, and resource estimates.
+
+---
+
+## Phase 0.5: Red-Team Remediation (P0 — CRITICAL, blocks nothing but must not be silently dropped)
+
+### Objective
+Convert every finding from the second-round red team closeout audit (`red-team-audit-v12-closeout-2026-07-20.md`) into an owned, tracked task. Two findings were already fixed same-session (README content drift, ephemeral script cleanup); the remainder are listed here.
+
+### WBS
+
+#### Task 0.5.1: Zenodo Version Chain Cross-Linking (addresses Finding I-1, CRITICAL)
+| Aspect | Detail |
+|--------|--------|
+| **Deliverable** | Permanent cross-link between concept DOI 10.5281/zenodo.21460404 (v1.0 chain) and 10.5281/zenodo.21460735 (v1.2 chain) in all future metadata |
+| **Description** | Cannot merge concept DOIs after the fact via Zenodo API. Going forward: EVERY new version MUST be created via `POST /deposit/depositions/{latest_id}/actions/newversion` against the v1.2 deposit (21460736), never as a fresh `POST /deposit/depositions`. Update `.zenodo_versions.json` (per research skill C2 fix) to track deposit ID 21460736 as `latest_deposit_id` going forward. |
+| **Effort** | 1 day (process fix) + ongoing discipline |
+| **Owner** | Whoever runs the next Zenodo publish step — MUST read `.zenodo_versions.json` first |
+
+#### Task 0.5.2: Add Constructor Theory (and Bohmian, Relational QM) to Competitor Analysis (addresses R3 CRITICAL finding)
+| Aspect | Detail |
+|--------|--------|
+| **Deliverable** | `competitor-analysis-qbism-cdt.md` → renamed/extended to include Constructor Theory, Bohmian mechanics, Rovelli's Relational QM |
+| **Description** | Constructor Theory (Deutsch/Marletto) directly targets S19 (nomological dualism — the user's original entry-point schism) using counterfactual statements about possible/impossible transformations — a fundamentally different and lighter formalism than the Bootstrap Conjecture. This is a MORE serious challenge to the needle-threading framework's necessity than QBism or CDT, neither of which touch S19. Must be evaluated schism-by-schism with the same rigor. |
+| **Effort** | 2-3 weeks |
+| **Priority** | HIGH — do this before, or in parallel with, Phase 1 (Bootstrap proof), since a successful lightweight resolution of S19 by Constructor Theory would change the urgency/framing of Phase 1 |
+
+#### Task 0.5.3: Produce Missing GUF Schism-by-Schism Table (closes H2 from first-round audit)
+| Aspect | Detail |
+|--------|--------|
+| **Deliverable** | GUF evaluated with the same 29-row table format used for QBism and CDT |
+| **Description** | The first-round red team (H2) demanded this; the competitor-analysis document addressed QBism/CDT but left GUF's "~15/29 (estimated)" figure unsubstantiated. Close this gap. |
+| **Effort** | 1-2 weeks |
+
+#### Task 0.5.4: Fix Dependency Graph / Task Table Inconsistency (addresses R5 MODERATE finding)
+| Aspect | Detail |
+|--------|--------|
+| **Deliverable** | Single source of truth for whether Phases 3-4 (experiments) depend on Phase 1 (Bootstrap proof) |
+| **Description** | Decide explicitly: do the trapped-ion and CMB experiments test predictions that hold REGARDLESS of whether the Bootstrap Conjecture is proven (in which case they are independent and the graph below is corrected), or do they only make sense as tests of the fully-proven framework (in which case OSF pre-registration should wait for Phase 1)? Resolved below: **experiments are independent** — the Sufficient Condition Theorem and STC log-periodic prediction were derived from Layers 1-2 (ultrametric geometry, STC), NOT from the Bootstrap Conjecture (Layer 3). They can and should proceed in parallel with Phase 1. |
+| **Effort** | Resolved now (see corrected dependency graph below) |
+
+#### Task 0.5.5: Add Decision Rule to Task 1.4 (addresses R2 HIGH finding)
+| Aspect | Detail |
+|--------|--------|
+| **Deliverable** | Explicit pre-registered criterion for Task 1.4's validation step |
+| **Description** | Before starting Task 1.4, write down: what specific numerical match/mismatch between derived branching factors and the executable's (1,2,2,3,7,28,125,588) pattern counts as confirmation vs. disconfirmation vs. inconclusive, and what action follows each. This must be written BEFORE running the comparison, not after (to avoid post-hoc rationalization — see the research skill's Calibration Register discipline). |
+| **Effort** | 2-3 days, done as the first step of Task 1.4, not a separate phase |
+
+#### Task 0.5.6: Add Recruitment Fallback to Phase 2 (addresses R2 HIGH finding)
+| Aspect | Detail |
+|--------|--------|
+| **Deliverable** | Fallback plan if <3 external validators respond within 8 weeks |
+| **Description** | Phase 2 as originally written assumes responses arrive. Add: if fewer than 3 validators respond by the 8-week mark, (a) extend by 4 weeks with a follow-up reminder, (b) if still insufficient, proceed with whatever responses exist and explicitly label the validation as "partial (N of 3-5 target respondents)" rather than silently treating 1 response as sufficient. |
+| **Effort** | Planning only, no calendar cost added |
+
+#### Task 0.5.7: Source Real Cost Estimates for Phase 3 (addresses R4 HIGH finding)
+| Aspect | Detail |
+|--------|--------|
+| **Deliverable** | Replace the unsourced "~$50K (lab time)" figure with either a real quote or an explicit `[unverified estimate — no lab contacted yet]` label |
+| **Description** | Do this as part of Task 3.2 (Secure Lab Access) rather than presenting a number now as if it were researched. |
+| **Effort** | Rolled into Task 3.2 |
+
+### Phase 0.5 Deliverables
+1. Updated `.zenodo_versions.json` (new file, tracks deposit 21460736 going forward)
+2. `competitor-analysis-multi-framework.md` (renamed/extended from `competitor-analysis-qbism-cdt.md`, adds Constructor Theory, Bohmian, Relational QM, GUF schism-by-schism table)
+3. This WBS document, corrected
 
 ---
 
@@ -222,35 +289,41 @@ Search for log-periodic oscillations in CMB data as predicted by the Syntactic T
 
 ---
 
-## Phase 5: GUF-to-Adelic Bridge Theorem (P4 — LOW FEASIBILITY)
+## Speculative Backlog (demoted from Phase 5 per second-round red team R3 finding)
+
+**Why demoted:** The second-round red team (R3) flagged that this task was self-rated "LOW FEASIBILITY" and its central premise (|χ|=6 = 2×3 relating to Bruhat-Tits branching factor p+1 at p=2) is explicitly labeled numerology by the project's own deep-dive research document (§5.1: "This is speculation dressed as a program"). Giving it WBS phase-numbering alongside genuinely scoped phases implied more confidence than the framework itself claims. It remains here as a backlog item, not a committed phase.
+
+### GUF-to-Adelic Bridge Theorem (was Phase 5, P4 — LOW FEASIBILITY)
 
 ### Objective
 Establish a formal mathematical relationship between the Geometric Unification Framework (Calabi-Yau threefold, |χ|=6) and the adelic ultrametric framework (Bruhat-Tits trees over Q_p).
 
-### Duration Estimate: 6-18 months (deep algebraic geometry required)
+### Duration Estimate: 6-18 months (deep algebraic geometry required) — IF pursued at all
 
-### WBS
+### Backlog Tasks
 
-#### Task 5.1: Literature Survey
+#### Task B.1: Literature Survey
 | Aspect | Detail |
 |--------|--------|
 | **Deliverable** | Survey of Calabi-Yau ↔ p-adic connections in the mathematical literature |
 | **Description** | Search for existing work relating Calabi-Yau manifolds to p-adic geometry, Bruhat-Tits buildings, or adelic structures. Contact algebraic geometers. |
 | **Effort** | 4-8 weeks |
 
-#### Task 5.2: Candidate Mapping
+#### Task B.2: Candidate Mapping
 | Aspect | Detail |
 |--------|--------|
 | **Deliverable** | Candidate mathematical mapping: CY₃ ↔ BT tree |
 | **Description** | Explore: (a) Euler characteristic |χ|=6 relates to branching factors (6=2×3, p=2 gives branching 3), (b) Hodge numbers ↔ tree depth structure, (c) spectral properties ↔ valuations. |
 | **Effort** | 8-16 weeks |
 
-#### Task 5.3: Theorem Statement + Proof Attempt
+#### Task B.3: Theorem Statement + Proof Attempt
 | Aspect | Detail |
 |--------|--------|
 | **Deliverable** | Bridge Theorem (proven or conjecture status documented) |
 | **Description** | If a mapping is found: formalize as a theorem and attempt proof. If no mapping found: document why, classify as "GUF remains isolated Archimedean pillar." |
 | **Effort** | 12-24 weeks |
+
+**Promotion criterion:** Only promote this backlog item to an active phase if Task 0.5.3 (GUF schism-by-schism table) reveals a stronger-than-expected overlap that makes the bridge look tractable, OR an external algebraic geometer (contacted informally) indicates the mapping is plausible.
 
 ---
 
@@ -322,39 +395,44 @@ Design a 5-year hardware development plan from trapped-ion proof-of-concept to m
 
 ---
 
-## Dependency Graph
+## Dependency Graph (CORRECTED per Task 0.5.4)
 
 ```
-Phase 1 (Bootstrap Proof) ─────────────────────────────────────────┐
-    │                                                                │
-    ├──→ Phase 3 (Trapped-Ion) ──→ Phase 6 (Hardware Roadmap)       │
-    │         │                                                      │
-    │         └──→ Phase 3.5 (OSF Closeout)                         │
-    │                                                                │
-    ├──→ Phase 4 (CMB Search) ──→ Phase 4.5 (OSF Closeout)          │
-    │                                                                │
-    └──→ Phase 5 (GUF Bridge) ── (optional, low priority)            │
-                                                                     │
-Phase 2 (Taxonomy Validation) ──→ Revise framework claims            │
-                                                                     │
-Phase 7 (Infrastructure) ──→ Continuous ────────────────────────────┘
+Phase 0.5 (Remediation) ── [do first / in parallel — low effort, unblocks nothing but must not be skipped]
+    │
+    ├──→ Task 0.5.2 (Constructor Theory) ──→ informs Phase 1 framing (does NOT block start)
+    │
+Phase 1 (Bootstrap Proof) ── INDEPENDENT of Phases 3-4 (see Task 0.5.4 resolution) ────┐
+    │                                                                                    │
+    ├──→ Phase 6 (Hardware Roadmap) [only meaningful AFTER Phase 3 has empirical data]  │
+    │                                                                                    │
+Phase 3 (Trapped-Ion) ── CAN START NOW, independent of Phase 1 ──→ Phase 3.5 (OSF Closeout)
+    │         (tests Sufficient Condition Theorem — derived from Layer 1-2, not Layer 3)
+    │
+Phase 4 (CMB Search) ── CAN START NOW, independent of Phase 1 ──→ Phase 4.5 (OSF Closeout)
+    │         (tests STC log-periodic prediction — derived from Layer 2, not Layer 3)
+    │
+Phase 2 (Taxonomy Validation) ──→ Revise framework claims (independent of all above)
+    │
+Speculative Backlog (GUF Bridge) ── promoted only if Task 0.5.3 or external input warrants it
+    │
+Phase 7 (Infrastructure) ──→ Continuous, independent
 ```
 
-**Key:** Phase 1 is the CRITICAL PATH because:
-- If Bootstrap Conjecture is proven: entire framework upgrades from "speculative" to "proven formal ontology"
-- If Bootstrap Conjecture is disproven: framework reverts to "interesting formal ontology, physical relevance unconfirmed"
-- Phases 3-6 are empirical tests that gain weight if Phase 1 succeeds
+**Key correction:** The original graph implied Phase 1 gates Phases 3-4. It does not. The trapped-ion Sufficient Condition Theorem and the STC log-periodic CMB prediction were both derived from Layer 1 (ultrametric geometry) and Layer 2 (STC tokens) — NOT from Layer 3 (Bootstrap Conjecture). These experiments test whether the UNDERLYING GEOMETRY is ultrametric; they do NOT require the self-referential-calibration mechanism to be proven first. **Phases 1, 2, 3, and 4 can and should run in parallel.** Phase 1 remains the highest-priority CRITICAL PATH item only in the sense that a successful proof upgrades the framework's overall status — not in the sense that it blocks other work.
 
 ---
 
-## Next Session Immediate Tasks
+## Next Session Immediate Tasks (updated — reflects verified-done vs. actually-pending)
 
-| Priority | Task | Ready? |
+| Priority | Task | Status |
 |----------|------|--------|
-| 1 | Create Zenodo v1.2 with all current artifacts | ✅ Now |
-| 2 | Buffer social media posts for v1.0/v1.1 release | ✅ Now |
-| 3 | Begin Task 1.1: Define calibration map C | ⬜ Pending |
-| 4 | Begin Task 2.1: Select external validators | ⬜ Pending |
-| 5 | OSF pre-register trapped-ion protocol (Task 3.1) | ⬜ Pending |
-| 6 | OSF pre-register CMB search protocol (Task 4.1 prelim) | ⬜ Pending |
-| 7 | Deploy PBO v1.0 to D1 (Task 7.4) | ⬜ Pending |
+| 1 | Create Zenodo v1.2 with all current artifacts | ✅ **DONE** (verified live, HTTP 200: 10.5281/zenodo.21460736) — but see Task 0.5.1, version chain is fragmented, not cleanly chained from v1.0 |
+| 2 | Buffer social media posts | ⬜ **NOT DONE** — deliberately deferred per research skill's "reserve social posts for final deliverables" guidance; framework is still conjecture-stage |
+| 3 | Task 0.5.1: Fix Zenodo version-chain discipline going forward | ⬜ Pending — do FIRST, before any further Zenodo publishes |
+| 4 | Task 0.5.2: Add Constructor Theory to competitor analysis | ⬜ Pending — HIGH priority, do before/parallel with Phase 1 |
+| 5 | Begin Task 1.1: Define calibration map C | ⬜ Pending |
+| 6 | Begin Task 2.1: Select external validators | ⬜ Pending |
+| 7 | OSF pre-register trapped-ion protocol (Task 3.1) | ⬜ Pending — protocol document complete, ready to submit, requires explicit user approval per OSF Bona Fide Registration Requirements |
+| 8 | OSF pre-register CMB search protocol (Task 4.1 prelim) | ⬜ Pending — same approval gate |
+| 9 | Deploy PBO v1.0 to D1 (Task 7.4) | ⬜ Pending — confirmed still returning 404 on papers.qnfo.org as of this session |

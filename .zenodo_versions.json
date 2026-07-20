@@ -1,0 +1,24 @@
+{
+  "note": "This project has a FRAGMENTED version chain (see red-team-audit-v12-closeout-2026-07-20.md, Finding I-1). There are two separate Zenodo concept DOIs. Going forward, ALL new versions MUST be created via POST /deposit/depositions/{latest_deposit_id}/actions/newversion against latest_deposit_id below -- never as a fresh POST /deposit/depositions.",
+  "chains": [
+    {
+      "concept_doi": "10.5281/zenodo.21460404",
+      "status": "superseded_but_live",
+      "versions": [
+        {"doi": "10.5281/zenodo.21460405", "deposit_id": "21460405", "tag": "v1.0", "published_at": "2026-07-20", "state": "done", "resolves": true},
+        {"doi": "10.5281/zenodo.21465629", "deposit_id": "21465629", "tag": "v1.1", "published_at": "2026-07-20", "state": "unknown", "resolves": false, "note": "Returns HTTP 404 as of 2026-07-20 second-round audit. Root cause not yet diagnosed."}
+      ]
+    },
+    {
+      "concept_doi": "10.5281/zenodo.21460735",
+      "status": "active_current_chain",
+      "versions": [
+        {"doi": "10.5281/zenodo.21460736", "deposit_id": "21460736", "tag": "v1.2", "published_at": "2026-07-20", "state": "done", "resolves": true}
+      ]
+    }
+  ],
+  "latest_deposit_id": "21460736",
+  "latest_doi": "10.5281/zenodo.21460736",
+  "latest_concept_doi": "10.5281/zenodo.21460735",
+  "instruction_for_next_publish": "curl -s -H 'Authorization: Bearer $ZENODO_TOKEN' https://zenodo.org/api/deposit/depositions/21460736  # verify GET succeeds and state is 'done' BEFORE calling actions/newversion. Then: POST https://zenodo.org/api/deposit/depositions/21460736/actions/newversion"
+}
