@@ -1,0 +1,43 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg-info/
+dist/
+build/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# OS
+.DS_Store
+Thumbs.db
+*.tmp
+
+# IDE
+.vscode/
+.idea/
+
+# Ephemeral scripts (may contain tokens during development)
+_*.py
+_*.js
+_*.sh
+!_self_descriptive_system.py
+
+# Secrets
+.env
+*.token
+keys.json
+credentials.json
+
+# DeepChat
+.deepchat/
+
+# Build artifacts
+*.pdf
+*.zip
+*.tar.gz
+
+# Wrangler
+.wrangler/
