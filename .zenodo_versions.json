@@ -4,25 +4,69 @@
     "concept_doi": "10.5281/zenodo.21460735",
     "status": "active",
     "versions": [
-      {"tag": "v1.2", "doi": "10.5281/zenodo.21460736", "deposit_id": "21460736", "published": "2026-07-20", "state": "done"},
-      {"tag": "v2.2", "doi": "10.5281/zenodo.21468103", "deposit_id": "21468103", "published": "2026-07-21", "state": "done", "verified_live": true, "note": "Expanded paper (20 pages, full schism descriptions + resolution matrix appendix)"},
-      {"tag": "v2.3", "doi": "10.5281/zenodo.21469000", "deposit_id": "21469000", "published": "2026-07-21", "state": "done", "verified_live": false, "note": "Trajectory-local Bootstrap Conjecture ADOPTED (Task 1.3b) + T6.1 partial proof for constrained class (Task 1.3c). New: trajectory-local-bootstrap-conjecture.md, t6-1-analytic-proof.md. Updated: calibration-map-c-definition.md v2.1, c-contractiveness-proof.md v2.1, RESEARCH-PLAN-UPDATE-GAP-CLOSURE.md, WBS-NEXT-PHASES.md."}
+      {
+        "tag": "v1.2",
+        "doi": "10.5281/zenodo.21460736",
+        "deposit_id": "21460736",
+        "published": "2026-07-20",
+        "state": "done"
+      },
+      {
+        "tag": "v2.2",
+        "doi": "10.5281/zenodo.21468103",
+        "deposit_id": "21468103",
+        "published": "2026-07-21",
+        "state": "done",
+        "verified_live": true,
+        "note": "Expanded paper (20 pages, full schism descriptions + resolution matrix appendix)"
+      },
+      {
+        "tag": "v2.3",
+        "doi": "10.5281/zenodo.21469000",
+        "deposit_id": "21469000",
+        "published": "2026-07-21",
+        "state": "done",
+        "verified_live": true,
+        "note": "Trajectory-local Bootstrap Conjecture ADOPTED (Task 1.3b) + T6.1 partial proof for constrained class (Task 1.3c). New: trajectory-local-bootstrap-conjecture.md, t6-1-analytic-proof.md. Updated: calibration-map-c-definition.md v2.1, c-contractiveness-proof.md v2.1, RESEARCH-PLAN-UPDATE-GAP-CLOSURE.md, WBS-NEXT-PHASES.md. PDF v2.3 built with tectonic 0.15.0 (XeTeX-compatible) — verified 20 pages, zero replacement chars."
+      }
     ]
   },
   "legacy_chains": [
     {
       "concept_doi": "10.5281/zenodo.21460404",
       "versions": [
-        {"tag": "v1.0", "doi": "10.5281/zenodo.21460405", "deposit_id": "21460405", "state": "done"},
-        {"tag": "v1.1", "doi": "10.5281/zenodo.21465629", "deposit_id": "21465629", "state": "broken_404"}
+        {
+          "tag": "v1.0",
+          "doi": "10.5281/zenodo.21460405",
+          "deposit_id": "21460405",
+          "state": "done"
+        },
+        {
+          "tag": "v1.1",
+          "doi": "10.5281/zenodo.21465629",
+          "deposit_id": "21465629",
+          "state": "broken_404"
+        }
       ]
     },
     {
       "concept_doi": "10.5281/zenodo.21467732",
       "note": "Orphan chain from token-transcription incident",
       "versions": [
-        {"tag": "v2.0", "doi": "10.5281/zenodo.21467733", "deposit_id": "21467733", "state": "done", "note": "PROVENANCE-BUNDLE only, no paper"},
-        {"tag": "v2.1", "doi": "10.5281/zenodo.21467899", "deposit_id": "21467899", "state": "done", "note": "First paper (11 pages), not chained to v1.2"}
+        {
+          "tag": "v2.0",
+          "doi": "10.5281/zenodo.21467733",
+          "deposit_id": "21467733",
+          "state": "done",
+          "note": "PROVENANCE-BUNDLE only, no paper"
+        },
+        {
+          "tag": "v2.1",
+          "doi": "10.5281/zenodo.21467899",
+          "deposit_id": "21467899",
+          "state": "done",
+          "note": "First paper (11 pages), not chained to v1.2"
+        }
       ]
     }
   ],
