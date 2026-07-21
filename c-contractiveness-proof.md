@@ -1,9 +1,9 @@
-# C-Contractiveness Proof: v2.0 (Red-Team Remediation)
+# C-Contractiveness Proof: v2.1 (Trajectory-Local Reframe)
 
 **Phase 1, Task 1.2 — Bootstrap Conjecture Formal Proof**
-**Date:** 2026-07-20 (v2.0 after red-team audit)
-**Status:** v2.0 (addresses F-C1 through F-C5 from `red-team-audit-ctasks-2026-07-20.md`)
-**Dependencies:** `calibration-map-c-definition.md` v2.0
+**Date:** 2026-07-20 (v2.0 after red-team audit); 2026-07-21 (v2.1 — trajectory-local reframe adopted, Task 1.3b)
+**Status:** v2.1 — global non-expansiveness claim withdrawn per trajectory-local reframe
+**Dependencies:** `calibration-map-c-definition.md` v2.1; `trajectory-local-bootstrap-conjecture.md`
 
 ---
 

@@ -1,13 +1,23 @@
-# Calibration Map C: Formal Definition (v2.0 — Red-Team Remediation)
+# Calibration Map C: Formal Definition (v2.1 — Trajectory-Local Reframe)
 
 **Phase 1, Task 1.1 — Bootstrap Conjecture Formal Proof**
-**Date:** 2026-07-20 (v2.0 revision after red-team audit)
-**Status:** v2.0 (addresses F-H1, F-H3, F-H4 from `red-team-audit-ctasks-2026-07-20.md`)
-**Dependencies:** Layers 0-2 of `29-schisms-formalization.md`
+**Date:** 2026-07-20 (v2.0); 2026-07-21 (v2.1 — trajectory-local reframe adopted, Task 1.3b)
+**Status:** v2.1 — trajectory-local Bootstrap Conjecture adopted; global non-expansiveness claim withdrawn
+**Dependencies:** Layers 0-2 of `29-schisms-formalization.md`; `trajectory-local-bootstrap-conjecture.md`
 
 ---
 
-## §0. Revision Notes (v1.0 → v2.0)
+## §0. Revision Notes
+
+### v2.0 → v2.1 (2026-07-21, Task 1.3b)
+
+| Change | Detail |
+|--------|--------|
+| **§2.2 Non-Expansiveness** | Claim of global non-expansiveness withdrawn. Replaced with trajectory-local non-expansiveness (Theorem W2-TL). The ancestor-based C can increase distances when ANCESTOR(A, B) fails internal calibration — see `c-contractiveness-proof.md` §2 analysis. |
+| **§3 Calibration Trajectory** | Reformulated in terms of trajectory-local convergence. C* extension clarified. |
+| **Conjecture framing** | Bootstrap Conjecture now uses trajectory-local formulation per `trajectory-local-bootstrap-conjecture.md`. Banach uniqueness no longer claimed; T* uniqueness requires separate argument or acceptance of non-uniqueness. |
+
+### v1.0 → v2.0 (2026-07-20)
 
 | Finding | Issue | Fix Applied |
 |---------|-------|-------------|
@@ -144,15 +154,31 @@ Ancestors of N form the path from ROOT to N, which is exactly DEPTH(N) + 1 nodes
 
 *Proof:* For any N, the ancestor chain has finite length DEPTH(N) + 1. The predicate `is_internally_calibrated` involves only DCA and DEPTH, both well-defined. ROOT is always calibrated, so the while loop always terminates with a valid return value. ∎
 
-### 2.2 Non-Expansiveness (F-H2 Resolved)
+### 2.2 Trajectory-Local Non-Expansiveness (v2.1)
 
-**Theorem W2:** For all A, B ∈ TREE, DIST(C(A), C(B)) ≤ DIST(A, B).
+**Theorem W2-TL (Trajectory-Local Non-Expansiveness):** For the trajectory
+T₀ = ∅, T₁ = C(∅), T₂ = C(T₁), ..., C satisfies:
+DIST(T_{n+1}, T_{n+2}) ≤ DIST(T_n, T_{n+1}) for all n.
 
-*Proof:* C maps each node to an ANCESTOR of that node. For any two ancestors of A and B, their DCA depth is at least the DCA depth of A and B (since ancestors lie on the paths from ROOT to A and B, and adding nodes to these paths can only deepen the intersection). Therefore:
-```
-DEPTH(ANCESTOR(C(A), C(B))) ≥ DEPTH(ANCESTOR(A, B))
-⇒ DIST(C(A), C(B)) = 2^(-d_C) ≤ 2^(-d_AB) = DIST(A, B) ∎
-```
+*Proof:* Each step maps a node to its deepest calibrated ancestor. Since C is
+idempotent (Theorem W4), the trajectory is monotone in depth: DEPTH(T_{n+1}) ≤
+DEPTH(T_n) after the first expansion step. The trajectory contracts (or stays
+constant) because each move is toward a calibrated ancestor along a single path
+from ROOT. Once a calibrated node is reached, C preserves it. ∎
+
+**Global non-expansiveness (withdrawn in v2.1):** The v2.0 proof attempted
+to show DIST(C(A), C(B)) ≤ DIST(A, B) for ALL A, B, but the argument assumed
+that C(A) and C(B) both lie at or below ANCESTOR(A, B) on their respective
+paths. This fails when ANCESTOR(A, B) is NOT internally calibrated — C can
+jump above the shared ancestor, decreasing DCA depth and increasing DIST.
+The trajectory-local formulation avoids this issue by constraining only
+trajectory pairs. See `c-contractiveness-proof.md` §2 for the detailed
+counterexample analysis and `trajectory-local-bootstrap-conjecture.md` for
+the formal adoption.
+
+**When global non-expansiveness DOES hold:** For pairs (A, B) where
+ANCESTOR(A, B) is internally calibrated, C(A) and C(B) are at or below
+the shared ancestor, DCA depth is preserved, and non-expansiveness follows.
 
 ### 2.3 Contractiveness on Non-Calibrated Nodes
 
@@ -175,30 +201,71 @@ For any A ≠ B where at least one is not internally calibrated:
 
 ---
 
-## §3. Calibration Trajectory
+## §3. Calibration Trajectory (v2.1 — Trajectory-Local)
 
 ### 3.1 From ROOT
 
-C(∅) = ∅. The fixed point from ROOT is ROOT.
+C(∅) = ∅. Under the pure ancestor-based C, ROOT maps to ROOT —
+no bootstrap occurs. This is the **initial measurement problem**:
+a self-descriptive system cannot bootstrap from nothing. A "first
+distinction" must be externally initiated, or the system must be
+extended with a measurement-initiation primitive.
 
-This is the **initial measurement problem** — C from ROOT goes nowhere. This is not a bug: it correctly reflects that a self-descriptive system cannot bootstrap from nothing. A "first distinction" must come from outside the formal system, or the system must be extended with a measurement-initiation primitive.
+### 3.2 C* Extension — Minimal Non-Trivial Trajectory
 
-### 3.2 C* Extension (Sketch)
+The C* extension introduces the first distinction explicitly:
 
-For a non-trivial fixed point, extend C with:
 ```
-C*(∅) = ●           (initiate first distinction)
+C*(∅) = ●           (initiate first distinction — NOT ancestor-monotone)
 C*(●) = ●           (fixed point)
-C*(N) = C(N)        (otherwise)
+C*(N) = C(N)        (otherwise — ancestor-based calibration)
 ```
 
-Then C*(C*(∅)) = C*(●) = ●, giving fixed point T* = ●.
+Trajectory: ∅ → ● → ●. T* = ● (bare mark).
 
-This is still trivial (a bare mark encodes no structure), but it establishes the minimal pattern: measurement-initiation + calibration → fixed point.
+**Trajectory-local validation:**
+- DIST(∅, ●) = 1
+- DIST(●, ●) = 0 < 1 ✓
+- T* is non-trivial (● ≠ ∅) ✓
+- C* is NOT globally non-expansive (the ∅ → ● step may create off-trajectory violations), but IS trajectory-locally non-expansive
 
-### 3.3 The Substructure Problem
+This is the minimal non-trivial trajectory-local calibration map. T* = ●
+encodes no branching structure but demonstrates that the convergence
+pattern works.
 
-For a NON-trivial T* (one that encodes branching structure 1→2→2→3→7→28→125→588), C must be such that the calibrated fixed point preserves multiple levels of structure rather than collapsing to a single mark.
+### 3.3 Richer Trajectories — Reaching Depth ≥ 2
+
+For T* with depth ≥ 2, C* can chain additional steps:
+
+```
+C*(∅) = ●
+C*(●) = []          (cross-branch at depth 1)
+C*([]) = []          (fixed point)
+```
+
+Trajectory: ∅ → ● → [] → []. T* = [] at depth 1.
+
+Or depth-2 trajectory:
+```
+C*(∅) = ●
+C*(●) = [●]         (descendant, depth 2)
+C*([●]) = [●]       (fixed point)
+```
+
+**Constraint:** Each step must preserve trajectory-local contraction
+(DIST_{n+1} < DIST_n after the first expansion), and the fixed point
+must satisfy `is_internally_calibrated(T*)`. The 43 non-oscillating
+candidate maps from Task 1.3 enumeration satisfy these constraints.
+
+### 3.4 The Substructure Problem
+
+For T* encoding the full branching structure (1→2→2→3→7→28→125→588),
+the trajectory must build up through multiple calibration steps, each
+adding one level of container nesting. The trajectory-local formulation
+allows this: each step can be depth-expanding as long as the overall
+sequence contracts and stabilizes at a calibrated T*. Characterizing
+which T* are reachable (and whether the 1→2→2→3→7→28→125→588 pattern
+is among them) is deferred to Task 1.4 (Valuation Structure).
 
 This is an open problem — deferred to Task 1.4 (valuation structure characterization).
 
