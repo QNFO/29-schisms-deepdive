@@ -28,6 +28,15 @@
         "state": "done",
         "verified_live": true,
         "note": "Trajectory-local Bootstrap Conjecture ADOPTED (Task 1.3b) + T6.1 partial proof for constrained class (Task 1.3c). New: trajectory-local-bootstrap-conjecture.md, t6-1-analytic-proof.md. Updated: calibration-map-c-definition.md v2.1, c-contractiveness-proof.md v2.1, RESEARCH-PLAN-UPDATE-GAP-CLOSURE.md, WBS-NEXT-PHASES.md. PDF v2.3 built with tectonic 0.15.0 (XeTeX-compatible) — verified 20 pages, zero replacement chars."
+      },
+      {
+        "tag": "v2.4",
+        "doi": "10.5281/zenodo.21470439",
+        "deposit_id": "21470439",
+        "published": "2026-07-21",
+        "state": "done",
+        "verified_live": false,
+        "note": "Red-team audit complete (R-H1 fixed 7 docs) + G7 resolved (tree growth corrected [28,125,588]→[16,38,88]) + asymptotic ratio ~2.3 confirmed. Tasks 1.4, 1.4a, 1.4b complete. DoD Gate: PASSED. PDF built with tectonic 0.15.0."
       }
     ]
   },
@@ -70,8 +79,8 @@
       ]
     }
   ],
-  "latest_deposit_id": "21469000",
-  "latest_doi": "10.5281/zenodo.21469000",
-  "canonical_citation": "QNFO Research. 29-Schisms Deep-Dive v2.3: Trajectory-Local Bootstrap Conjecture Adoption + T6.1 Partial Proof. Zenodo. https://doi.org/10.5281/zenodo.21469000 (2026).",
-  "instruction_for_next_publish": "python zenodo-create-upload.py PROVENANCE-BUNDLE.zip --newversion 21469000 && python zenodo-metadata-publish.py --metadata-file metadata.json"
+  "latest_deposit_id": "21470439",
+  "latest_doi": "10.5281/zenodo.21470439",
+  "canonical_citation": "QNFO Research. 29-Schisms Deep-Dive v2.4: Red-Team Audit + G7 Resolution + Tree Growth Correction. Zenodo. https://doi.org/10.5281/zenodo.21470439 (2026).",
+  "instruction_for_next_publish": "python zenodo-create-upload.py PROVENANCE-BUNDLE.zip --newversion 21470439 && python zenodo-metadata-publish.py --metadata-file metadata.json"
 }
