@@ -75,12 +75,26 @@ F is DEFINITELY NOT contractive if:
    then 0 < DIST(A,B), so this IS contractive for that pair. But for the strong
    condition to hold, we need the inequality strict for ALL A ≠ B.)
 
-### Corollary 1 (Parent Function)
+### Corollary 1 (Parent Function) — **ERRATUM 2026-07-21: THIS CLAIM IS FALSE**
 
-The parent function F(X) = parent(X) is ALWAYS contractive because:
-- For X ≠ ROOT: DEPTH(F(X)) = DEPTH(X) - 1 (Case 1, depth-reducing)
-- For X = ROOT: F(ROOT) = ROOT (fixed point)
-- Therefore: DIST(F(A), F(B)) ≤ (1/2) × DIST(A, B) for all A ≠ B
+**Original (incorrect) claim, retained below struck through for the record:**
+
+~~The parent function F(X) = parent(X) is ALWAYS contractive because:~~
+~~- For X ≠ ROOT: DEPTH(F(X)) = DEPTH(X) - 1 (Case 1, depth-reducing)~~
+~~- For X = ROOT: F(ROOT) = ROOT (fixed point)~~
+~~- Therefore: DIST(F(A), F(B)) ≤ (1/2) × DIST(A, B) for all A ≠ B~~
+
+**Why this is wrong:** The argument only checks that DEPTH decreases for each individual node under the parent map — it never checks what happens to the DCA (deepest common ancestor) of a PAIR of nodes under that map. These are different things, and the depth-reduction property does NOT imply the pairwise distance-reduction property claimed here.
+
+**Counterexample (proved in `ancestor-monotone-map-characterization.md` §2, 2026-07-21):** Let A be a node at depth $d$ and let B be a child of A at depth $d+1$. Then $ANCESTOR(A,B) = A$ and $DIST(A,B) = 2^{-d}$. Applying the parent map: $parent(B) = A$, and $ANCESTOR(parent(A), A) = parent(A)$ at depth $d-1$ (since $parent(A)$ IS an ancestor of A). This gives:
+
+$$DIST(parent(A), parent(B)) = DIST(parent(A), A) = 2^{-(d-1)} = 2 \times 2^{-d} = 2 \times DIST(A,B)$$
+
+**The distance DOUBLED, not halved.** The parent map is not contractive — not even non-expansive — for any pair where one node is an ancestor of the other. It is contractive/non-expansive only for pairs whose deepest common ancestor is a PROPER ancestor of both nodes (i.e., neither node in the pair is itself the DCA).
+
+**Corrected statement:** The parent function is contractive for pairs (A, B) where $ANCESTOR(A,B) \neq A$ and $ANCESTOR(A,B) \neq B$. It is distance-INCREASING (by exactly a factor of 2) for pairs where one node is a direct or indirect ancestor of the other. It is therefore **not globally contractive**, contradicting the original Corollary 1 above and the "Corollary 1.1" citation of this claim in earlier drafts of `c-contractiveness-proof.md` (since corrected in that document's v2.0).
+
+This error propagated silently for one full project phase before being caught during Task 1.3 (2026-07-21) — a reminder that a plausible-sounding one-line depth argument is not a substitute for checking the actual pairwise distance definition.
 
 ### Corollary 2 (Trivial Non-Trivial Maps)
 
@@ -95,8 +109,7 @@ This constrains the space of possible calibration maps significantly.
 The Bootstrap Conjecture requires a contractive map F that represents physical
 calibration. The derivation above shows:
 
-1. **The parent function is always contractive** — this is the "trivial" case
-   where all trajectories converge to ROOT. Physics would be "nothing happens."
+1. ~~**The parent function is always contractive**~~ — **CORRECTED (2026-07-21): this is false, see erratum on Corollary 1 above.** The parent function IS globally non-expansive-or-worse (it strictly increases distance for ancestor/descendant pairs), so it does not straightforwardly serve as "the trivial baseline contractive map" this section originally assumed. The Bootstrap Conjecture analysis in `ancestor-monotone-map-characterization.md` and `deeper-math-bootstrap-obstruction.md` supersedes this document's conclusions and should be treated as authoritative going forward.
 
 2. **Non-trivial F (depth-preserving) exists only under strict conditions** —
    it must refine branches without changing depth. This is the "interesting"
