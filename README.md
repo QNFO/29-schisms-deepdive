@@ -1,8 +1,8 @@
 # README: 29-Schisms Deep-Dive v2.0
 
-**Status:** v2.0 (2026-07-21, published) — Complete Phase 0.5, 1, 2, 6. Bootstrap Conjecture remains open.
-**DOI:** 10.5281/zenodo.21467733 — https://doi.org/10.5281/zenodo.21467733 (concept: 10.5281/zenodo.21467732)
-**Previous DOI (v1.2):** 10.5281/zenodo.21460736 (concept: 10.5281/zenodo.21460735)
+**Status:** v2.1 (2026-07-21, published with paper) — Formal research paper PDF included. Bootstrap Conjecture remains open.
+**DOI:** 10.5281/zenodo.21467899 — https://doi.org/10.5281/zenodo.21467899
+**Previous:** v2.0 (10.5281/zenodo.21467733), v1.2 (10.5281/zenodo.21460736)
 **Branch:** `feature/deepdive-synthesis`
 **Date:** 2026-07-20
 **Author:** QNFO Research (DeepChat Autonomous Synthesis)

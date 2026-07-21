@@ -1,41 +1,19 @@
 {
-  "note": "FRAGMENTED version chain (historical). Two legacy concept DOIs from v1.0/v1.1, plus a v1.2/v2.0 chain. Going forward, use latest_deposit_id below with actions/newversion.",
+  "note": "FRAGMENTED version chain (historical). Multiple legacy concept DOIs exist. Active chain: 21467732 (concept) → 21467733 (v2.0) → 21467899 (v2.1). Going forward: use latest_deposit_id with actions/newversion.",
   "chains": [
     {
       "concept_doi": "10.5281/zenodo.21460404",
-      "status": "superseded_but_live",
+      "status": "superseded",
       "versions": [
-        {
-          "doi": "10.5281/zenodo.21460405",
-          "deposit_id": "21460405",
-          "tag": "v1.0",
-          "published_at": "2026-07-20",
-          "state": "done",
-          "resolves": true
-        },
-        {
-          "doi": "10.5281/zenodo.21465629",
-          "deposit_id": "21465629",
-          "tag": "v1.1",
-          "published_at": "2026-07-20",
-          "state": "unknown",
-          "resolves": false,
-          "note": "Returns HTTP 404. Root cause not diagnosed. Superseded by v1.2/v2.0 chain."
-        }
+        {"doi": "10.5281/zenodo.21460405", "deposit_id": "21460405", "tag": "v1.0", "published_at": "2026-07-20", "state": "done", "resolves": true},
+        {"doi": "10.5281/zenodo.21465629", "deposit_id": "21465629", "tag": "v1.1", "published_at": "2026-07-20", "state": "broken_404", "resolves": false}
       ]
     },
     {
       "concept_doi": "10.5281/zenodo.21460735",
       "status": "superseded",
       "versions": [
-        {
-          "doi": "10.5281/zenodo.21460736",
-          "deposit_id": "21460736",
-          "tag": "v1.2",
-          "published_at": "2026-07-20",
-          "state": "done",
-          "resolves": true
-        }
+        {"doi": "10.5281/zenodo.21460736", "deposit_id": "21460736", "tag": "v1.2", "published_at": "2026-07-20", "state": "done", "resolves": true}
       ]
     },
     {
@@ -49,15 +27,25 @@
           "published_at": "2026-07-21",
           "state": "done",
           "resolves": true,
+          "note": "PROVENANCE-BUNDLE-v2.0.zip only. No paper.pdf."
+        },
+        {
+          "doi": "10.5281/zenodo.21467899",
+          "deposit_id": "21467899",
+          "tag": "v2.1",
+          "published_at": "2026-07-21",
+          "state": "done",
+          "resolves": true,
           "verified_live": true,
-          "note": "Published as a NEW deposit (not chained via actions/newversion from v1.2/21460736) because Zenodo's own newversion endpoint requires the SAME deposit's edit lineage and the read-only-token-era attempts had already created orphan deposits 21467652/21467652. This is a fresh concept DOI, not a version of 21460735. Documented here as the current canonical citation going forward."
+          "files": ["PROVENANCE-BUNDLE-v2.0.zip (168319 bytes)", "paper.md (24985 bytes)", "paper.pdf (82411 bytes)"],
+          "note": "First release with formal research paper PDF (11 pages, Pandoc+XeLaTeX, zero Unicode errors). Threading the Needle: A Self-Descriptive Ultrametric Framework for the 29 Schisms of Physics."
         }
       ]
     }
   ],
-  "latest_deposit_id": "21467733",
-  "latest_doi": "10.5281/zenodo.21467733",
+  "latest_deposit_id": "21467899",
+  "latest_doi": "10.5281/zenodo.21467899",
   "latest_concept_doi": "10.5281/zenodo.21467732",
-  "canonical_citation": "QNFO Research. 29-Schisms Deep-Dive v2.0. Zenodo. https://doi.org/10.5281/zenodo.21467733",
-  "instruction_for_next_publish": "ALWAYS use $env:ZENODO_TOKEN directly in scripts -- NEVER hardcode or manually retype/reconstruct the token string (a single mistyped character causes silent 403s that look identical to a dead/scopeless token). Before publishing: curl -s -H \"Authorization: Bearer $env:ZENODO_TOKEN\" https://zenodo.org/api/deposit/depositions/21467733 to verify GET succeeds and state is 'done'. Then: POST https://zenodo.org/api/deposit/depositions/21467733/actions/newversion. See the research skill's Zenodo Credential Protocol section for the full script pattern (scripts/zenodo-create-upload.py + scripts/zenodo-metadata-publish.py)."
+  "canonical_citation": "QNFO Research. Threading the Needle: A Self-Descriptive Ultrametric Framework for the 29 Schisms of Physics. Zenodo. https://doi.org/10.5281/zenodo.21467899 (2026).",
+  "instruction_for_next_publish": "python <research-skill-path>/scripts/zenodo-create-upload.py PROVENANCE-BUNDLE.zip --newversion 21467899 && python <research-skill-path>/scripts/zenodo-metadata-publish.py --metadata-file metadata.json"
 }
