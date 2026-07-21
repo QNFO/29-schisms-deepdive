@@ -55,19 +55,19 @@ Depth 5: 16 nodes (branching: 2.29)
 Depth 6: 38 nodes (branching: 2.38)
 ```
 
-Extended pattern (from `f-contractiveness-analysis.md` §5):
+Extended pattern (from `f-contractiveness-analysis.md` §5, CORRECTED 2026-07-21):
 ```
 Depth 0: 1
-Depth 1: 2    (ratio: 2.00)
-Depth 2: 2    (ratio: 1.00)
-Depth 3: 3    (ratio: 1.50)
+Depth 1: 2    (ratio: 2.0)
+Depth 2: 2    (ratio: 1.0)
+Depth 3: 3    (ratio: 1.5)
 Depth 4: 7    (ratio: 2.33)
-Depth 5: 28   (ratio: 4.00)
-Depth 6: 125  (ratio: 4.46)
-Depth 7: 588  (ratio: 4.70)
+Depth 5: 16   (ratio: 2.29)
+Depth 6: 38   (ratio: 2.38)
+Depth 7: 88   (ratio: 2.32)
 ```
 
-Branching ratios converge to ~4.7 — the asymptotic "cosmological constant" of the tree.
+Branching ratios converge to ~2.3 — the asymptotic "cosmological constant" of the tree. **ERRATUM:** The previously documented [28, 125, 588] at depths 5-7 and claimed asymptotic ~4.7 were incorrect (see G7 resolution in `task-1.4b-subtree-comparison.md`).
 
 ### 2.2 Candidate Map Results
 

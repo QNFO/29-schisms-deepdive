@@ -156,31 +156,36 @@ classical continuum.
 
 ---
 
-## §5. Tree Growth Asymptotics (Addressing C3)
+## §5. Tree Growth Asymptotics (Addressing C3) — **CORRECTED 2026-07-21 (G7 resolution)**
 
-Verified growth pattern from the executable:
+**ERRATUM 2026-07-21:** The numbers below replace the originally published figures [28, 125, 588]. The prior document claimed these were "verified from the executable" but they do NOT match actual code output. The `_self_descriptive_system.py` `build_tree(max_depth=7)` produces [16, 38, 88] at depths 5-7. This discrepancy was discovered during Task 1.4b (deep subtree comparison at depth 7) and confirmed via independent audit of the `generate_children` function: 46.7% of candidate children are eliminated by reduction rule collisions (Double-Enclosure, Cancellation, Condensation). The previously claimed asymptotic ratio of ~4.7 is incorrect — the actual asymptotic ratio converges to ~2.3.
+
+**Corrected growth pattern** (verified 2026-07-21 via `_task14b_verify.py` running `_self_descriptive_system.py` at `max_depth=7`):
+
 ```
 Depth 0: 1
 Depth 1: 2    (ratio: 2.00)
 Depth 2: 2    (ratio: 1.00)
 Depth 3: 3    (ratio: 1.50)
 Depth 4: 7    (ratio: 2.33)
-Depth 5: 28   (ratio: 4.00)
-Depth 6: 125  (ratio: 4.46)
-Depth 7: 588  (ratio: 4.70)
+Depth 5: 16   (ratio: 2.29)
+Depth 6: 38   (ratio: 2.38)
+Depth 7: 88   (ratio: 2.32)
 
-Ratio appears to converge to ~4.7, suggesting exponential growth with
-base ≈ 4.7 after initial transient. This is exponential, NOT super-exponential.
+Ratio appears to converge to ~2.3, suggesting exponential growth with
+base ≈ 2.3 after initial transient. This is exponential, NOT super-exponential.
+The additional structure is eliminated by the reduction rules.
 ```
 
-**Implication:** The tree is computationally tractable at moderate depths.
-Depth 7 (588 nodes) is fully computable. Depth 10 would be ~588 × 4.7³ ≈ 60,000
-nodes — still tractable. Depth 20 would be ~588 × 4.7¹³ ≈ 10¹² nodes — at the
-limit of current hardware but not categorically impossible.
+**Implication:** The tree is MORE computationally tractable than previously claimed.
+Depth 7 (88 nodes) is fully computable. Depth 10 would be ~88 × 2.3³ ≈ 1,200
+nodes — trivial. Depth 20 would be ~88 × 2.3¹³ ≈ 4 × 10⁶ nodes — comfortably
+tractable on commodity hardware.
 
 The Red Team finding C3 (*"Tree growth is super-exponential — can't compute
-physics"*) is PARTIALLY REFUTED. Growth is exponential, not super-exponential.
-Physical predictions at moderate depths are computable. Deep Planck-scale
+physics"*) is REFUTED (not just "partially refuted"). Growth is exponential
+with a modest base (~2.3), and physical predictions at moderate depths are
+easily computable. Deep Planck-scale
 predictions may still be infeasible, but the framework has a computable
 "classical limit" region.
 
