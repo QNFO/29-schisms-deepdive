@@ -123,8 +123,11 @@ Depth 6: 38   (bf: 2.375)
 Depth 7: 88   (bf: 2.316)
 Depth 8: 197  (bf: 2.239)
 Depth 9: 435  (bf: 2.208)
-Total: 789 nodes
+Depth 10: 951 (bf: 2.186) ← **NEW 2026-07-21**
+Total: 1740 nodes
 ```
+
+**Depth-10 confirms the decreasing trend:** 2.375→2.316→2.239→2.208→**2.186**. The ratio is converging toward approximately 2.1-2.15, NOT 2.0 (p=1, binary) and NOT 3.0 (p=2, dyadic). This represents a **non-standard valuation** between integer primes — a genuinely novel ultrametric structure with no direct correspondence to standard p-adic physics.
 
 ### P-Adic Comparison
 

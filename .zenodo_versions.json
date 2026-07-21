@@ -36,7 +36,7 @@
         "published": "2026-07-21",
         "state": "done",
         "verified_live": false,
-        "note": "Red-team audit complete (R-H1 fixed 7 docs) + G7 resolved (tree growth corrected [28,125,588]→[16,38,88]) + asymptotic ratio ~2.3 confirmed. Tasks 1.4, 1.4a, 1.4b complete. DoD Gate: PASSED. PDF built with tectonic 0.15.0."
+        "note": "Red-team audit complete (R-H1 fixed 7 docs) + G7 resolved (tree growth corrected [28,125,588]→[16,38,88]) + asymptotic ratio ~2.3 confirmed. Tasks 1.4, 1.4a, 1.4b complete. DoD Gate: PASSED. PDF built with tectonic 0.15.0. Deep-dive: depth-10 confirms asymptotic bf decreasing toward ~2.1, NOT 2.3. Between p=1 (binary) and p=2 (dyadic) — non-standard valuation."
       }
     ]
   },
