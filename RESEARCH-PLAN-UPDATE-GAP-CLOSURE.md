@@ -3,7 +3,7 @@
 **Project:** 29-Schisms Deep-Dive v2.3
 **Date:** 2026-07-21 (updated same-day after Tasks 1.3b/1.3c completion)
 **Status:** Strategic update — **Trajectory-Local Bootstrap Conjecture ADOPTED, T6.1 partial proof delivered**
-**Latest DOI:** 10.5281/zenodo.21468103 (v2.2); v2.3 pending publication
+**Latest DOI:** 10.5281/zenodo.21469000 (v2.3 — trajectory-local reframe adopted + T6.1 partial proof)
 **Based on:** Literature scan (arXiv, Semantic Scholar, QNFO Vectorize/KG), 4 red-team audits, competitor analysis
 
 ---
