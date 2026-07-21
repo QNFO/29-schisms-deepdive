@@ -1,61 +1,62 @@
 {
-  "note": "FRAGMENTED version chain. Two separate concept DOIs. ALL new versions must use actions/newversion against latest_deposit_id.",
-  "chains": [
-    {
-      "concept_doi": "10.5281/zenodo.21460404",
-      "status": "superseded_but_live",
-      "versions": [
-        {
-          "doi": "10.5281/zenodo.21460405",
-          "deposit_id": "21460405",
-          "tag": "v1.0",
-          "published_at": "2026-07-20",
-          "state": "done",
-          "resolves": true
-        },
-        {
-          "doi": "10.5281/zenodo.21465629",
-          "deposit_id": "21465629",
-          "tag": "v1.1",
-          "published_at": "2026-07-20",
-          "state": "unknown",
-          "resolves": false,
-          "note": "Returns HTTP 404 as of 2026-07-20 second-round audit. Root cause not yet diagnosed."
-        }
-      ]
-    },
-    {
-      "concept_doi": "10.5281/zenodo.21460735",
-      "status": "active_current_chain",
-      "versions": [
-        {
-          "doi": "10.5281/zenodo.21460736",
-          "deposit_id": "21460736",
-          "tag": "v1.2",
-          "published_at": "2026-07-20",
-          "state": "done",
-          "resolves": true
-        },
-        {
-          "doi": "PENDING — upload to Zenodo",
-          "deposit_id": "PENDING",
-          "tag": "v2.0",
-          "published_at": "2026-07-20",
-          "state": "draft_local",
-          "resolves": false,
-          "note": "Package prepared but NOT yet uploaded to Zenodo. Zenodo API token (wWbJ7...) returned HTTP 403 on /api/deposit/depositions. Manual upload required via https://zenodo.org/deposit/new?c=qnfo-research. Bundle: PROVENANCE-BUNDLE-v2.0.zip (~XX KB, 22 files). README.md updated for v2.0."
-        }
-      ]
-    }
-  ],
-  "latest_deposit_id": "21460736",
-  "latest_doi": "10.5281/zenodo.21460736",
-  "latest_concept_doi": "10.5281/zenodo.21460735",
-  "pending_upload": {
-    "tag": "v2.0",
-    "bundle_file": "PROVENANCE-BUNDLE-v2.0.zip",
-    "title": "29-Schisms Deep-Dive: Threading the Needle v2.0",
-    "description": "Complete Phase 0.5, 1, 2, 6. Calibration map C v2.0 with honest mathematical assessment. External validation package ready. Hardware roadmap with 5-platform technology survey. Bootstrap Conjecture remains open. 22 files total.",
-    "upload_instructions": "1. Go to https://zenodo.org/deposit/new?c=qnfo-research (or click 'New Upload'). 2. Upload PROVENANCE-BUNDLE-v2.0.zip. 3. Set title and description from above. 4. Select 'QNFO Research' as community. 5. Select license: CC BY 4.0. 6. Publish."
-  }
+    "note":  "FRAGMENTED version chain. Two separate concept DOIs. ALL new versions must use actions/newversion against latest_deposit_id.",
+    "chains":  [
+                   {
+                       "concept_doi":  "10.5281/zenodo.21460404",
+                       "status":  "superseded_but_live",
+                       "versions":  [
+                                        {
+                                            "doi":  "10.5281/zenodo.21460405",
+                                            "deposit_id":  "21460405",
+                                            "tag":  "v1.0",
+                                            "published_at":  "2026-07-20",
+                                            "state":  "done",
+                                            "resolves":  true
+                                        },
+                                        {
+                                            "doi":  "10.5281/zenodo.21465629",
+                                            "deposit_id":  "21465629",
+                                            "tag":  "v1.1",
+                                            "published_at":  "2026-07-20",
+                                            "state":  "unknown",
+                                            "resolves":  false,
+                                            "note":  "Returns HTTP 404 as of 2026-07-20 second-round audit. Root cause not yet diagnosed."
+                                        }
+                                    ]
+                   },
+                   {
+                       "concept_doi":  "10.5281/zenodo.21460735",
+                       "status":  "active_current_chain",
+                       "versions":  [
+                                        {
+                                            "doi":  "10.5281/zenodo.21460736",
+                                            "deposit_id":  "21460736",
+                                            "tag":  "v1.2",
+                                            "published_at":  "2026-07-20",
+                                            "state":  "done",
+                                            "resolves":  true
+                                        },
+                                        {
+                                            "doi":  "PENDING — upload to Zenodo",
+                                            "deposit_id":  "PENDING",
+                                            "tag":  "v2.0",
+                                            "published_at":  "2026-07-20",
+                                            "state":  "draft_local",
+                                            "resolves":  false,
+                                            "note":  "Package prepared but NOT yet uploaded to Zenodo. Zenodo API token (wWbJ7...) returned HTTP 403 on /api/deposit/depositions. Manual upload required via https://zenodo.org/deposit/new?c=qnfo-research. Bundle: PROVENANCE-BUNDLE-v2.0.zip (~XX KB, 22 files). README.md updated for v2.0."
+                                        }
+                                    ]
+                   }
+               ],
+    "latest_deposit_id":  "21460736",
+    "latest_doi":  "10.5281/zenodo.21460736",
+    "latest_concept_doi":  "10.5281/zenodo.21460735",
+    "pending_upload":  {
+                           "tag":  "v2.0",
+                           "bundle_file":  "PROVENANCE-BUNDLE-v2.0.zip",
+                           "title":  "29-Schisms Deep-Dive: Threading the Needle v2.0",
+                           "description":  "Complete Phase 0.5, 1, 2, 6. Calibration map C v2.0 with honest mathematical assessment. External validation package ready. Hardware roadmap with 5-platform technology survey. Bootstrap Conjecture remains open. 22 files total.",
+                           "upload_instructions":  "1. Go to https://zenodo.org/deposit/new?c=qnfo-research (or click \u0027New Upload\u0027). 2. Upload PROVENANCE-BUNDLE-v2.0.zip. 3. Set title and description from above. 4. Select \u0027QNFO Research\u0027 as community. 5. Select license: CC BY 4.0. 6. Publish."
+                       }
 }
+
