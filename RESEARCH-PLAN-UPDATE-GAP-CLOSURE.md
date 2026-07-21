@@ -36,6 +36,7 @@ The calibration map C v2.0 satisfies (1) and idempotence. The parent map satisfi
 | **G4** | HIGH | Computational tractability unknown — tree grows exponentially (base $\sim$4.7) | Depth-7 (588 nodes) computable; depth-20 ($\sim 10^{12}$) likely not. Classical-limit projections computable via $\varepsilon$-neighborhood coarse-graining. |
 | **G5** | MODERATE | M-property convention arbitrary — "rightmost = measurement" has no structural justification | No external literature addressing measurement encoding in formal systems found. |
 | **G6** | MODERATE | External validation not completed — Phase 2 emails drafted but not sent | Validator candidates selected, emails written, taxonomy package ready. Requires Cloudflare Email Service domain onboarding. |
+| **G7** | HIGH | Tree generation [1,2,2,3,7,16,38,88] ≠ documented [1,2,2,3,7,28,125,588]. 46.7% collision rate from reduction rules. Asymptotic ~4.7 claim in `f-contractiveness-analysis.md` §5 UNVERIFIED. | Audit script (2026-07-21): 92 raw candidates → 49 kept from depth-4 nodes. Double-Enclosure + Cancellation + Condensation eliminate ~47% of generated children. |
 
 ---
 
