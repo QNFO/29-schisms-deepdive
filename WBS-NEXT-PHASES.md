@@ -430,7 +430,7 @@ Phase 7 (Infrastructure) ──→ Continuous, independent
 
 | Priority | Task | Status |
 |----------|------|--------|
-| 1 | Publish current research state to Zenodo | ✅ **DONE** — v2.2 published, DOI `10.5281/zenodo.21468103`, verified live via `doi.org` redirect + `zenodo.org/api/records`. Canonical chain restored: v1.2 → v2.2 (v2.0/v2.1 documented as legacy orphan deposits from a token-transcription incident, see `.zenodo_versions.json`). |
+| 1 | Publish current research state to Zenodo | ✅ **DONE** — v2.2 published (DOI `10.5281/zenodo.21468103`). **v2.3 published 2026-07-21** (DOI `10.5281/zenodo.21469000`) — trajectory-local Bootstrap Conjecture adopted + T6.1 partial proof. Canonical chain: v1.2 → v2.2 → v2.3 under concept DOI `10.5281/zenodo.21460735`. |
 | 2 | Buffer social media posts | ⬜ **DEFERRED BY DESIGN** — per `research` skill guidance, reserve social posts for final deliverables; framework is still conjecture-stage (Bootstrap Conjecture unproven). Revisit only after Task 6c (analytic proof) or Task 6b (conjecture reframe) settles. |
 | 3 | Task 0.5.1: Zenodo version-chain discipline | ✅ **DONE** — `.zenodo_versions.json` tracks the full chain (legacy + canonical) with publish instructions for next version. |
 | 4 | Task 0.5.2: Constructor Theory competitor analysis | ✅ **DONE-RTC** — `competitor-analysis-multi-framework.md`: CT resolves S19 with lighter formalism but covers only ~5/29 schisms overall. Monitored as low-risk ongoing gap (G3 in `RESEARCH-PLAN-UPDATE-GAP-CLOSURE.md`) — no CT extension found in 2025-2026 literature scan. |

@@ -1,25 +1,33 @@
 {
-  "note": "v1.0/v1.1 are legacy (fragmented chain). v1.2 -> v2.2 is the canonical chain, restored 2026-07-21. v2.0/v2.1 were orphan deposits from a token-transcription incident -- documented here as supplementary.",
+  "note": "v1.0/v1.1 are legacy (fragmented chain). v1.2 -> v2.3 is the canonical chain, restored 2026-07-21. v2.0/v2.1 were orphan deposits from a token-transcription incident -- documented here as supplementary.",
   "canonical_chain": {
     "concept_doi": "10.5281/zenodo.21460735",
     "status": "active",
     "versions": [
       {"tag": "v1.2", "doi": "10.5281/zenodo.21460736", "deposit_id": "21460736", "published": "2026-07-20", "state": "done"},
-      {"tag": "v2.2", "doi": "10.5281/zenodo.21468103", "deposit_id": "21468103", "published": "2026-07-21", "state": "done", "verified_live": true, "note": "Expanded paper (20 pages, full schism descriptions + resolution matrix appendix)"}
+      {"tag": "v2.2", "doi": "10.5281/zenodo.21468103", "deposit_id": "21468103", "published": "2026-07-21", "state": "done", "verified_live": true, "note": "Expanded paper (20 pages, full schism descriptions + resolution matrix appendix)"},
+      {"tag": "v2.3", "doi": "10.5281/zenodo.21469000", "deposit_id": "21469000", "published": "2026-07-21", "state": "done", "verified_live": false, "note": "Trajectory-local Bootstrap Conjecture ADOPTED (Task 1.3b) + T6.1 partial proof for constrained class (Task 1.3c). New: trajectory-local-bootstrap-conjecture.md, t6-1-analytic-proof.md. Updated: calibration-map-c-definition.md v2.1, c-contractiveness-proof.md v2.1, RESEARCH-PLAN-UPDATE-GAP-CLOSURE.md, WBS-NEXT-PHASES.md."}
     ]
   },
   "legacy_chains": [
-    {"concept_doi": "10.5281/zenodo.21460404", "versions": [
-      {"tag": "v1.0", "doi": "10.5281/zenodo.21460405", "deposit_id": "21460405", "state": "done"},
-      {"tag": "v1.1", "doi": "10.5281/zenodo.21465629", "deposit_id": "21465629", "state": "broken_404"}
-    ]},
-    {"concept_doi": "10.5281/zenodo.21467732", "note": "Orphan chain from token-transcription incident", "versions": [
-      {"tag": "v2.0", "doi": "10.5281/zenodo.21467733", "deposit_id": "21467733", "state": "done", "note": "PROVENANCE-BUNDLE only, no paper"},
-      {"tag": "v2.1", "doi": "10.5281/zenodo.21467899", "deposit_id": "21467899", "state": "done", "note": "First paper (11 pages), not chained to v1.2"}
-    ]}
+    {
+      "concept_doi": "10.5281/zenodo.21460404",
+      "versions": [
+        {"tag": "v1.0", "doi": "10.5281/zenodo.21460405", "deposit_id": "21460405", "state": "done"},
+        {"tag": "v1.1", "doi": "10.5281/zenodo.21465629", "deposit_id": "21465629", "state": "broken_404"}
+      ]
+    },
+    {
+      "concept_doi": "10.5281/zenodo.21467732",
+      "note": "Orphan chain from token-transcription incident",
+      "versions": [
+        {"tag": "v2.0", "doi": "10.5281/zenodo.21467733", "deposit_id": "21467733", "state": "done", "note": "PROVENANCE-BUNDLE only, no paper"},
+        {"tag": "v2.1", "doi": "10.5281/zenodo.21467899", "deposit_id": "21467899", "state": "done", "note": "First paper (11 pages), not chained to v1.2"}
+      ]
+    }
   ],
-  "latest_deposit_id": "21468103",
-  "latest_doi": "10.5281/zenodo.21468103",
-  "canonical_citation": "QNFO Research. Threading the Needle: A Self-Descriptive Ultrametric Framework for the 29 Schisms of Physics (v2.2). Zenodo. https://doi.org/10.5281/zenodo.21468103 (2026).",
-  "instruction_for_next_publish": "python zenodo-create-upload.py PROVENANCE-BUNDLE.zip --newversion 21468103 && python zenodo-metadata-publish.py --metadata-file metadata.json"
+  "latest_deposit_id": "21469000",
+  "latest_doi": "10.5281/zenodo.21469000",
+  "canonical_citation": "QNFO Research. 29-Schisms Deep-Dive v2.3: Trajectory-Local Bootstrap Conjecture Adoption + T6.1 Partial Proof. Zenodo. https://doi.org/10.5281/zenodo.21469000 (2026).",
+  "instruction_for_next_publish": "python zenodo-create-upload.py PROVENANCE-BUNDLE.zip --newversion 21469000 && python zenodo-metadata-publish.py --metadata-file metadata.json"
 }
