@@ -1,7 +1,7 @@
 # README: 29-Schisms Deep-Dive v2.0
 
-**Status:** v2.0 (2026-07-20) — Complete Phase 0.5, 1, 2, 6. Bootstrap Conjecture remains open.
-**DOI:** Pending — to be assigned upon Zenodo upload
+**Status:** v2.0 (2026-07-21, published) — Complete Phase 0.5, 1, 2, 6. Bootstrap Conjecture remains open.
+**DOI:** 10.5281/zenodo.21467733 — https://doi.org/10.5281/zenodo.21467733 (concept: 10.5281/zenodo.21467732)
 **Previous DOI (v1.2):** 10.5281/zenodo.21460736 (concept: 10.5281/zenodo.21460735)
 **Branch:** `feature/deepdive-synthesis`
 **Date:** 2026-07-20
