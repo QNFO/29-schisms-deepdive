@@ -427,7 +427,7 @@ Phase 7 (Infrastructure) ──→ Continuous, independent
 
 | Priority | Task | Status |
 |----------|------|--------|
-| 1 | Create Zenodo v1.2 with all current artifacts | ✅ **DONE** (verified live, HTTP 200: 10.5281/zenodo.21460736) — but see Task 0.5.1, version chain is fragmented, not cleanly chained from v1.0 |
+| 1 | Create Zenodo v2.0 with all current artifacts | 🔄 **READY FOR MANUAL UPLOAD** — `PROVENANCE-BUNDLE-v2.0.zip` (164 KB, 26 files) prepared. README.md v2.0 updated. `.zenodo_versions.json` tracks pending v2.0. Zenodo API token returned HTTP 403 — manual upload required via https://zenodo.org/deposit/new?c=qnfo-research. Instructions in `.zenodo_versions.json` pending_upload section. |
 | 2 | Buffer social media posts | ⬜ **NOT DONE** — deliberately deferred per research skill's "reserve social posts for final deliverables" guidance; framework is still conjecture-stage |
 | 3 | Task 0.5.1: Fix Zenodo version-chain discipline | ✅ **DONE** (2026-07-20) — `.zenodo_versions.json` tracks fragmented chain with publish instructions. Process fix in place; discipline followed at each publish.
 | 4 | Task 0.5.2: Add Constructor Theory to competitor analysis | ✅ **DONE-RTC** (2026-07-20) — `competitor-analysis-multi-framework.md` (32KB, 12 sections): 7 frameworks evaluated with schism-by-schism tables, master scorecard, integration analysis, falsification criteria. Key finding: CT resolves S19 lighter but covers only ~5/29 schisms. GUF verified at 2.5/29 (not ~15/29). Phase 1 proceeds — CT challenge is genuine but non-fatal.
