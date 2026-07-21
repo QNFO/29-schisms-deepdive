@@ -4,6 +4,7 @@
 **Date:** 2026-07-21
 **Status:** EXECUTED — 5 unique depth-≥2 T* found; subtree sequences characterized
 **Dependencies:** `valuation-structure-characterization.md`, `_self_descriptive_system.py`
+**ERRATUM (2026-07-21, Red-Team R-H1/R-M1):** This document was written before G7 resolution corrected the tree growth asymptotics from ~4.7 to ~2.3. All ~4.7 references in this document are now marked [CORRECTED per G7]. The conclusions about universality still hold — the asymptotic ratio is universal, just at ~2.3 not ~4.7.
 
 ---
 
@@ -11,7 +12,7 @@
 
 The C* extension (non-ancestor-monotone trajectory with depth-expanding steps) **successfully reaches T* at depths 2 and 3**. Five unique T* values were found. However, **none of their subtree growth patterns match the executable tree's early-universe prefix [1,2,2,3,7]** — the subtrees grow FASTER initially than the full tree because they start deeper in the branching structure.
 
-This establishes a fundamental insight: the "constants of nature" (branching ratios) are NOT reproduced by selecting a deeper T*. The executable tree pattern [1,2,2,3,7,28,125,588] is specifically the growth from ROOT — any nontrivial calibration map starts from a non-ROOT T* and therefore sees a different prefix.
+This establishes a fundamental insight: the "constants of nature" (branching ratios) are NOT reproduced by selecting a deeper T*. The executable tree pattern [1,2,2,3,7,16,38,88] (corrected from [1,2,2,3,7,28,125,588] per G7) is specifically the growth from ROOT — any nontrivial calibration map starts from a non-ROOT T* and therefore sees a different prefix.
 
 ---
 
@@ -80,7 +81,7 @@ Depth-3 T* subtrees show even faster initial branching (4-6 children at level 1)
 For all depth-≥2 T* subtrees, the level-4 counts (13, 14, 28, 29) are actually LARGER than the executable's level-4 count (7). This is because:
 1. The tree has ~31 nodes at depth 5
 2. Subtrees from depth-2 nodes capture a LARGER fraction of the full tree than the subtree from ROOT
-3. The subtree growth appears to converge to the SAME asymptotic ratio (~4.7) but with different early-level multipliers
+3. The subtree growth appears to converge to the SAME asymptotic ratio (~2.3, corrected from ~4.7 per G7) but with different early-level multipliers
 
 ---
 
@@ -92,7 +93,7 @@ The calibration map selects WHICH node becomes T* (the vacuum), but the subtree 
 
 **Physical interpretation:** The calibration mechanism cannot reproduce the "initial conditions" of our universe (the first few branching ratios) — these are properties of the full expression tree from ROOT. What the calibration mechanism DOES determine is:
 1. Which branch becomes "our vacuum" (T* selection)
-2. The asymptotic constants (branching ratio ~4.7) — which are universal
+2. The asymptotic constants (branching ratio ~2.3, corrected from ~4.7 per G7) — which are universal
 
 ### 3.2 What This Means for the Bootstrap Conjecture
 
@@ -100,11 +101,11 @@ The Bootstrap Conjecture in its strongest form (T* at depth ≥ 2) is **reachabl
 
 **Two interpretations:**
 1. **Falsified:** No T* subtree matches [1,2,2,3,7] — the conjecture's claim that T* encodes the observed constants is false.
-2. **Partially confirmed:** The asymptotic ratio (~4.7) IS reproduced — the conjecture correctly identifies the universal branching constant, but the early-level sequence is determined by the full-tree growth from ROOT, not by the calibration map.
+2. **Partially confirmed:** The asymptotic ratio (~2.3, corrected from ~4.7 per G7) IS universal — the conjecture correctly identifies a universal branching constant, but the early-level sequence is determined by the full-tree growth from ROOT, not by the calibration map.
 
 ### 3.3 Recommendation
 
-The stronger claim (exact match of [1,2,2,3,7,28]) is **disconfirmed** for trajectories up to depth 3. The asymptotic match (~4.7) is confirmed. This shifts the Bootstrap Conjecture's role: it determines the universal asymptotic constant but not the early-universe boundary conditions.
+The stronger claim (exact match of [1,2,2,3,7,16]) is **disconfirmed** for trajectories up to depth 3. The asymptotic match (~2.3, corrected from ~4.7 per G7) is confirmed. This shifts the Bootstrap Conjecture's role: it determines the universal asymptotic constant but not the early-universe boundary conditions.
 
 **Next step (Task 1.4b):** Verify whether the asymptotic ratio match holds for ALL depth-≥3 T* subtrees (characterize the late-level convergence) and compute the first 5 branching ratios for depth-4 T* candidates to confirm the universal constant hypothesis.
 
@@ -116,7 +117,7 @@ Script: `_task14a_v2.py` (ephemeral, executed 2026-07-21)
 - Tree built to depth 5 (31 nodes) via `_self_descriptive_system.py`
 - C* extension: allow F(∅)→depth-1, F(depth-1)→depth-2, F(depth-2)→depth-2 (fixed point)
 - Extended search: F(∅)→d1→d2→d3→d3 for depth-3 T*
-- Result: 5 unique depth-≥2 T*, 0 match executable prefix, asymptotic ~4.7 confirmed
+- Result: 5 unique depth-≥2 T*, 0 match executable prefix, asymptotic ~2.3 (corrected from ~4.7 per G7)
 
 ---
 

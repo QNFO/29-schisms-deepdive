@@ -77,8 +77,8 @@ mathematical properties of the formal system:
    Cancellation, Double-Enclosure) produce consistent normal forms for the tested cases.
 
 2. **Tree structure**: The configuration space forms a connected, directed, rooted tree
-   with locally finite branching. Growth is exponential (~4.7x per depth level), with
-   depth 7 = 588 nodes verified — computationally tractable.
+   with locally finite branching. Growth is exponential (~2.3x per depth level (corrected from ~4.7 per G7)), with
+   depth 7 = 88 nodes (corrected from 588) — computationally tractable.
 
 3. **Non-Archimedean distance**: The metric DIST(A,B) = 2^(-depth of deepest common
    ancestor) satisfies the strong triangle inequality for ALL tested triples
@@ -110,7 +110,7 @@ mathematical properties of the formal system:
    derivable from the executable.
 
 4. **Computational feasibility at Planck scale:** The tree grows exponentially
-   (~4.7x per depth level). While tractable at depth 7 (588 nodes), Planck-scale
+   (~2.3x per depth level (corrected from ~4.7 per G7)). While tractable at depth 7 (588 nodes), Planck-scale
    depths would be combinatorially inaccessible without further structure.
 
 5. **Connectedness of the full expression space:** The BFS-based tree generation

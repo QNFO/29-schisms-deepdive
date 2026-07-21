@@ -287,4 +287,4 @@ Task 1.3b (adopted): the trajectory-local formulation sidesteps the need for Lem
 - `c-contractiveness-proof.md` v2.0 — Acknowledged gap in global non-expansiveness
 - `calibration-map-c-definition.md` v2.1 — Updated trajectory-local definition
 - `trajectory-local-bootstrap-conjecture.md` — Formal adoption of reframed conjecture
-- `f-contractiveness-analysis.md` §5 — Tree growth: 1,2,2,3,7,28,125,588
+- `f-contractiveness-analysis.md` §5 — Tree growth: 1,2,2,3,7,16,38,88 (corrected from 1,2,2,3,7,28,125,588 per G7)

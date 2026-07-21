@@ -259,12 +259,12 @@ candidate maps from Task 1.3 enumeration satisfy these constraints.
 
 ### 3.4 The Substructure Problem
 
-For T* encoding the full branching structure (1→2→2→3→7→28→125→588),
+For T* encoding the full branching structure (1→2→2→3→7→16→38→88, corrected from 1→2→2→3→7→28→125→588 per G7 resolution),
 the trajectory must build up through multiple calibration steps, each
 adding one level of container nesting. The trajectory-local formulation
 allows this: each step can be depth-expanding as long as the overall
 sequence contracts and stabilizes at a calibrated T*. Characterizing
-which T* are reachable (and whether the 1→2→2→3→7→28→125→588 pattern
+which T* are reachable (and whether the 1→2→2→3→7→16→38→88 pattern, corrected per G7,
 is among them) is deferred to Task 1.4 (Valuation Structure).
 
 This is an open problem — deferred to Task 1.4 (valuation structure characterization).

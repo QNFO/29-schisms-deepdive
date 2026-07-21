@@ -13,7 +13,7 @@ The valuation structure (branching ratios that encode "constants of nature") is 
 
 **Key finding:** Under the ancestor-monotone construction domain (depth ≤ 2), all 36 valid fixed points are at depth 1. They split into two classes:
 - **T* = `#` (bare mark):** Terminal — subtree has zero children. A "dead" universe.
-- **T* = `[]` (empty container):** Rich — subtree has branching factor converging to ~4.7, matching the full tree's asymptotic ratio.
+- **T* = `[]` (empty container):** Rich — subtree has branching factor converging to ~2.3 (corrected from ~4.7 per G7 resolution), matching the full tree's asymptotic ratio.
 
 To reach T* at depth ≥ 2 (encoding the 1→2→2→3→7 pattern explicitly), the construction domain must be extended to allow depth-expanding steps (non-ancestor-monotone) — this is the C* extension path identified in `calibration-map-c-definition.md` §3.3.
 
@@ -136,7 +136,7 @@ The valuation ratios are determined by the tree's rewrite rules (C, X, D), NOT b
 | T* | Subtree | "Universe" Type |
 |----|---------|-----------------|
 | `#` (bare mark) | Zero branching | **Dead** — no further distinctions possible. Equivalent to heat death at t=0. |
-| `[]` (empty container) | Rich branching (~4.7 asymptotic) | **Alive** — container can receive marks, nest, generate the full expression tree. Our universe. |
+| `[]` (empty container) | Rich branching (~2.3 asymptotic, corrected from ~4.7 per G7) | **Alive** — container can receive marks, nest, generate the full expression tree. Our universe. |
 | Deeper containers (not yet reachable) | Same branching logic, shifted deeper | Potentially richer initial conditions |
 
 ### 3.3 The C* Extension Gap
@@ -160,13 +160,13 @@ The alternatives:
 
 ## §4. What the Valuation Structure Actually Determines
 
-The WBS Task 1.4 asks: "Compare derived branching factors to the executable tree growth pattern (1→2→2→3→7→28→125→588)."
+The WBS Task 1.4 asks: "Compare derived branching factors to the executable tree growth pattern (1→2→2→3→7→16→38→88, corrected from [1,2,2,3,7,28,125,588] per G7)."
 
-**Answer:** The branching factors derived at T* = `[]` [1, 2, 6, 20, 107, 660, 1757] do NOT match the full-tree pattern [1, 2, 2, 3, 7, 28, 125, 588]. The mismatch is because the full tree includes the `#` branch, which the `[]` subtree excludes.
+**Answer:** The branching factors derived at T* = `[]` [1, 2, 6, 20, 107, 660, 1757] do NOT match the full-tree pattern [1, 2, 2, 3, 7, 16, 38, 88] (corrected). The mismatch is because the full tree includes the `#` branch, which the `[]` subtree excludes.
 
-**BUT:** The ASYMPTOTIC branching ratio (~4.7) IS the same for both — it's a universal property of the rewrite rules. The early-level differences are due to which branches are included/excluded (the "boundary conditions" of the subtree).
+**BUT:** The ASYMPTOTIC branching ratio (~2.3, corrected from ~4.7 per G7) IS the same for both — it's a universal property of the rewrite rules.
 
-**The physical interpretation:** The calibration map selects the boundary conditions (which branch is our vacuum). The asymptotic physical constants (branching ratio ~4.7) are universal and determined by the formal system's rewrite rules. The early-level structural constants (1, 2, 2, 3, 7) encode the specific boundary conditions of our branch.
+**The physical interpretation:** The calibration map selects the boundary conditions (which branch is our vacuum). The asymptotic physical constants (branching ratio ~2.3, corrected per G7) are universal and determined by the formal system's rewrite rules. The early-level structural constants (1, 2, 2, 3, 7) encode the specific boundary conditions of our branch.
 
 ---
 
@@ -191,10 +191,10 @@ Per Task 0.5.5 (Pre-Registered Decision Rule): BEFORE comparing derived branchin
 | Outcome | Criterion | Action |
 |---------|-----------|--------|
 | **Match** | T* subtree sequence [1, k₁, k₂, ...] = executable [1, 2, 2, 3, 7] for first 5 levels | Bootstrap Conjecture confirmed — framework produces the observed constants |
-| **Partial match** | Asymptotic ratio matches (~4.7) but early levels diverge | Conjecture partially confirmed — universal asymptotic constant derived, early-universe boundary conditions are branch-selection |
+| **Partial match** | Asymptotic ratio matches (~2.3, corrected from ~4.7 per G7) but early levels diverge | Conjecture partially confirmed — universal asymptotic constant derived, early-universe boundary conditions are branch-selection |
 | **No match** | Neither early sequence nor asymptotic ratio matches | Conjecture disconfirmed — rewrite rules don't encode physical branching |
 
-**Current status (2026-07-21):** Partial match — asymptotic ratio ~4.7 confirmed universal. Early-level sequence match requires T* at depth ≥ 2 via C* extension. This is the **next computational task** (Task 1.4a).
+**Current status (2026-07-21):** Partial match — asymptotic ratio ~2.3 (corrected from ~4.7 per G7) confirmed universal. Early-level sequence match requires T* at depth ≥ 2 via C* extension. This was attempted in Task 1.4a — no T* subtree matches the executable prefix.
 
 ---
 
@@ -203,4 +203,4 @@ Per Task 0.5.5 (Pre-Registered Decision Rule): BEFORE comparing derived branchin
 - `_self_descriptive_system.py` — Tree construction, reduce, DIST, EPSILON_NEIGHBORHOOD
 - `ancestor-monotone-map-characterization.md` — Theorems T3.1-T6.1
 - `calibration-map-c-definition.md` v2.1 — C* extension §3.3
-- `f-contractiveness-analysis.md` §5 — Tree growth asymptotics: 1,2,2,3,7,28,125,588
+- `f-contractiveness-analysis.md` §5 — Tree growth asymptotics: 1,2,2,3,7,16,38,88 (corrected from 1,2,2,3,7,28,125,588 per G7)

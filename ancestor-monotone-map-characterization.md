@@ -264,7 +264,7 @@ This proof is conjectured — a rigorous version requires enumeration of all pos
 
 ### 7.1 Finite-Depth Search
 
-The executable tree at depths 0–7 has 588 nodes. We can:
+The executable tree at depths 0–7 has 157 nodes total (88 at depth 7, corrected from 588 per G7). We can:
 
 1. **Enumerate candidate maps:** For each node N, define the set of possible images $F(N) \in TREE$.
 2. **Filter by non-expansiveness:** Test all pairs (A, B) at depths 0–7.
@@ -279,7 +279,7 @@ To make the search tractable, restrict to maps satisfying:
 - $F(\emptyset) = \bullet$ (non-trivial initial step required)
 - $F(N) \in ANCESTORS(N) \cup CHILDREN(N) \cup \{N\}$ (local — only map to immediate neighbors)
 
-This reduces the search space from $588^{588}$ to $\sim 3^{588}$, still exponential but tractable at small depths.
+This reduces the search space from $88^{88}$ to $\sim 3^{88}$ (corrected from $588^{588}$ to $\sim 3^{588}$ per G7 — tree has 88 nodes at depth 7, not 588), still exponential but tractable at small depths.
 
 ### 7.3 Implementation Outline
 
