@@ -1,51 +1,25 @@
 {
-  "note": "FRAGMENTED version chain (historical). Multiple legacy concept DOIs exist. Active chain: 21467732 (concept) → 21467733 (v2.0) → 21467899 (v2.1). Going forward: use latest_deposit_id with actions/newversion.",
-  "chains": [
-    {
-      "concept_doi": "10.5281/zenodo.21460404",
-      "status": "superseded",
-      "versions": [
-        {"doi": "10.5281/zenodo.21460405", "deposit_id": "21460405", "tag": "v1.0", "published_at": "2026-07-20", "state": "done", "resolves": true},
-        {"doi": "10.5281/zenodo.21465629", "deposit_id": "21465629", "tag": "v1.1", "published_at": "2026-07-20", "state": "broken_404", "resolves": false}
-      ]
-    },
-    {
-      "concept_doi": "10.5281/zenodo.21460735",
-      "status": "superseded",
-      "versions": [
-        {"doi": "10.5281/zenodo.21460736", "deposit_id": "21460736", "tag": "v1.2", "published_at": "2026-07-20", "state": "done", "resolves": true}
-      ]
-    },
-    {
-      "concept_doi": "10.5281/zenodo.21467732",
-      "status": "active_current_chain",
-      "versions": [
-        {
-          "doi": "10.5281/zenodo.21467733",
-          "deposit_id": "21467733",
-          "tag": "v2.0",
-          "published_at": "2026-07-21",
-          "state": "done",
-          "resolves": true,
-          "note": "PROVENANCE-BUNDLE-v2.0.zip only. No paper.pdf."
-        },
-        {
-          "doi": "10.5281/zenodo.21467899",
-          "deposit_id": "21467899",
-          "tag": "v2.1",
-          "published_at": "2026-07-21",
-          "state": "done",
-          "resolves": true,
-          "verified_live": true,
-          "files": ["PROVENANCE-BUNDLE-v2.0.zip (168319 bytes)", "paper.md (24985 bytes)", "paper.pdf (82411 bytes)"],
-          "note": "First release with formal research paper PDF (11 pages, Pandoc+XeLaTeX, zero Unicode errors). Threading the Needle: A Self-Descriptive Ultrametric Framework for the 29 Schisms of Physics."
-        }
-      ]
-    }
+  "note": "v1.0/v1.1 are legacy (fragmented chain). v1.2 -> v2.2 is the canonical chain, restored 2026-07-21. v2.0/v2.1 were orphan deposits from a token-transcription incident -- documented here as supplementary.",
+  "canonical_chain": {
+    "concept_doi": "10.5281/zenodo.21460735",
+    "status": "active",
+    "versions": [
+      {"tag": "v1.2", "doi": "10.5281/zenodo.21460736", "deposit_id": "21460736", "published": "2026-07-20", "state": "done"},
+      {"tag": "v2.2", "doi": "10.5281/zenodo.21468103", "deposit_id": "21468103", "published": "2026-07-21", "state": "done", "verified_live": true, "note": "Expanded paper (20 pages, full schism descriptions + resolution matrix appendix)"}
+    ]
+  },
+  "legacy_chains": [
+    {"concept_doi": "10.5281/zenodo.21460404", "versions": [
+      {"tag": "v1.0", "doi": "10.5281/zenodo.21460405", "deposit_id": "21460405", "state": "done"},
+      {"tag": "v1.1", "doi": "10.5281/zenodo.21465629", "deposit_id": "21465629", "state": "broken_404"}
+    ]},
+    {"concept_doi": "10.5281/zenodo.21467732", "note": "Orphan chain from token-transcription incident", "versions": [
+      {"tag": "v2.0", "doi": "10.5281/zenodo.21467733", "deposit_id": "21467733", "state": "done", "note": "PROVENANCE-BUNDLE only, no paper"},
+      {"tag": "v2.1", "doi": "10.5281/zenodo.21467899", "deposit_id": "21467899", "state": "done", "note": "First paper (11 pages), not chained to v1.2"}
+    ]}
   ],
-  "latest_deposit_id": "21467899",
-  "latest_doi": "10.5281/zenodo.21467899",
-  "latest_concept_doi": "10.5281/zenodo.21467732",
-  "canonical_citation": "QNFO Research. Threading the Needle: A Self-Descriptive Ultrametric Framework for the 29 Schisms of Physics. Zenodo. https://doi.org/10.5281/zenodo.21467899 (2026).",
-  "instruction_for_next_publish": "python <research-skill-path>/scripts/zenodo-create-upload.py PROVENANCE-BUNDLE.zip --newversion 21467899 && python <research-skill-path>/scripts/zenodo-metadata-publish.py --metadata-file metadata.json"
+  "latest_deposit_id": "21468103",
+  "latest_doi": "10.5281/zenodo.21468103",
+  "canonical_citation": "QNFO Research. Threading the Needle: A Self-Descriptive Ultrametric Framework for the 29 Schisms of Physics (v2.2). Zenodo. https://doi.org/10.5281/zenodo.21468103 (2026).",
+  "instruction_for_next_publish": "python zenodo-create-upload.py PROVENANCE-BUNDLE.zip --newversion 21468103 && python zenodo-metadata-publish.py --metadata-file metadata.json"
 }

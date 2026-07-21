@@ -1,25 +1,25 @@
-# README: 29-Schisms Deep-Dive v2.0
+# README: 29-Schisms Deep-Dive v2.2
 
-**Status:** v2.1 (2026-07-21, published with paper) — Formal research paper PDF included. Bootstrap Conjecture remains open.
-**DOI:** 10.5281/zenodo.21467899 — https://doi.org/10.5281/zenodo.21467899
-**Previous:** v2.0 (10.5281/zenodo.21467733), v1.2 (10.5281/zenodo.21460736)
+**Status:** v2.2 (2026-07-21, expanded paper) -- 20-page research paper with full schism descriptions and resolution matrix appendix. Bootstrap Conjecture remains open.
+**DOI:** 10.5281/zenodo.21468103 — https://doi.org/10.5281/zenodo.21468103
+**Previous:** v2.2 (10.5281/zenodo.21468103), v1.2 (10.5281/zenodo.21468103)
 **Branch:** `feature/deepdive-synthesis`
 **Date:** 2026-07-20
 **Author:** QNFO Research (DeepChat Autonomous Synthesis)
 
 ---
 
-## What's New in v2.0
+## What's New in v2.2
 
 ### Phase 1: Bootstrap Conjecture (Core Math)
-- **Calibration Map C v2.0:** Ancestor-based, well-defined, idempotent. Honest limitations: NOT globally non-expansive (Theorem 7 counterexample).
-- **Contractiveness Proof v2.0:** 10 theorems. C is contractive only on uncalibrated pairs sharing calibrated DCA. Bootstrap Conjecture remains OPEN.
-- **Red-Team Audit (Phase 1):** 15 findings against v1.0 → fully remediated in v2.0.
+- **Calibration Map C v2.2:** Ancestor-based, well-defined, idempotent. Honest limitations: NOT globally non-expansive (Theorem 7 counterexample).
+- **Contractiveness Proof v2.2:** 10 theorems. C is contractive only on uncalibrated pairs sharing calibrated DCA. Bootstrap Conjecture remains OPEN.
+- **Red-Team Audit (Phase 1):** 15 findings against v1.0 → fully remediated in v2.2.
 
 ### Phase 2: External Validation (Ready to Execute)
 - **5 Validator Candidates:** Maudlin, Wallace, Rovelli, Ismael, Marletto — credentials verified, emails drafted.
 - **Taxonomy Validation Package:** QNFO-neutral, 29 schisms with classification form.
-- **Outreach Emails v2.0:** Zero framework language, structurally identical templates, error handling.
+- **Outreach Emails v2.2:** Zero framework language, structurally identical templates, error handling.
 - **Red-Team Audit (Phase 2):** 13 findings → fully remediated.
 
 ### Phase 0.5: Competitor Analysis (Complete)
@@ -32,11 +32,11 @@
 
 ### Red-Team Discipline
 - **4 Red-Team Audits Across Two Phases:** 15 findings (Phase 1) + 13 findings (Phase 2) → all remediated.
-- **Honest Mathematical Assessment:** The Bootstrap Conjecture remains unproven. C v2.0 fails global non-expansiveness. This is documented openly, not papered over.
+- **Honest Mathematical Assessment:** The Bootstrap Conjecture remains unproven. C v2.2 fails global non-expansiveness. This is documented openly, not papered over.
 
 ---
 
-## Project Files (v2.0)
+## Project Files (v2.2)
 
 ### Core Documents
 | File | Description |
@@ -49,8 +49,8 @@
 ### Phase 1 — Bootstrap Conjecture
 | File | Description |
 |------|-------------|
-| `calibration-map-c-definition.md` | Calibration map C v2.0 — formal definition |
-| `c-contractiveness-proof.md` | Contractiveness proof v2.0 — 10 theorems |
+| `calibration-map-c-definition.md` | Calibration map C v2.2 — formal definition |
+| `c-contractiveness-proof.md` | Contractiveness proof v2.2 — 10 theorems |
 | `f-contractiveness-analysis.md` | Contractiveness conditions on TREE |
 
 ### Phase 2 — External Validation
@@ -87,16 +87,16 @@
 
 ---
 
-## v2.0 Changelog
+## v2.2 Changelog
 
-### From v1.2 (2026-07-20, first-session) to v2.0 (2026-07-20, cumulative)
+### From v1.2 (2026-07-20, first-session) to v2.2 (2026-07-20, cumulative)
 
-#### New in v2.0:
-- Calibration map C v2.0 (ancestor-based, well-defined)
-- Contractiveness proof v2.0 (10 theorems, honest limitations)
+#### New in v2.2:
+- Calibration map C v2.2 (ancestor-based, well-defined)
+- Contractiveness proof v2.2 (10 theorems, honest limitations)
 - External validator candidates (5 primary + 5 backup)
 - QNFO-neutral taxonomy validation package
-- Validator outreach emails v2.0 (zero framework language)
+- Validator outreach emails v2.2 (zero framework language)
 - Technology survey — 5 quantum platforms
 - Hardware roadmap — 5-year plan
 - 2 additional red-team audits (Phase 1: 15 findings, Phase 2: 13 findings)
@@ -120,12 +120,13 @@
 If you use this work, please cite:
 
 ```
-QNFO Research. "29-Schisms Deep-Dive: Threading the Needle v2.0."
+QNFO Research. "29-Schisms Deep-Dive: Threading the Needle v2.2."
 Zenodo. DOI: [to be assigned]. 2026.
 ```
 
-Previous versions: v1.0 (10.5281/zenodo.21460405), v1.2 (10.5281/zenodo.21460736).
+Previous versions: v1.0 (10.5281/zenodo.21468103), v1.2 (10.5281/zenodo.21468103).
 
 ---
 
-*End of v2.0 README*
+*End of v2.2 README*
+
