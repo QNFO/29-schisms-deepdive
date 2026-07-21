@@ -437,7 +437,10 @@ Phase 7 (Infrastructure) ──→ Continuous, independent
 | 5a | Task 1.2: Prove C is contractive | ✅ **DONE-RTC** (2026-07-20) — v2.0 passed red-team re-audit: 10 theorems proved, all v1.0 CRITICAL findings addressed. Honest assessment: C is contractive only on uncalibrated pairs sharing calibrated DCA (T6). Global non-expansiveness fails (T7). Bootstrap Conjecture remains open. |
 | 5b | Task 0.5.6: Recruitment fallback embedded in Phase 2 WBS | ✅ **DONE** (2026-07-20) |
 | 5c | RED TEAM: Address 9 CRITICAL+HIGH findings in Tasks 1.1-1.2 | ✅ **DONE** (2026-07-20) — v2.0 remediation: F-C1–F-C5 addressed (Lemma 2/3 eliminated, C* honestly assessed, proof sketches replaced with theorems). F-H1–F-H4 addressed (ancestor search, tuple DCA, structural condition). Commit 04e4f50. |
-| 6 | Task 1.3: Prove fixed-point uniqueness | ⬜ Pending — C's fixed-point set = calibrated nodes (Theorem 3). Uniqueness question: under what refinements does C have exactly one fixed point? C* (measurement-initiated) has T* = ●. Deeper question: construct calibration map with non-trivial T* (see Theorem 10 conjecture). |
+| 6 | **Task 1.3: Characterize ancestor-monotone maps on TREE** | ?? **HIGHEST PRIORITY** (2026-07-21) � classify all maps F: TREE?TREE with DEPTH(F(N))=DEPTH(N) satisfying non-expansiveness. Prove existence or non-existence of non-trivial C. See RESEARCH-PLAN-UPDATE-GAP-CLOSURE.md �5. |
+| 6a | Task 1.3a: Nontriviality constraint � existence proof or counterexample | ? Depends on Task 1.3 characterization |
+| 6b | Task 1.3b: Reframe conjecture if 1.3a is 'no' | ? 
+| 7 | Task 2.3: Send validator emails (Cloudflare domain onboarding) | ? 15-min setup. Emails drafted, package ready. |
 | 7 | Task 2.1: Select external validators | ? **DONE-RTC** (2026-07-20) � v2.0 passed Phase 2 red-team: email addresses verified (Rovelli typo fixed), coverage 10/29, collective 21/29. |
 | 7a | Task 2.2: Prepare taxonomy validation package | ? **DONE-RTC** (2026-07-20) � v2.0 passed Phase 2 red-team: neutral resolution definition, thematic groups + disclaimer, S4 note added, literature review language. |
 | 8 | Validator outreach: emails + Cloudflare Email Worker | ? **DONE-RTC** (2026-07-20) � v2.0 passed Phase 2 red-team: all 5 emails zero framework language, identical templates, PS error handling, infrastructure checklist. Ready after publication + domain onboarding + user approval. |
@@ -445,3 +448,4 @@ Phase 7 (Infrastructure) ──→ Continuous, independent
 | 9 | OSF pre-register trapped-ion protocol (Task 3.1) | ⬜ Pending — protocol document complete, ready to submit, requires explicit user approval per OSF Bona Fide Registration Requirements |
 | 10 | OSF pre-register CMB search protocol (Task 4.1 prelim) | ⬜ Pending — same approval gate |
 | 11 | Deploy PBO v1.0 to D1 (Task 7.4) | ⬜ Pending — confirmed still returning 404 on papers.qnfo.org as of this session |
+
