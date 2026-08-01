@@ -14,7 +14,7 @@
 The v1.0 characterization (2026-07-21) proved four theorems analytically and
 conjectured a fifth (T6.1: no non-expansive map has a non-trivial fixed point
 from ROOT). **This session executed the missing numerical verification on the
-executable tree (depths 0-3, 8 nodes; exhaustive 7^7 = 823,543 maps).**
+executable tree (depths 0-3, 8 nodes; exhaustive 8^8 = 16,777,216 maps (8 nodes at depth<=3)).**
 
 **Central result: T6.1 is REFUTED.** A concrete counterexample map F was found
 and independently verified:
@@ -53,7 +53,7 @@ maps on the depth≤3 tree map ROOT to ROOT (100%).
 | Tree depth≤3 | 8 nodes: '', '#', '[]', '[]#', '#[]', '[[]#]', '#[]#', '[#[]]' |
 | Tree depth≤4 | 15 nodes (depth counts [1,2,2,3,7] — matches G7 resolution) |
 | Distance | `dist(a,b) = 2^(-depth(DCA(a,b)))`, non-Archimedean |
-| Method | Precomputed distance matrix D (O(1) lookups), exhaustive 7^7 enumeration |
+| Method | Precomputed distance matrix D (O(1) lookups), exhaustive 8^8 enumeration |
 | Runtime | 45.74s total for all exhaustive passes |
 
 **Precompute verification:** distance matrix built from the executable's own
@@ -82,7 +82,7 @@ non-empty (32 maps at depth≤3), but all have trivial fixed point from ROOT.
 satisfies (1) F(∅) ≠ ∅, (2) T* ≠ ∅, T* ≠ ●, (3) global non-expansiveness.
 
 **Numerical result:** Counterexamples EXIST. Non-expansive maps with fixed
-points at depth ≥ 2 were found in the exhaustive 7^7 search.
+points at depth ≥ 2 were found in the exhaustive 8^8 search (8-node tree).
 
 **Canonical counterexample (independently verified in `_verify_counterexample.py`):**
 
@@ -215,7 +215,7 @@ no depth restriction on F(∅) itself.
 ## §9. Reproducibility
 
 ```bash
-# Full verification (all theorems, exhaustive 7^7 on depth<=3 tree):
+# Full verification (all theorems, exhaustive 8^8 on depth<=3 tree):
 python -u _task13_verify2.py
 # Independent counterexample verification:
 python -u _verify_counterexample.py
@@ -286,9 +286,68 @@ All three re-verifications used the unmodified executable
 `_self_descriptive_system.py` and its exported `dist()`/`ancestor_path()`.
 Scripts: `_redteam_counterexample.py`, `_redteam_t32_t42.py` (standard
 library only, committed alongside). The verification is exhaustive at
-depth<=3 (8 nodes): T6.1 searched all 7^7 = 823,543 maps; T3.2/T4.2
+depth<=3 (8 nodes): T6.1 searched all 8^8 = 16,777,216 maps; T3.2/T4.2
 searched all maps until a witness was found.
 
 **Conclusion: v1.1 findings (T4.1 confirmed; T6.1, T3.1-as-sufficiency,
 T3.2, T4.2 refuted) are verified. The Bootstrap Conjecture is satisfiable
 in its original global formulation.**
+
+
+---
+
+## §11. Task 1.3a Follow-Up: Depth-3 Fixed Points Exist (2026-08-01)
+
+**Open sub-question §8.4 resolved: YES, depth-3 fixed points exist at tree depth <= 4.**
+
+### Witness Map (independently verified, 0/105 violations)
+
+```
+F('')    = '[]'
+F('[]')  = '[]#'
+F('[]#') = '[[]#]'
+F('[[]#]') = '[[]#]'      <- fixed point, depth 3
+F('#')   = '#'
+F('#[]') = '[#[]]'
+F('#[]#') = '#[]#'
+F('[#[]]') = '[[#[]]]'
+F('[#[]#]') = '[#[]#]'
+F('[[[]]#]') = '[[[]]#]'
+F('[[]#]#') = '[[]#]'
+F('#[[]#]') = '[[]#]'
+F('[#[]]#') = '[#[]]#'
+F('#[#[]]') = '[#[]]'
+F('[[#[]]]') = '[#[]]'
+```
+
+Trajectory from ROOT: `'' -> '[]' -> '[]#' -> '[[]#]' -> '[[]#]'` (fixed at depth 3).
+Non-expansiveness: **0 violations across all 105 pairs** (explicit dist() audit,
+`_verify_depth3.py`). Non-trivial: T* != ROOT, != '#', != '[]'.
+
+### Search Methodology
+
+- Full 15^15 enumeration infeasible; used structured random search
+  (`_task13a_broad.py`, seed 20260801, 2M samples per climb, 6 feasible climbs
+  to depth 3, local pools = ancestors + self + children).
+- Climb 0 ('' -> '[]' -> '[]#' -> '[[]#]') produced the hit; the two depth-2
+  fixed-point witness bases (extended to depth 3) did NOT — the depth-3
+  witness uses a different base than the depth-2 witness.
+
+### Corrected Search-Size Notation (Red-Team Finding, §10)
+
+The deliverable originally stated "exhaustive 7^7 = 823,543 maps". The tree
+at depth <= 3 has **8 nodes**, so the actual exhaustive search covered
+**8^8 = 16,777,216 maps** (all maps on 8 nodes). The findings are unaffected —
+the search was MORE exhaustive than the original notation implied. All
+"7^7" references corrected to "8^8" in this version.
+
+### Pattern Extension
+
+| Tree depth | Max fixed-point depth found | Witness |
+|:-----------|:----------------------------|:--------|
+| <= 3 | 2 | '[]#' (T6.1 witness, §3) |
+| <= 4 | 3 | '[[]#]' (this section) |
+
+Suggests the climb pattern generalizes: F(N) = first-uncalibrated-descendant
+reaches fixed point at depth = (tree depth - 1). Whether depth-4 fixed
+points exist at tree depth <= 5 is the natural next extension (same method).
