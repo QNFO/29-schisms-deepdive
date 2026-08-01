@@ -234,3 +234,61 @@ the standard library.
 - QNFO Research. "Threading the Needle: A Self-Descriptive Ultrametric Framework for the 29 Schisms of Physics v2.3." Zenodo, DOI: 10.5281/zenodo.21469000, 2026.
 - Task 1.3 v1.0: ancestor-monotone-map-characterization.md (2026-07-21).
 - Gap-closure plan: RESEARCH-PLAN-UPDATE-GAP-CLOSURE.md (commit ecbf4da, 2026-07-21).
+
+
+---
+
+## §10. Red-Team Verification Appendix (2026-08-01, v1.1.1)
+
+Independent re-execution of the three contested findings using the executable's
+own `dist()` function, pair-by-pair, with no summary claims:
+
+### T6.1 Counterexample — CONFIRMED (28 pairs, 0 violations)
+
+The witness map F (T* = '[]#' at depth 2) was audited pair-by-pair with
+explicit distance computation. **Zero violations across all 28 pairs.**
+An initial manual spot-check flagged pair ('#[]','#[]#') as a potential
+violation (assuming '#[]#' descends from '#[]'); the executable's tree
+structure shows **'#[]#' is a child of '[]#', not of '#[]'** — so
+DCA('#[]','#[]#') = '[]' at depth 1, dist = 0.5, and F maps it to
+dist('[]','[]#') = 0.5. Exactly non-expansive. The verification is
+structural, not arithmetic: every pair's image distance was computed
+by the same `dist()` used in the theorems.
+
+### T3.2 Sibling Collapse — REFUTED (independent witness)
+
+Globally contractive map found with distinct sibling images:
+```
+F = {'': '[]', '[]': '[]', '#': '#[]', '#[]': '[]', '[]#': '[]',
+     '#[]#': '[]', '[#[]]': '[]', '[[]#]': '[]'}
+```
+Siblings ('[]', '#') at DCA depth 0 (dist 1.0) map to ('[]', '#[]')
+with DCA '[]' at depth 1 (dist 0.5) — strictly contractive, distinct
+images. Global contractiveness re-verified: 0 non-contracting pairs
+among all 28. The v1.0 proof step "DIST(F(A),F(B)) < DIST(A,B) requires
+F(A) = F(B)" is false: distinct images in the same deeper subtree also
+contract.
+
+### T4.2 Fixed-Point Depth Bound — REFUTED (independent witness)
+
+Non-expansive map found with F(ROOT) at depth 3:
+```
+F = {'': '#[]#', '[]': '', '#': '', '#[]': '', '[]#': '',
+     '#[]#': '', '[#[]]': '', '[[]#]': ''}
+```
+F(ROOT) = '#[]#' (depth 3). Non-expansiveness re-verified: 0 violations
+among all 28 pairs (ROOT pairs are trivially OK since DIST(ROOT,N)=1 is
+maximal; non-ROOT pairs collapse to ROOT giving dist 0 <= original).
+
+### Methodology
+
+All three re-verifications used the unmodified executable
+`_self_descriptive_system.py` and its exported `dist()`/`ancestor_path()`.
+Scripts: `_redteam_counterexample.py`, `_redteam_t32_t42.py` (standard
+library only, committed alongside). The verification is exhaustive at
+depth<=3 (8 nodes): T6.1 searched all 7^7 = 823,543 maps; T3.2/T4.2
+searched all maps until a witness was found.
+
+**Conclusion: v1.1 findings (T4.1 confirmed; T6.1, T3.1-as-sufficiency,
+T3.2, T4.2 refuted) are verified. The Bootstrap Conjecture is satisfiable
+in its original global formulation.**
